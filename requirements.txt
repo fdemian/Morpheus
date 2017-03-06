@@ -1,0 +1,8 @@
+alembic
+future
+MarkupSafe
+psycopg2
+py-bcrypt
+PyJWT
+SQLAlchemy
+tornado

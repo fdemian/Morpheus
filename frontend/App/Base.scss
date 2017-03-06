@@ -1,0 +1,40 @@
+.App
+{
+  font-size: 13px;
+  line-height: 20px;
+  display: block;
+  margin: 0px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.App a, .App a:hover
+{
+  text-decoration: none;	
+}
+
+.App table 
+{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+	margin-top: 50px;
+    margin-left: 12%;
+}
+
+.App td, .App th 
+{
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.Toolbar
+{
+  margin-bottom: 100px;
+}
+
+.MainSectionText
+{
+  font-size: 27px;
+  text-align: center;
+}

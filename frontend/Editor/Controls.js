@@ -1,0 +1,165 @@
+import React, {Component} from 'react';
+import Immutable from 'immutable';
+import cssModules from 'react-css-modules';
+import Styles from './css/Controls.scss';
+import StyleButton from './StyleButton';
+import URLInput from './URLInput';
+
+const {Map} = Immutable;
+
+class EditorControls extends Component {
+
+  constructor(props) {
+
+	  super(props);
+
+	  const {editorState} = props;
+	  const _currentStyle = editorState.getCurrentInlineStyle();
+	  const selection = editorState.getSelection();
+      const _blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
+
+	  this.state = {
+		  currentStyle: _currentStyle,
+		  blockType : _blockType,
+		  showURLInput: false,
+		  urlValue: '',
+		  urlType: '',
+		  showColorPicker: false,
+		  colorValue: ''
+	  };
+
+	  this.sendPost = this.props.sendPost;
+      this.editor = this.props.editor;
+      this.editorStyles = this.props.editorStyles;
+      this.confirmUrl = this._confirmUrl.bind(this);
+      this.cancelUrlFn = this._cancelUrl.bind(this);
+      this.onURLInputKeyDown = this._onURLInputKeyDown.bind(this);
+      this.selectionIsCollapsed = this.props.selectionCollapsed;
+      this.onURLChange = (e) => this.setState({urlValue: e.target.value});
+      this.blockIsActive = this.props.blockIsActive;
+      this.inlineIsActive = this.props.inlineIsActive;
+      this.customBlockIsActive = this.props.customBlockIsActive;
+      this.customBlockToggleFn = this._customBlockToggleFn.bind(this);
+      this.getInput = this._getInput.bind(this);
+      this.findStyleObjectByName = this._findStyleObjectByName.bind(this);
+  }
+
+  _findStyleObjectByName(name)
+  {
+     const customStyles = this.editorStyles.CUSTOM_STYLES;
+     const matches = customStyles.filter(function(style) { return style.label == name; });
+     return matches[0];
+  }
+
+  _customBlockToggleFn(blockName){
+
+      const styleObject = this.findStyleObjectByName(blockName);
+
+      if(styleObject.toggleFn == null)
+        return;
+
+      if(styleObject.requiresSelection && this.editor.selectionIsCollapsed())
+	    return;
+
+      if(styleObject.requiresInput)
+      {
+        this.getInput(styleObject.label);
+        return;
+      }
+
+      styleObject.toggleFn(this.editor);
+  }
+
+  _onURLInputKeyDown(e)
+  {
+	 console.log(e.which);
+     if (e.which === 13) {
+       this._confirmUrl(e);
+     }
+  }
+
+  _cancelUrl()
+ {
+   this.setState({showURLInput: false, urlValue: '', urlType: ''});
+ }
+
+  _confirmUrl(e){
+	 e.preventDefault();
+
+     const styleObject = this.findStyleObjectByName(this.state.urlType);
+
+     if(styleObject.toggleFn == null)
+        return;
+
+     styleObject.toggleFn(this.editor, this.state.urlType, this.state.urlValue);
+     this.setState({showURLInput: false, urlValue: '', urlType: ''});
+  }
+
+  _getInput(type){
+     this.setState({showURLInput: true, urlType: type});
+  }
+
+  render(){
+
+	let urlInput;
+	let colorPicker;
+
+	if (this.state.showURLInput)
+	{
+      urlInput = <URLInput changeFn={this.onURLChange} urlValue={this.state.urlValue} keyDownFn={this.onURLInputKeyDown}
+                  cancelFn={this.cancelUrlFn} confirmFn={this.confirmUrl}  />;
+    }
+	else
+	{
+      if(this.state.showColorPicker)
+	    {
+          colorPicker = <span>Color</span>;
+      }
+	}
+
+	return (
+    <div styleName="EditorControls">
+		
+		<div styleName="InputSpace" >
+	      {urlInput}
+	      {colorPicker}
+	    </div>
+		
+        <div className="RichEditor-controls">
+		{this.editorStyles.INLINE_STYLES.map(type =>
+		    <StyleButton
+			 key={type.label}
+			 activeFn={this.inlineIsActive.bind(type.style)}
+			 label={type.label}
+			 onToggle={this.props.onToggleInline}
+			 style={type.style}
+			 icon={type.icon}
+			/>
+		)}
+		{this.editorStyles.BLOCK_TYPES.map((type) =>
+		    <StyleButton
+			 key={type.label}
+			 activeFn={this.blockIsActive.bind(type.style)}
+			 label={type.label}
+			 onToggle={this.props.onToggleBlock}
+			 style={type.style}
+			 icon={type.icon}
+			/>
+		)}
+        {this.editorStyles.CUSTOM_STYLES.map((type) =>
+			 <StyleButton
+		       key={type.label}
+			   activeFn={this.customBlockIsActive}
+			   label={type.label}
+			   onToggle={this.customBlockToggleFn}
+			   style={type.style}
+			   icon={type.icon}
+			 />
+		)}
+	    </div>
+  </div>
+  );
+ }
+};
+
+export default cssModules(EditorControls, Styles, { allowMultiple: true });

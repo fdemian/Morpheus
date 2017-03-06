@@ -1,0 +1,82 @@
+import React from 'react';
+import cssModules from 'react-css-modules';
+import Styles from './CommentBox.scss';
+import Editor from '../Editor/Editor';
+import EditorStyles from '../Editor/EditorStyles';
+import MessageIcon from 'material-ui/svg-icons/communication/chat-bubble-outline';
+import FlatButton from 'material-ui/FlatButton';
+import Loading from '../Fetching/FetchingIndicator';
+
+class CommentBox extends React.Component {
+
+ constructor(props)
+ {
+    super(props);
+
+    this.postCommentFn = this.props.postComment;
+    this.onInputChange = this.onInputChange.bind(this);
+    this.postComment = this.postComment.bind(this);
+	this.postingComment = this.props.posting;
+	this.updateCommentText = this.props.updateCommentText;
+	this.clearEditor = null;
+	this.setClearFn = this.setClearFn.bind(this);
+ }
+
+ onInputChange(draftText)
+ {
+    this.updateCommentText(draftText);
+ }
+
+ setClearFn(clearFn)
+ {
+   this.clearEditor = clearFn;
+ }
+
+ postComment()
+ {
+   if(this.props.commentText == "")
+      return;
+
+   const commentContent = this.props.commentText;
+   this.postCommentFn(commentContent);
+
+   if(this.clearEditor != null)
+      this.clearEditor();
+ }
+
+ render() {
+
+   if(this.postingComment)
+	  return (<Loading />);
+   
+   return(
+   <div id="new-comment" style={{'marginTop': '40px'}}>
+
+     <hr />
+
+	 <div styleName="EditorContainer">
+	    <Editor onEditorChange={this.onInputChange}
+	            setClearEditorFn={this.setClearFn}
+	            initialState={this.props.commentText}
+	            editorStyles={EditorStyles}
+	    />
+	 </div>
+
+	 <div styleName="CommentButton">
+	    <FlatButton
+         label="Comment"
+         labelPosition="before"
+	     hoverColor="gainsboro"
+	     labelStyle={{'color': '#3b5998'}}
+         icon={<MessageIcon color='#3b5998' />}
+	     onClick={this.postComment}
+	    />
+	 </div>
+
+   </div>
+   );
+ }
+
+}
+
+export default cssModules(CommentBox, Styles, { allowMultiple: true });
