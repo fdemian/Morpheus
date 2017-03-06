@@ -2,8 +2,9 @@ from sqlalchemy import create_engine
 from tornado.options import define, options, parse_config_file
 from os import path
 
-config_file = '../backend/config.ini'
+config_file = '../config.ini'
 config_file_path = path.join(path.dirname(__file__), config_file)
+
 
 # Get the database URL from the configuration file.
 def get_database_url():
@@ -17,10 +18,12 @@ def get_database_url():
     
     return 'postgresql+psycopg2://' + user + ":" + password + "@localhost:" + port
 
+
 def get_database_name():
     define('database_name', type=str, group='application', help='Database name.')
     parse_config_file(config_file_path)
     return options.database_name
+
 
 def create_database():
     connection_string = get_database_url() 
@@ -30,7 +33,6 @@ def create_database():
     conn.execute("commit")
     conn.execute("create database " + database_name)
     conn.close()
-
 
 
 create_database()
