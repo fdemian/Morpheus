@@ -66,8 +66,9 @@ class DatabaseAuthService:
     @staticmethod
     def save_user(user_to_save, activation_code):
 
-        # TODO: document this.
+        print(user_to_save)
 
+        # TODO: document this.
         user = User()
         user.username = user_to_save["username"]
         user.password = hash_password(user_to_save["password"])

@@ -50,7 +50,7 @@ oauthProviders}) => {
                 hoverColor="gainsboro"
                 labelStyle={{'color': '#3b5998'}}
                 icon={<AcctionInput color='#3b5998' />}
-                onClick={onRegisterClick}
+                onClick={() => onRegisterClick("database")}
                 styleName="RegisterButton"
                 style={{'width': '100%'}}
             />

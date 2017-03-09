@@ -9,7 +9,7 @@ from backend.authentication.Database import DatabaseAuthService
 from backend.authentication.OAuthService import OAuthService
 from backend.model.models import User
 from backend.model.sessionHelper import get_session
-
+from tornado.gen import coroutine
 
 class UserHandler(RequestHandler):
 
@@ -69,14 +69,14 @@ class UsersHandler(RequestHandler):
         self.write(response)
 
     # POST /users/
+    @coroutine
     def post(self):
-
         # TODO: validate user information (through forms library?)
         request = self.request.body.decode("utf-8")
         json_request = json.loads(request)
         authentication = DatabaseAuthService()
         activation_code = str(uuid.uuid4())
-        register_type = request["type"]
+        register_type = json_request["type"]
 
         if register_type == "database":
             user_to_validate = authentication.save_user(json_request, activation_code)

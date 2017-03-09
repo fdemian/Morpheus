@@ -22,8 +22,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onRegisterClick: () => {
-	  dispatch(register());
+    onRegisterClick: (type) => {
+	  dispatch(register(type));
 	},
     updateEmail: (value) =>{
       dispatch(updateEmailFn(value));

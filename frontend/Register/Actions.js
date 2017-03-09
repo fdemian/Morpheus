@@ -69,7 +69,7 @@ export default function getUserInfo(type, token) {
   }
 }
 
-export function register() {
+export function register(_type) {
   return (dispatch, getState) => {
 
 	  const state = getState();
@@ -81,12 +81,16 @@ export function register() {
 
 	  const endpoint = "users";
 
+      console.log("====================");
+      console.log(_type);
+
 	  const jsonData = JSON.stringify({
          username: _username,
          password: _password,
          email: _email,
-         name: _name
-       });
+         name: _name,
+         type: _type
+      });
 
       const types = [REGISTER_START, REGISTER_SUCCESS, REGISTER_FAILURE];
       dispatch(sendContent(endpoint, types, jsonData))
