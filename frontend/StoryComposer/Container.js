@@ -7,13 +7,14 @@ import postNewStory from './Actions';
 
 const mapStateToProps = (state) => {
   return {
+  	  id: state.composer.id,
 	  title: state.composer.title,
       content: state.composer.content,
       category: state.composer.category,
       categories: state.categories.items,
       tags: state.composer.tags,
 	  posted: state.composer.posted,
-	  id: state.composer.id
+	  editing: state.composer.editing
   }
 }
 
@@ -32,9 +33,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	onSendClick: () => {
        dispatch(postNewStory());
 	},
-    onLoad: () => {
-       dispatch(updateTitle(""));
+    clearFn: () => {
+       dispatch(updateId(""));
        dispatch(updateContent(""));
+       dispatch(updateCategory(""));
+       dispatch(updateEditingState(false));
     }
   }
 }

@@ -5,6 +5,9 @@ import Stories from './Stories';
 import loadStories, {deleteStory} from './Actions';
 import {loadCategories} from '../Categories/Actions';
 
+import { updateId, updateTitle, updateCategory, updateContent, updateEditingState} from '../StoryComposer/Actions';
+
+
 const mapStateToProps = (state) => {
   return {
       stories: state.stories.stories,
@@ -23,6 +26,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	},
 	onDelete: (id) => {
 	  dispatch(deleteStory(id));
+	},
+	onEditClick: (id, title, category, content) => {
+	   dispatch(updateId(id));
+       dispatch(updateTitle(title));
+       dispatch(updateCategory(category));
+       dispatch(updateContent(content));
+       dispatch(updateEditingState(true));
 	}
   }
 }

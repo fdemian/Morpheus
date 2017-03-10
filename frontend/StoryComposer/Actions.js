@@ -7,6 +7,8 @@ export const SEND_STORY_FAILURE = 'SEND_STORY_FAILURE';
 export const TITLE_CHANGED = 'TITLE_CHANGED';
 export const CONTENT_CHANGED = 'CONTENT_CHANGED';
 export const CATEGORY_CHANGED = 'CATEGORY_CHANGED';
+export const ID_CHANGED = "ID_CHANGED";
+export const EDITING_STATE_CHANGED = "EDITING_STATE_CHANGED";
 
 export function updateContent(newContent)
 {
@@ -21,6 +23,16 @@ export function updateTitle(newTitle)
 export function updateCategory(newCategory)
 {
   return { type:CATEGORY_CHANGED, data: newCategory};
+}
+
+export function updateId(newId)
+{
+  return { type:ID_CHANGED, data: newId};
+}
+
+export function updateEditingState(newState)
+{
+  return { type:EDITING_STATE_CHANGED, data: newState};
 }
 
 export default function postNewStory()

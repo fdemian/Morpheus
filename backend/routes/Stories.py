@@ -28,6 +28,7 @@ class StoriesHandler(AuthenticatedHandler):
             json_story = {
                  'id': story.id,
                  'name': story.title,
+                 'content': story.content,
                  'author': {
                     'id': story.user.id,
                     'name': story.user.username,

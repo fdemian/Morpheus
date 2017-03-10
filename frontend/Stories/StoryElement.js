@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import EditIcon from 'material-ui/svg-icons/editor/mode-edit';
 import format_title_string from '../utils/formats.js';
 
 const linkStyle = {'color': 'blue' };
@@ -35,7 +36,7 @@ const containerStyle = {
  'padding': '20px'
 };
 
-const StoryElement = ({story, loggedIn, deleteFn}) => {
+const StoryElement = ({story, loggedIn, deleteFn, editFn}) => {
 
   const {category, author} = story;
   const linkToUser = "/users/" + author.id + "/" + format_title_string(author.name);
@@ -46,6 +47,7 @@ const StoryElement = ({story, loggedIn, deleteFn}) => {
   const showCategory = category.id != -1;
   let categorySpan;
   let deleteButton;
+  let editButton;
 
   if(showCategory)
 	  categorySpan = (<Link to={linkToCategory} activeStyle={linkStyle} >
@@ -57,13 +59,23 @@ const StoryElement = ({story, loggedIn, deleteFn}) => {
 	  categorySpan = <span></span>;
 
   if(loggedIn)
+  {
     deleteButton = (
       <span onClick={() => deleteFn(storyId)}>
         <IconButton tooltip="Delete">
            <DeleteIcon color='#3b5998' />
          </IconButton>
 	   </span>
-    )
+    );
+
+    editButton = (
+       <span onClick={() => editFn(storyId)}>
+         <IconButton tooltip="Delete">
+           <EditIcon color='#3b5998' />
+         </IconButton>
+	   </span>
+    );
+  }
   else
      deleteButton = <span></span>;
 
@@ -89,7 +101,9 @@ const StoryElement = ({story, loggedIn, deleteFn}) => {
 
     <div>
       {deleteButton}
+      {editButton}
     </div>
+
 
     <Divider />
 
