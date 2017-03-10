@@ -1,8 +1,11 @@
 import React from 'react';
 import cssModules from 'react-css-modules';
 import Styles from './CommentBox.scss';
+
+// Editor
 import Editor from '../Editor/Editor';
 import EditorStyles from '../Editor/EditorStyles';
+
 import MessageIcon from 'material-ui/svg-icons/communication/chat-bubble-outline';
 import FlatButton from 'material-ui/FlatButton';
 import Loading from '../Fetching/FetchingIndicator';
@@ -48,18 +51,28 @@ class CommentBox extends React.Component {
 
    if(this.postingComment)
 	  return (<Loading />);
-   
+
+   const initialState = null; // this.props.commentText ? Por ahora null, se inicia sin texto.
+
    return(
    <div id="new-comment" style={{'marginTop': '40px'}}>
 
      <hr />
 
 	 <div styleName="EditorContainer">
-	    <Editor onEditorChange={this.onInputChange}
-	            setClearEditorFn={this.setClearFn}
-	            initialState={this.props.commentText}
-	            editorStyles={EditorStyles}
+	    <Editor
+	        onEditorChange={this.onInputChange}
+            setClearEditorFn={this.setClearFn}
+            initialState={initialState}
+            editorStyles={EditorStyles}
 	    />
+
+	           <Editor
+         onEditorChange={editorChangeFn}
+	     setClearEditorFn={setClearFn}
+	     initialState={_state}
+       />
+
 	 </div>
 
 	 <div styleName="CommentButton">

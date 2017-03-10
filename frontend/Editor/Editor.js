@@ -5,9 +5,9 @@ import cssModules from 'react-css-modules';
 import Styles from './css/Editor.scss';
 import EditorControls from './Controls';
 
-import Spoiler from '../TextElements/SpoilerWrapper';
-import Media from '../TextElements/Media';
-import Link from  '../TextElements/Link';
+import Spoiler from './TextElements/SpoilerWrapper';
+import Media from './TextElements/Media';
+import Link from  './TextElements/Link';
 
 const {
  CompositeDecorator,
@@ -17,7 +17,8 @@ const {
  RichUtils,
  AtomicBlockUtils,
  DefaultDraftBlockRenderMap,
- convertToRaw
+ convertToRaw,
+ convertFromRaw
 } = Draft;
 
 const {Map} = Immutable;
@@ -28,6 +29,9 @@ function getBlockStyle(block) {
 	switch (block.getType()) {
 	  case 'blockquote':
         return 'Blockquote';
+		break;	 
+	  case 'code-block':
+	    return "Code";
 		break;
 	  default:
 	    return null;
@@ -79,11 +83,21 @@ class EditorComponent extends React.Component {
    ]);
 
    const {initialState} = this.props;
-   const _content = ContentState.createFromText(initialState);
-   const _initalState =  EditorState.createWithContent(_content, decorator);
+   
+   let _initalEditorState;
+   
+   if(initialState == null)
+   {
+	 _initalEditorState = EditorState.createEmpty(decorator); 
+   }
+   else
+   {
+     const _contentState = convertFromRaw(JSON.parse(initialState));
+     _initalEditorState = EditorState.createWithContent(_contentState, decorator);
+   }
 
    this.setClearEditorFn = this.props.setClearEditorFn;
-   this.state = {editorState: _initalState };
+   this.state = {editorState: _initalEditorState };
    this.editorStyles = this.props.editorStyles;
    this.focus = () => this.refs.editor.focus();
    this.onStateChange = (rawState) => this.props.onEditorChange(rawState);
@@ -100,13 +114,13 @@ class EditorComponent extends React.Component {
    this.clear = () => this._clear();
 
    this.setClearEditorFn(this.clear)
+ } 
+ 
+ _clear()
+ {
+   const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''));
+   this.setState({ editorState });
  }
-
-  _clear()
-  {
-     const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''));
-     this.setState({ editorState });
-  }
 
  _blockIsActive(block)
  {

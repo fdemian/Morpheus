@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import StoryEditor from '../Editor/Editor';
 import {withRouter} from 'react-router';
 import CategoriesDropdown from './CategoriesDropdown';
+
+// Editor and styles
+import StoryEditor from '../Editor/Editor';
 import EditorStyles from '../Editor/EditorStyles';
+
+// Material UI components
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Confirm from 'material-ui/svg-icons/action/done';
@@ -37,7 +41,7 @@ class StoryComposer extends Component {
    const { router } = this.props;
    const {onEditorChange, onTitleChange, onCategoryChange, onSendClick} = this.props;
    const {title, content,category, tags, id, posted, categories} = this.props;
-   const initialEditorState = "";
+   const initialEditorState = null;
 
    if(posted)
    {
@@ -56,12 +60,12 @@ class StoryComposer extends Component {
      </div>
      
      <div styleName="StoryContent">
-          <StoryEditor
-                  onEditorChange={onEditorChange}
-                  setClearEditorFn={this.setClearFn}
-                  initialState=""
-                  editorStyles={EditorStyles}
-          />
+       <StoryEditor
+           onEditorChange={onEditorChange}
+           setClearEditorFn={this.setClearFn}
+           initialState={initialEditorState}
+           editorStyles={EditorStyles}
+       />
      </div>
      
      <div styleName="StoryControls">

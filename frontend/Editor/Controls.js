@@ -33,15 +33,20 @@ class EditorControls extends Component {
       this.editorStyles = this.props.editorStyles;
       this.confirmUrl = this._confirmUrl.bind(this);
       this.cancelUrlFn = this._cancelUrl.bind(this);
-      this.onURLInputKeyDown = this._onURLInputKeyDown.bind(this);
       this.selectionIsCollapsed = this.props.selectionCollapsed;
-      this.onURLChange = (e) => this.setState({urlValue: e.target.value});
+      this.onURLChange = (e) => this._onUrlChange(e);
       this.blockIsActive = this.props.blockIsActive;
       this.inlineIsActive = this.props.inlineIsActive;
       this.customBlockIsActive = this.props.customBlockIsActive;
       this.customBlockToggleFn = this._customBlockToggleFn.bind(this);
       this.getInput = this._getInput.bind(this);
       this.findStyleObjectByName = this._findStyleObjectByName.bind(this);
+  }
+  
+  
+  _onUrlChange(event, newState)
+  {
+    this.setState({urlValue: event.target.value});
   }
 
   _findStyleObjectByName(name)
@@ -68,14 +73,6 @@ class EditorControls extends Component {
       }
 
       styleObject.toggleFn(this.editor);
-  }
-
-  _onURLInputKeyDown(e)
-  {
-	 console.log(e.which);
-     if (e.which === 13) {
-       this._confirmUrl(e);
-     }
   }
 
   _cancelUrl()
@@ -116,15 +113,24 @@ class EditorControls extends Component {
           colorPicker = <span>Color</span>;
       }
 	}
-
+	
+	if(this.state.showURLInput)
+		return (
+		<div styleName="EditorControls">
+		   <div className="RichEditor-controls">
+	         <URLInput 
+	           changeFn={this.onURLChange} 
+			   urlValue={this.state.urlValue} 
+               cancelFn={this.cancelUrlFn} 
+			   confirmFn={this.confirmUrl}  
+		     />
+		   </div>
+		</div>
+		);
+	
 	return (
     <div styleName="EditorControls">
-		
-		<div styleName="InputSpace" >
-	      {urlInput}
-	      {colorPicker}
-	    </div>
-		
+				
         <div className="RichEditor-controls">
 		{this.editorStyles.INLINE_STYLES.map(type =>
 		    <StyleButton

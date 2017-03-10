@@ -1,7 +1,7 @@
 import Draft from 'draft-js';
-import Spoiler from '../TextElements/SpoilerWrapper';
-import Media from '../TextElements/Media';
-import Link from  '../TextElements/Link';
+import Spoiler from './TextElements/SpoilerWrapper';
+import Media from './TextElements/Media';
+import Link from  './TextElements/Link';
 
 /* ----------------------- Icons  -------------------------------- */
 
@@ -9,6 +9,7 @@ import Quote from 'material-ui/svg-icons/editor/format-quote';
 import Heading from 'material-ui/svg-icons/editor/title';
 import UnorderedList from 'material-ui/svg-icons/editor/format-list-bulleted';
 import OrderedList from 'material-ui/svg-icons/editor/format-list-numbered';
+import Code from 'material-ui/svg-icons/action/code';
 
 import Bold from 'material-ui/svg-icons/editor/format-bold';
 import Italic from 'material-ui/svg-icons/editor/format-italic';
@@ -38,7 +39,8 @@ const BLOCK_TYPES =
   {label: 'Quote', style: 'blockquote', icon: Quote},
   {label: 'Heading', style: 'header-two', icon: Heading},
   {label: 'Unordered List', style: 'unordered-list-item', icon: UnorderedList},
-  {label: 'Ordered List', style: 'ordered-list-item', icon: OrderedList}
+  {label: 'Ordered List', style: 'ordered-list-item', icon: OrderedList},
+  {label: 'Code Block', style: 'code-block', icon: Code}
 ];
 
 const INLINE_STYLES =
@@ -116,7 +118,6 @@ export function insertMedia(editor, type, value)
 
    const contentStateWithEntity = contentState.createEntity('SPOILER', 'IMMUTABLE', {text: selectedText});
    insertEntity(editor, editorState, contentStateWithEntity);
-
  }
 
 const EditorStyles = { BLOCK_TYPES, INLINE_STYLES, CUSTOM_STYLES };

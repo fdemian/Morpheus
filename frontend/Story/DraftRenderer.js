@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import redraft from 'redraft';
-import Spoiler from '../TextElements/Spoiler';
-import Link from '../TextElements/Link';
-import EmbededVideo from '../TextElements/EmbededVideo';
+import Spoiler from '../Editor/TextElements/Spoiler';
+import Link from '../Editor/TextElements/Link';
+import EmbededVideo from '../Editor/TextElements/EmbededVideo';
 
 /* Style callbacks */
 const styles = {
