@@ -66,13 +66,6 @@ class CommentBox extends React.Component {
             initialState={initialState}
             editorStyles={EditorStyles}
 	    />
-
-	           <Editor
-         onEditorChange={editorChangeFn}
-	     setClearEditorFn={setClearFn}
-	     initialState={_state}
-       />
-
 	 </div>
 
 	 <div styleName="CommentButton">
