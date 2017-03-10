@@ -51,7 +51,6 @@ class StoriesHandler(AuthenticatedHandler):
 
     # POST /stories/new
     def post(self):
-
         request = self.request.body.decode("utf-8")
         jsonrequest = json.loads(request)
 

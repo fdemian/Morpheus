@@ -9,7 +9,10 @@ import
   CONTENT_CHANGED,
   CATEGORY_CHANGED,
   ID_CHANGED,
-  EDITING_STATE_CHANGED
+  EDITING_STATE_CHANGED,
+  UPDATE_STORY,
+  UPDATE_STORY_OK,
+  UPDATE_STORY_FAILURE
 } from '../../StoryComposer/Actions';
 
 const initialState = {
@@ -19,7 +22,8 @@ const initialState = {
   category: {id:-1, name:""},
   tags: [],
   posted: false,
-  editing: true
+  editing: false,
+  posting: false
 }
 
 export function composer(state = initialState, action) {
@@ -31,10 +35,19 @@ export function composer(state = initialState, action) {
    case CATEGORY_CHANGED:
       return {... state, category: action.data};
    case ID_CHANGED:
-      return {... state, id: action.data};
+      return {...state, id: action.data};
+   case EDITING_STATE_CHANGED:
+      return {...state, editing: action.data};
    case SEND_STORY_OK:
-	    const newTitle = format_title_string(state.title);
-      return { ...state, posted: true, id: action.data.id, title: newTitle};
+	  const newTitle = format_title_string(state.title);
+      return { ...state, posted: true, id: action.data.id, title: newTitle};	  
+   case UPDATE_STORY:
+      return { ...state, posting: true, editing: true, posted: false};
+   case UPDATE_STORY_OK:	  
+      return { ...state, posting: false, editing: false, posted: true};
+   case UPDATE_STORY_FAILURE:
+      return { ...state, posted: false};
+
    default:
 	    return state;
  }

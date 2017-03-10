@@ -70,7 +70,7 @@ const StoryElement = ({story, loggedIn, deleteFn, editFn}) => {
 
     editButton = (
        <span onClick={() => editFn(storyId)}>
-         <IconButton tooltip="Delete">
+         <IconButton tooltip="Edit">
            <EditIcon color='#3b5998' />
          </IconButton>
 	   </span>

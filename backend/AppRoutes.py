@@ -26,6 +26,7 @@ def get_app_routes(static_path):
        (r"/api/stories/(.*)/comments", CommentsHandler, params),
        (r"/api/stories", StoriesHandler),
        (r"/api/stories/([0-9]+)", StoryHandler),
+	   (r"/api/story/([0-9]+)", StoryHandler),
        (r"/api/users/(.*)/stories", StoriesByUserHandler),
        (r"/api/users", UsersHandler),
        (r"/api/users/(.*)", UserHandler),

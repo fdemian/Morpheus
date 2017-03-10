@@ -25,6 +25,7 @@ class StoryComposer extends Component {
    this.onDiscardClick = this.onDiscardClick.bind(this);
    this.clearEditor = null;
    this.setClearFn = this.setClearFn.bind(this);
+   this.postStory = this.postStory.bind(this);
  }
  
  onDiscardClick(){
@@ -32,34 +33,39 @@ class StoryComposer extends Component {
    router.goBack();	 
  }
 
- setClearFn(clearFn){
-   this.clearEditor = clearFn;
+ setClearFn(clearFunction){
+   this.clearEditor = clearFunction;
  }
-
+ 
+ postStory(isEditing)
+ {
+   console.log(isEditing);
+   console.log("=================");
+   
+   if(!isEditing)
+   {
+     this.props.onSendClick();
+   }
+   else
+   {
+     this.props.onUpdateClick();   
+   }
+	 
+ }
+ 
  render() {
 
    const { router } = this.props;
-   const {onEditorChange, onTitleChange, onCategoryChange, onSendClick} = this.props;
+   const {onEditorChange, onTitleChange, onCategoryChange} = this.props;
    const {title, content, category, tags, id, posted, editing, categories} = this.props;
    const {clearFn} = this.props;
    const _intialComposerState = (content == null ? null : JSON.parse(content));
    
    if(posted)
    {
-       if(editing)
-       {
-         console.log("This was editing. Clear story");
-       }
-
        clearFn();
-       this.clearEditor();
-
 	   router.replace('/stories/' + id + '/' + title);
    }
-
-   console.log("______HA!_____ SSSS HA!");
-   console.log(JSON.parse(_intialComposerState));
-   console.log("______HA!_____ SS HA!");
 
    return (
    <div className="Story">
@@ -98,7 +104,7 @@ class StoryComposer extends Component {
 		  backgroundColor="#3b5998"
 		  labelStyle={{'color':'black'}}
 		  icon={<Confirm />}
-          onClick={onSendClick}		  
+          onClick={() => this.postStory(editing)}
 		 />		 
      </div>	 
 	 

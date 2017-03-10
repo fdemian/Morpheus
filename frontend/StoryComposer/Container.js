@@ -1,9 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import StoryComposer from './StoryComposer';
-
-import { updateTitle, updateContent, updateCategory} from './Actions';
-import postNewStory from './Actions';
+import { 
+  updateTitle, 
+  updateContent, 
+  updateCategory, 
+  updateEditingState, 
+  editStory,
+  postNewStory
+} from './Actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -33,8 +38,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	onSendClick: () => {
        dispatch(postNewStory());
 	},
+	onUpdateClick: () => {
+	   dispatch(editStory());		
+	},
     clearFn: () => {
-       dispatch(updateId(""));
        dispatch(updateContent(""));
        dispatch(updateCategory(""));
        dispatch(updateEditingState(false));

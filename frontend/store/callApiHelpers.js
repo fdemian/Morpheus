@@ -55,8 +55,29 @@ export function deleteResource(_endpoint, _types, jwtToken) {
   }
 
 }
+                           
+export function putRequest(_endpoint, _types, _body, jwtToken) {
 
+  const _headers = {
+      method: 'put',
+      mode: 'cors',
+      cache: 'default',
+      headers: {
+         'Authorization': 'Bearer ' + jwtToken,
+         'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: _body
+  };
 
+  return {
+    types: _types,
+    shouldCallAPI: (state) => true,
+	endpoint: _endpoint,
+	callHeaders: _headers,
+    payload: null
+  }
+  
+}
 
 // Authentication is required to perform this action.
 export function authenticationRequired() {

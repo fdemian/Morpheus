@@ -1,4 +1,4 @@
-import {sendContentAuth} from '../store/callApiHelpers';
+import {sendContentAuth, putRequest} from '../store/callApiHelpers';
 
 export const SEND_STORY = 'SEND_STORY';
 export const SEND_STORY_OK = 'SEND_STORY_OK';
@@ -9,6 +9,10 @@ export const CONTENT_CHANGED = 'CONTENT_CHANGED';
 export const CATEGORY_CHANGED = 'CATEGORY_CHANGED';
 export const ID_CHANGED = "ID_CHANGED";
 export const EDITING_STATE_CHANGED = "EDITING_STATE_CHANGED";
+
+export const UPDATE_STORY = "UPDATE_STORY";
+export const UPDATE_STORY_OK = "UPDATE_STORY_OK";
+export const UPDATE_STORY_FAILURE = "UPDATE_STORY_FAILURE";
 
 export function updateContent(newContent)
 {
@@ -35,7 +39,7 @@ export function updateEditingState(newState)
   return { type:EDITING_STATE_CHANGED, data: newState};
 }
 
-export default function postNewStory()
+export function postNewStory()
 {
     return (dispatch, getState) => {
 
@@ -63,5 +67,35 @@ export default function postNewStory()
       const types = [SEND_STORY, SEND_STORY_OK, SEND_STORY_FAILURE];
 
       dispatch(sendContentAuth(endpoint, types, jsonData, _token));
+    }
+}
+
+export function editStory()
+{
+    return (dispatch, getState) => {
+
+  	  const state = getState();
+      
+	  const _id = state.composer.id;
+  	  const _user = state.session.user.id;
+  	  const _title = state.composer.title;
+  	  const _tags = state.composer.tags;
+      const _category = state.composer.category.id;
+  	  const _content = JSON.stringify(state.composer.content);
+      const _token = state.session.token;
+      const endpoint = "story/" + _id;
+
+  	  const jsonData = JSON.stringify({
+         title: _title,
+         tags: _tags,
+         content: _content,
+         author: _user,
+         category: _category
+      });
+
+      const types = [UPDATE_STORY, UPDATE_STORY_OK, UPDATE_STORY_FAILURE];
+	  
+      dispatch(putRequest(endpoint, types, jsonData, _token));
+	 
     }
 }
