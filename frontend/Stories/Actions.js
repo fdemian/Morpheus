@@ -25,6 +25,7 @@ export default loadTopics;
 
 
 export function deleteStory(id){
+
       return (dispatch, getState) => {
   	  const state = getState();
       const _token = state.session.token;

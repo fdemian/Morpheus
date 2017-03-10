@@ -44,8 +44,6 @@ export function postNewStory()
     return (dispatch, getState) => {
 
   	  const state = getState();
-      
-  	  /*if(!state.toolbar.loggedIn) return dispatch(authenticationRequired());*/
 
   	  const _user = state.session.user.id;
   	  const _title = state.composer.title;

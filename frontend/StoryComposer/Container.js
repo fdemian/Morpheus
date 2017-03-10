@@ -5,7 +5,8 @@ import {
   updateTitle, 
   updateContent, 
   updateCategory, 
-  updateEditingState, 
+  updateEditingState,
+  updateId,
   editStory,
   postNewStory
 } from './Actions';
@@ -42,8 +43,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	   dispatch(editStory());		
 	},
     clearFn: () => {
-       dispatch(updateContent(""));
-       dispatch(updateCategory(""));
+       dispatch(updateId(-1));
+       dispatch(updateTitle(""));
+       dispatch(updateContent(null));
+       dispatch(updateCategory({id: -1, name: ""}));
        dispatch(updateEditingState(false));
     }
   }

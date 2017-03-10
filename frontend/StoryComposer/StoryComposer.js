@@ -29,8 +29,12 @@ class StoryComposer extends Component {
  }
  
  onDiscardClick(){
-   const { router } = this.props;
-   router.goBack();	 
+   const { router, clearFn, editing } = this.props;
+
+   if(editing)
+      clearFn();
+
+   router.goBack();
  }
 
  setClearFn(clearFunction){
@@ -39,9 +43,6 @@ class StoryComposer extends Component {
  
  postStory(isEditing)
  {
-   console.log(isEditing);
-   console.log("=================");
-   
    if(!isEditing)
    {
      this.props.onSendClick();
@@ -50,7 +51,6 @@ class StoryComposer extends Component {
    {
      this.props.onUpdateClick();   
    }
-	 
  }
  
  render() {
@@ -59,7 +59,7 @@ class StoryComposer extends Component {
    const {onEditorChange, onTitleChange, onCategoryChange} = this.props;
    const {title, content, category, tags, id, posted, editing, categories} = this.props;
    const {clearFn} = this.props;
-   const _intialComposerState = (content == null ? null : JSON.parse(content));
+   const _initialComposerState = (content == null ? null : JSON.parse(content));
    
    if(posted)
    {
@@ -82,7 +82,7 @@ class StoryComposer extends Component {
        <StoryEditor
            onEditorChange={onEditorChange}
            setClearEditorFn={this.setClearFn}
-           initialState={_intialComposerState}
+           initialState={_initialComposerState}
            editorStyles={EditorStyles}
        />
      </div>

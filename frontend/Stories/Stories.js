@@ -22,10 +22,6 @@ class Stories extends Component {
  {
     const { router } = this.props;
     const _storyToEdit = this.props.stories.filter(s => s.id == id)[0];
-    console.log("________________");
-    console.log(router);
-    console.log("________________");
-
     this.props.onEditClick(_storyToEdit.id, _storyToEdit.name, _storyToEdit.category, _storyToEdit.content);
 
     router.replace('/stories/new');
