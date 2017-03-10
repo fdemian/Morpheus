@@ -1,4 +1,4 @@
-import {deleteResource} from '../store/callApiHelpers';
+import {_DELETE} from '../store/callApiHelpers';
 
 export const REQUEST_TOPICS = 'REQUEST_TOPICS';
 export const RECEIVE_TOPICS = 'RECEIVE_TOPICS';
@@ -33,6 +33,6 @@ export function deleteStory(id){
       const _endpoint = 'stories/' + id;
       const _types = [DELETE_STORY, DELETE_STORY_OK, DELETE_STORY_FAILURE];
 
-      dispatch(deleteResource(_endpoint, _types, _token));
+      dispatch(_DELETE(_endpoint, _types, _token));
     }
 }

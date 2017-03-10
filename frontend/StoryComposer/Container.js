@@ -6,6 +6,7 @@ import {
   updateContent, 
   updateCategory, 
   updateEditingState,
+  updatePostedState,
   updateId,
   editStory,
   postNewStory
@@ -48,6 +49,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
        dispatch(updateContent(null));
        dispatch(updateCategory({id: -1, name: ""}));
        dispatch(updateEditingState(false));
+       dispatch(updatePostedState(false));
     }
   }
 }

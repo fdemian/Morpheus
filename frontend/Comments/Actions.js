@@ -1,4 +1,4 @@
-import {sendContentAuth} from '../store/callApiHelpers';
+import {_POST} from '../store/callApiHelpers';
 
 export const COMMENT_CHANGED = 'COMMENT_CHANGED';
 
@@ -41,7 +41,7 @@ export function postNewComment(commentContent) {
 
       const types = [POST_COMMENT, POST_COMMENT_OK, POST_COMMENT_FAILURE];
 
-      dispatch(sendContentAuth(endpoint, types, jsonData, _token));
+      dispatch(_POST(endpoint, types, jsonData, _token));
 
     }
 }

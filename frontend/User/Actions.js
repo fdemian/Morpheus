@@ -11,19 +11,10 @@ export function loadUser(userId) {
   const _endpoint = "users" + "/" + userId;
 
   return {
-
-	// Types of actions to emit before and after
     types: [REQUEST_USER_DATA, RECEIVE_USER_DATA, RECEIVE_USER_DATA_FAILURE],
-
-	// Check the cache (optional):
     shouldCallAPI: (state) => true,
-
-    // Perform the fetching:
     endpoint: _endpoint,
-
     callHeaders: { mode: 'cors', cache: 'default' },
-
-	// Arguments to inject in begin/end actions
     payload: null
   }
 }
@@ -34,18 +25,10 @@ export function loadUserStories(userName) {
 
   return {
 
-	// Types of actions to emit before and after
     types: [REQUEST_USER_STORIES, RECEIVE_USER_STORIES, RECEIVE_USER_STORIES_FAILURE],
-
-	// Check the cache (optional):
     shouldCallAPI: (state) => true,
-
-    // Perform the fetching:
     endpoint: _endpoint,
-
     callHeaders: { mode: 'cors', cache: 'default' },
-
-	// Arguments to inject in begin/end actions
     payload: null
   }
 }

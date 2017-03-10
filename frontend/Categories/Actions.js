@@ -55,18 +55,10 @@ export function loadCategories(){
   const _endpoint = "categories";
 
   return {
-
-	  // Types of actions to emit before and after
     types: [REQUEST_CATEGORIES, RECEIVE_CATEGORIES, RECEIVE_CATEGORIES_FAILURE],
-
-	  // Check the cache (optional):
     shouldCallAPI: (state) => true,
-
-	  endpoint: _endpoint,
-
-	  callHeaders: { mode: 'cors', cache: 'default' },
-
-	  // Arguments to inject in begin/end actions
+    endpoint: _endpoint,
+	callHeaders: { mode: 'cors', cache: 'default' },
     payload: null
   }
 }

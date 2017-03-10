@@ -10,6 +10,7 @@ import
   CATEGORY_CHANGED,
   ID_CHANGED,
   EDITING_STATE_CHANGED,
+  POSTED_STATE_CHANGED,
   UPDATE_STORY,
   UPDATE_STORY_OK,
   UPDATE_STORY_FAILURE
@@ -38,6 +39,8 @@ export function composer(state = initialState, action) {
       return {...state, id: action.data};
    case EDITING_STATE_CHANGED:
       return {...state, editing: action.data};
+   case POSTED_STATE_CHANGED:
+      return {...state, posted: action.data};
    case SEND_STORY_OK:
 	  const newTitle = format_title_string(state.title);
       return { ...state, posted: true, id: action.data.id, title: newTitle};	  

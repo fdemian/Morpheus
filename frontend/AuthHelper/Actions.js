@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import sendContent from '../store/callApiHelpers';
-import {sendContentAuth} from '../store/callApiHelpers';
+import { _POST} from '../store/callApiHelpers';
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAILURE = 'AUTH_FAILURE';
@@ -38,6 +38,6 @@ export function signOut() {
     const _endpoint = "auth/logout/";
     const types = [LOGOUT_START, LOGOUT_SUCCESS, LOGOUT_FAILURE];
 
-    dispatch(sendContentAuth(_endpoint, types, {}, token));
+    dispatch(_POST(_endpoint, types, "{}", token));
   }
 }

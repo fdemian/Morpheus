@@ -11,10 +11,25 @@ export default function sendContent(_endpoint, _types, content) {
   }
 }
 
-export function sendContentAuth(_endpoint, _types, content, jwtToken) {
+export function _POST(endpoint, types, content, jwtToken)
+{
+   return authenticatedRequest(endpoint, types, content, jwtToken, "post");
+}
 
+export function _PUT(endpoint, types, content, jwtToken)
+{
+   return authenticatedRequest(endpoint, types, content, jwtToken, "put");
+}
+
+export function _DELETE(endpoint, types, jwtToken)
+{
+   return authenticatedRequest(endpoint, types, "{}", jwtToken, "delete");
+}
+
+function authenticatedRequest(_endpoint, types, content, jwtToken, method)
+{
   const _headers = {
-      method: 'post',
+      method: method,
       mode: 'cors',
       cache: 'default',
       headers: {
@@ -25,7 +40,7 @@ export function sendContentAuth(_endpoint, _types, content, jwtToken) {
   };
 
   return {
-    types: _types,
+    types: types,
     shouldCallAPI: (state) => true,
 	endpoint: _endpoint,
 	callHeaders: _headers,
@@ -33,51 +48,6 @@ export function sendContentAuth(_endpoint, _types, content, jwtToken) {
   }
 }
 
-export function deleteResource(_endpoint, _types, jwtToken) {
-
-  const _headers = {
-      method: 'delete',
-      mode: 'cors',
-      cache: 'default',
-      headers: {
-         'Authorization': 'Bearer ' + jwtToken,
-         'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: "{}"
-  };
-
-  return {
-    types: _types,
-    shouldCallAPI: (state) => true,
-	endpoint: _endpoint,
-	callHeaders: _headers,
-    payload: null
-  }
-
-}
-                           
-export function putRequest(_endpoint, _types, _body, jwtToken) {
-
-  const _headers = {
-      method: 'put',
-      mode: 'cors',
-      cache: 'default',
-      headers: {
-         'Authorization': 'Bearer ' + jwtToken,
-         'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: _body
-  };
-
-  return {
-    types: _types,
-    shouldCallAPI: (state) => true,
-	endpoint: _endpoint,
-	callHeaders: _headers,
-    payload: null
-  }
-  
-}
 
 // Authentication is required to perform this action.
 export function authenticationRequired() {
