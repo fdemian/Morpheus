@@ -56,43 +56,34 @@ export function updatePasswordFn(value)
    return { type:PASSWORD_CHANGED, data: value};
 }
 
-export default function getUserInfo(type, token) {
-
-  const _endpoint = "userinfo/" + type + "/" + token;
-
-  return {
-    types: [REGISTER_FILL_DATA, REGISTER_FILL_SUCCESS, REGISTER_FILL_FAILURE],
-    shouldCallAPI: (state) => true,
-	endpoint: _endpoint,
-	callHeaders: { mode: 'cors', cache: 'default' },
-    payload: null
-  }
-}
-
-export function register(_type) {
+export function register(_type, code) {
   return (dispatch, getState) => {
 
-	  const state = getState();
-
-	  const _username = state.session.user.username;
-	  const _password = state.session.password;
-	  const _email = state.session.user.email;
-	  const _name = state.session.user.name
 
 	  const endpoint = "users";
-
-      console.log("====================");
-      console.log(_type);
-
-	  const jsonData = JSON.stringify({
-         username: _username,
-         password: _password,
-         email: _email,
-         name: _name,
-         type: _type
-      });
-
       const types = [REGISTER_START, REGISTER_SUCCESS, REGISTER_FAILURE];
+
+      let jsonData = null;
+
+      if(type == "database")
+      {
+      	  const state = getState();
+   	      const _username = state.session.user.username;
+	      const _password = state.session.password;
+	      const _email = state.session.user.email;
+	      const _name = state.session.user.name
+
+          jsonData = JSON.stringify({
+              username: _username,
+              password: _password,
+              email: _email,
+              name: _name,
+              type: _type
+          });
+      }
+      else
+         jsonData = JSON.stringify({code: code,type: _type});
+
       dispatch(sendContent(endpoint, types, jsonData))
   }
 }

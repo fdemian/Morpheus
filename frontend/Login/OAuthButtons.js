@@ -8,13 +8,9 @@ const OAuthButtons = ({providers, isLogin}) => {
   let urlParams;
 
   if(isLogin)
-  {
-    urlParams = "/auth?";
-  }
+    urlParams = "/auth?method=login&";
   else
-  {
-    urlParams = "register?";
-  }
+    urlParams = "/auth?method=register&";
 
   const redirectURL = window.location.protocol + "//" + window.location.host + urlParams;
 

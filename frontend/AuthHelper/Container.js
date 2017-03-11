@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Authentication from './AuthDialog';
 import signIn from './Actions';
-import getUserInfo from '../Register/Actions';
+import register from '../Register/Actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -17,8 +17,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     performAuth:(type, token, redirectURL, username, password) => {
 	  dispatch(signIn(type, token, redirectURL, username, password));
 	},
-    registerData(type, token){
-      dispatch(getUserInfo(type, token));
+    performRegistration(type, token){
+      dispatch(register(type, token));
     }
   }
 }
