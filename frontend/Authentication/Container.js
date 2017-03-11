@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Authentication from './AuthDialog';
+import Authentication from './Authentication';
 import signIn from './Actions';
 import register from '../Register/Actions';
 

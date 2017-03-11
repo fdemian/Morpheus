@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AccountMenu from './AccountMenu';
-import {signOut} from '../../AuthHelper/Actions';
+import {signOut} from '../../Authentication/Actions';
 
 const mapStateToProps = (state) => {    
   return {

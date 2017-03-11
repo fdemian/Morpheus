@@ -8,7 +8,7 @@ import
   LOGOUT_START,
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE
-} from '../../AuthHelper/Actions';
+} from '../../Authentication/Actions';
 
 import
 {

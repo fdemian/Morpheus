@@ -13,7 +13,7 @@ import Stories from './Stories/Container';
 import Story from './Story/Container';
 import StoryComposer from './StoryComposer/Container';
 import Login from './Login/ConnectedLogin';
-import AuthHelper from './AuthHelper/Container';
+import Authentication from './Authentication/Container';
 import Register from './Register/Container';
 import Home from './App/Home'; // Home
 import NotFound from './Errors/NotFound'; // 404
@@ -81,7 +81,7 @@ class Root extends React.Component {
          <Route path="/" component={App}>
            <IndexRoute component={Home} />
            <Route path="/login" component={Login} onEnter={redirectFromLogin} />
-           <Route path="/auth" component={AuthHelper} />
+           <Route path="/auth" component={Authentication} />
            <Route path="/register" component={Register} />
            <Route path="/users/:userId/:userName" component={User}/>
            <Route path="/stories" component={Stories} />
