@@ -30,7 +30,7 @@ class AuthDialog extends Component {
          redirectURL = "/" + redirectPath;
 		
 	  const BASE_URL = window.location.protocol + "//" + window.location.host;
-	  const authRedirectURL = BASE_URL + pathname + "?method=" + method + "&state=" + authType + "&";
+	  const authRedirectURL = BASE_URL + pathname + "?method=" + method;
 	  
       if(method == "login")
       {

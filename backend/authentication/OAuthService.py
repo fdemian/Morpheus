@@ -29,7 +29,7 @@ class OAuthService:
             raise NoSuchServiceException
 
         service_instance = auth_service(application=self.application, request=self.request)
-        user = yield service_instance.get(auth_code, redirect_uri)
+        user = yield service_instance.get(auth_code, redirect_uri, "login")
 
         if user is None:
             raise OAuthFailedException
