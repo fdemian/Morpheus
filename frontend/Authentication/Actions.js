@@ -10,7 +10,7 @@ export const LOGOUT_START = 'LOGOUT_START';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
-export default function signIn(type, token, redirectURI, username, password)
+export default function signIn(type, token, redirectURL, username, password)
 {
     return (dispatch, getState) => {
 
@@ -19,7 +19,7 @@ export default function signIn(type, token, redirectURI, username, password)
   	  const jsonData = JSON.stringify({
          code: token,
          type: type,
-         redirect: redirectURI,
+         redirectURL: redirectURL,
          username: username,
          password: password
       });
