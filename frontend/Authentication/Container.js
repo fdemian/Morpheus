@@ -17,8 +17,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     performAuth:(type, token, redirectURL, username, password) => {
 	  dispatch(signIn(type, token, redirectURL, username, password));
 	},
-    performRegistration(type, token){
-      dispatch(register(type, token));
+    performRegistration(type, token, redirectURL){
+      dispatch(register(type, token, redirectURL));
     }
   }
 }

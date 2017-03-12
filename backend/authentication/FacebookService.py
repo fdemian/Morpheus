@@ -1,19 +1,17 @@
 import tornado
 import tornado.web
 import tornado.auth
-import re
 from tornado.auth import FacebookGraphMixin
 from tornado.web import RequestHandler
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from backend.model.sessionHelper import get_session
 from backend.model.models import User
-from backend.DownloadAvatar import download_avatar
 
 
 class FacebookAuthService(RequestHandler, FacebookGraphMixin):
 
     @tornado.gen.coroutine
-    def get(self, auth_code, redirect_url):
+    def get(self, auth_code, redirect_url, method):
 
         user_info = yield self.get_authenticated_user(
               redirect_uri=redirect_url,
@@ -31,12 +29,34 @@ class FacebookAuthService(RequestHandler, FacebookGraphMixin):
         if not fb_user:
             return None
 
-        user = self.get_user(fb_user)
+        if method == "login":
+            user = self.get_user_from_db(fb_user)
+        elif method == "register":
+            user = self.get_user_to_save(fb_user)
 
         return user
 
     @staticmethod
-    def get_user(fb_user):
+    def get_user_to_save(fb_user):
+
+        if not fb_user['picture']['data']['is_silhouette']:
+            picture = fb_user['picture']['data']['url']
+        else:
+            picture = ""
+
+        payload = {
+            'id': fb_user["id"],
+            'avatar': picture,
+            'username': fb_user["name"],
+            'fullname': fb_user["name"],
+            'email': fb_user["email"],
+            'role': 'author'
+        }
+
+        return payload
+
+    @staticmethod
+    def get_user_from_db(fb_user):
 
         try:
             session_object = get_session()
@@ -63,8 +83,6 @@ class FacebookAuthService(RequestHandler, FacebookGraphMixin):
             else:
                 picture = ""
 
-            #download_avatar(picture, uglify_username(fb_user["name"]))
-
             payload = {
                 'id': fb_user["id"],
                 'avatar': picture,
@@ -74,14 +92,3 @@ class FacebookAuthService(RequestHandler, FacebookGraphMixin):
             }
 
         return payload
-
-
-def uglify_username(username):
-
-    # Remove all non-word characters (everything except numbers and letters)
-    username = re.sub(r"[^\w\s]", '', username)
-
-    # Replace all runs of whitespace with a single dash
-    username = re.sub(r"\s+", '-', username)
-
-    return username

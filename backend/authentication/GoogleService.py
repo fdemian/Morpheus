@@ -10,7 +10,7 @@ from backend.model.models import User
 class GoogleAuthService(RequestHandler, GoogleOAuth2Mixin):
 
     @tornado.gen.coroutine
-    def get(self, auth_code, redirect_url):
+    def get(self, auth_code, redirect_url, method):
 
         openid_configuration = yield self.oauth2_request(self.settings["google_discovery_url"])
         user_info_endpoint = openid_configuration["userinfo_endpoint"]
@@ -35,12 +35,29 @@ class GoogleAuthService(RequestHandler, GoogleOAuth2Mixin):
         if not google_user:
             return None
 
-        user = self.get_user(google_user)
+        if method == "login":
+            user = self.get_user_from_db(google_user)
+        elif method == "register":
+            user = self.get_user_to_save(google_user)
 
         return user
 
     @staticmethod
-    def get_user(google_user):
+    def get_user_to_save(google_user):
+
+        payload = {
+            'id': google_user["sub"],
+            'avatar': google_user["picture"],
+            'username': google_user["name"],
+            'fullname': google_user["name"],
+            'email': google_user['email'],
+            'role': 'author'
+        }
+
+        return payload
+
+    @staticmethod
+    def get_user_from_db(google_user):
 
         try:
             session_object = get_session()

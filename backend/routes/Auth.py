@@ -55,7 +55,7 @@ class BaseAuth(RequestHandler):
 
             auth_code = json_request["code"]
             auth_type = json_request["type"]
-            redirect_url = json_request["redirect"]
+            redirect_url = json_request["redirectURL"]
 
             username = json_request["username"]
             password = json_request["password"]

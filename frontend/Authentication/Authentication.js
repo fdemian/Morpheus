@@ -14,10 +14,11 @@ class AuthDialog extends Component {
 
  componentWillMount(){
 		
-   const {query, hash} = this.props.location;
-   const {code, redirectPath, authType, method} = query;
+   const {query, hash, search, pathname} = this.props.location;
+   const {code, redirectPath, state, method} = query;
    const {router, performAuth, performRegistration} = this.props;
-   
+   const authType = state;
+
    let authenticateUser = false;
 
    if(code)
@@ -27,19 +28,21 @@ class AuthDialog extends Component {
 
       if(redirectPath != null && redirectPath != "/")
          redirectURL = "/" + redirectPath;
-
+		
+	  const BASE_URL = window.location.protocol + "//" + window.location.host;
+	  const authRedirectURL = BASE_URL + pathname + "?method=" + method + "&state=" + authType + "&";
+	  
       if(method == "login")
       {
+		 // El usuario redirigio para loguearse por oauth. User y password nulos.
          const username = "";
-         const password = "";
+         const password = "";		 
 
-         const authRedirectURL = window.location.protocol + "//" + window.location.host + redirectURL + "auth";
-
-         performAuth(authType, code, authRedirectURL + "?authType=" + authType, username, password);
+         performAuth(authType, code, authRedirectURL, username, password);
       }
       else
       {
-        performRegistration(authType, token);
+         performRegistration(authType, code, authRedirectURL);
       }
 	  
 	  router.replace(redirectURL);

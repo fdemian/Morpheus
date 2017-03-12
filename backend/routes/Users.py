@@ -71,20 +71,42 @@ class UsersHandler(RequestHandler):
     # POST /users/
     @coroutine
     def post(self):
+
         # TODO: validate user information (through forms library?)
         request = self.request.body.decode("utf-8")
         json_request = json.loads(request)
         authentication = DatabaseAuthService()
-        activation_code = str(uuid.uuid4())
         register_type = json_request["type"]
 
         if register_type == "database":
+            activation_code = str(uuid.uuid4())
             user_to_validate = authentication.save_user(json_request, activation_code)
+            self.send_email(user_to_validate, activation_code)
+            if user_to_validate is not None:
+                resp_status = 200
+                response = {"message": "We sent you an email to verify your account."}
+            else:
+                resp_status = 500
+                response = {"message": "An error ocurred."}
         else:
-            auth_code = request["code"]
-            redirect_uri = request["redirectURI"]
+            auth_code = json_request["code"]
+            redirect_uri = json_request["redirectURL"]
             authentication = OAuthService(application=self.application, request=self.request)
-            user_to_validate = yield authentication.get_user_by_service(register_type, auth_code, redirect_uri)
+            registered_user = authentication.register_user(register_type, auth_code, redirect_uri)
+            if registered_user is not None:
+                resp_status = 200
+                response = {"message": "User sucessfully registered."}
+            else:
+                resp_status = 500
+                response = {"message": "An error ocurred."}
+
+        self.set_status(resp_status, 'Ok')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    def send_email(self, user_to_validate, activation_code):
 
         auth_url = self.request.protocol + "://" + self.request.host + "/activation/"
 
@@ -99,14 +121,4 @@ class UsersHandler(RequestHandler):
         }
 
         mailer = ConcreteMailSender(self.settings["mail_host"], int(self.settings["mail_port"]))
-
-        response = {"message": "We sent you an email to verify your account."}
-
-        self.set_status(200, 'Ok')
-        self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
-
-        if register_type == "database":
-            send_confirmation_email(mail_info, mailer)
-
-        return
+        send_confirmation_email(mail_info, mailer)

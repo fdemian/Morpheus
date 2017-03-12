@@ -1,3 +1,4 @@
+import re
 from tornado.gen import coroutine
 from tornado.httpclient import AsyncHTTPClient
 from os import path, getcwd
@@ -29,3 +30,14 @@ def download_avatar(url, username):
 def save_file(path, data):
     with open(path, "bw") as f:
         f.write(data)
+
+
+def uglify_username(username):
+
+    # Remove all non-word characters (everything except numbers and letters)
+    username = re.sub(r"[^\w\s]", '', username)
+
+    # Replace all runs of whitespace with a single dash
+    username = re.sub(r"\s+", '-', username)
+
+    return username

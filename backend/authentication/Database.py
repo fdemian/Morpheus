@@ -64,9 +64,7 @@ class DatabaseAuthService:
             return None
 
     @staticmethod
-    def save_user(user_to_save, activation_code):
-
-        print(user_to_save)
+    def save_user_auth(user_to_save, activation_code):
 
         # TODO: document this.
         user = User()

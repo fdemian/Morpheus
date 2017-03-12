@@ -56,7 +56,7 @@ export function updatePasswordFn(value)
    return { type:PASSWORD_CHANGED, data: value};
 }
 
-export function register(_type, code) {
+export default function register(_type, code, redirectURL) {
   return (dispatch, getState) => {
 
 
@@ -65,7 +65,7 @@ export function register(_type, code) {
 
       let jsonData = null;
 
-      if(type == "database")
+      if(_type == "database")
       {
       	  const state = getState();
    	      const _username = state.session.user.username;
@@ -78,11 +78,12 @@ export function register(_type, code) {
               password: _password,
               email: _email,
               name: _name,
-              type: _type
+              type: _type,
+			  redirectURL: redirectURL
           });
       }
       else
-         jsonData = JSON.stringify({code: code,type: _type});
+         jsonData = JSON.stringify({code: code,type: _type, redirectURL: redirectURL});
 
       dispatch(sendContent(endpoint, types, jsonData))
   }
