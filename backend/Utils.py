@@ -38,3 +38,19 @@ def uglify_username(username):
     username = re.sub(r"\s+", '-', username)
 
     return username
+
+
+def get_oauth_settings(settings):
+
+    settings = {
+        "facebook":  {
+            "key": settings["facebook_api_key"],
+            "secret":  settings["facebook_api_secret"]
+        },
+        "google": {
+            "key": settings["google_oauth_key"],
+            "secret": settings["google_oauth_secret"]
+        }
+    }
+
+    return settings

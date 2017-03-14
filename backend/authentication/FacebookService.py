@@ -1,22 +1,23 @@
-import tornado
-import tornado.web
-import tornado.auth
 from tornado.auth import FacebookGraphMixin
-from tornado.web import RequestHandler
+from tornado.gen import coroutine
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from backend.model.sessionHelper import get_session
 from backend.model.models import User
 
 
-class FacebookAuthService(RequestHandler, FacebookGraphMixin):
+class FacebookAuthService(FacebookGraphMixin):
 
-    @tornado.gen.coroutine
+    def __init__(self, key, secret):
+        self.key = key
+        self.secret = secret
+
+    @coroutine
     def get(self, auth_code, redirect_url, method):
 
         user_info = yield self.get_authenticated_user(
               redirect_uri=redirect_url,
-              client_id=self.settings["facebook_api_key"],
-              client_secret=self.settings["facebook_api_secret"],
+              client_id=self.key,
+              client_secret=self.secret,
               code=auth_code)
 
         access_token = user_info["access_token"]

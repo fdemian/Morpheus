@@ -16,9 +16,8 @@ class OAuthService:
         "google": GoogleAuthService
     }
 
-    def __init__(self, application, request):
-        self.application = application
-        self.request = request
+    def __init__(self, oauth_settings):
+        self.oauth_settings = oauth_settings
 
     @gen.coroutine
     def get_user_by_service(self, service_type, auth_code, redirect_uri):
@@ -28,7 +27,10 @@ class OAuthService:
         if auth_service is None:
             raise NoSuchServiceException
 
-        service_instance = auth_service(application=self.application, request=self.request)
+        service_key = self.oauth_settings[service_type]["key"]
+        service_secret = self.oauth_settings[service_type]["secret"]
+
+        service_instance = auth_service(service_key, service_secret)
         user = yield service_instance.get(auth_code, redirect_uri, "login")
 
         if user is None:

@@ -7,6 +7,7 @@ from backend.authentication.Database import DatabaseAuthService
 from backend.authentication.OAuthService import OAuthService
 from backend.model.models import User
 from backend.model.sessionHelper import get_session
+from backend.Utils import get_oauth_settings
 from tornado.gen import coroutine
 
 
@@ -90,7 +91,8 @@ class UsersHandler(RequestHandler):
         else:
             auth_code = json_request["code"]
             redirect_uri = json_request["redirectURL"]
-            authentication = OAuthService(application=self.application, request=self.request)
+            oauth_settings = get_oauth_settings(self.settings)
+            authentication = OAuthService(oauth_settings)
             registered_user = yield authentication.register_user(register_type, auth_code, redirect_uri)
             if registered_user is not None:
                 resp_status = 200

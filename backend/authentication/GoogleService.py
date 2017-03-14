@@ -7,7 +7,11 @@ from backend.model.sessionHelper import get_session
 from backend.model.models import User
 
 
-class GoogleAuthService(RequestHandler, GoogleOAuth2Mixin):
+class GoogleAuthService(GoogleOAuth2Mixin):
+
+    def __init__(self, key, secret):
+        self.key = key
+        self.secret = secret
 
     @tornado.gen.coroutine
     def get(self, auth_code, redirect_url, method):
@@ -19,8 +23,8 @@ class GoogleAuthService(RequestHandler, GoogleOAuth2Mixin):
         # request_token_url = google_api_url + "token"
 
         access = yield self.oauth2_request(token_endpoint, post_args={
-                                                   "client_id": self.settings["google_oauth_key"],
-                                                   "client_secret": self.settings["google_oauth_secret"],
+                                                   "client_id": self.key,
+                                                   "client_secret": self.secret,
                                                    "grant_type": "authorization_code",
                                                    "redirect_uri": redirect_url,
                                                    "code": auth_code

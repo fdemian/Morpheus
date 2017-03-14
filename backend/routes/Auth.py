@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from backend.authentication.OAuthService import OAuthService
 from backend.authentication.Database import DatabaseAuthService
 from backend.authentication.AuthExceptions import OAuthFailedException, NoSuchServiceException, InvalidUserException
+from backend.Utils import get_oauth_settings
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
 
@@ -64,7 +65,8 @@ class BaseAuth(RequestHandler):
                 authentication = DatabaseAuthService()
                 user = authentication.authenticate_user(username, password)
             else:
-                authentication = OAuthService(application=self.application, request=self.request)
+                oauth_settings = get_oauth_settings(self.settings)
+                authentication = OAuthService(oauth_settings)
                 user = yield authentication.get_user_by_service(auth_type, auth_code, redirect_url)
 
             jwt_token = self.perform_authentication(user, auth_type, '3600')
