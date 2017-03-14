@@ -19,8 +19,9 @@ class UserActivationHandler(RequestHandler):
 
             user_activation = session.query(UserActivation).filter(UserActivation.code == code).one()
             user_to_validate = session.query(User).filter(User.id == user_activation.user_id).one()
-
             user_to_validate.valid = True
+            session.commit()
+            session.flush()
 
             session.delete(user_activation)
             session.commit()
