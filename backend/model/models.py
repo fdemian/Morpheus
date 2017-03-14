@@ -17,8 +17,20 @@ class User(Base):
     email = Column(Unicode(255), nullable=False)
     password = Column(Text, nullable=True)
     valid = Column(Boolean, nullable=False)
+
     stories = relationship("Story", backref="user")
-    accounts = relationship("OAuthAccount", backref="user")
+    accounts = relationship("OAuthAccount", back_populates="user", lazy='dynamic')
+
+
+class OAuthAccount(Base):
+    __tablename__ = 'oauth_account'
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    oauth_id = Column(Unicode(100), nullable=True)  # Provider provided ID.
+    provider = Column(Unicode(30), nullable=False)  # facebook, github, etc...
+    user_id = Column(Integer, ForeignKey('users.id'))
+
+    user = relationship("User", back_populates="accounts")
 
 
 class UserActivation(Base):
@@ -40,15 +52,6 @@ class PasswordChange(Base):
     user_id = Column('user_id', Integer, ForeignKey('users.id'), nullable=False)
 
     user = relationship("User")
-
-
-class OAuthAccount(Base):
-    __tablename__ = 'oauth_account'
-
-    id = Column(Integer, primary_key=True, nullable=False)
-    oauth_id = Column(Unicode(100), nullable=True)  # Provider provided ID.
-    provider = Column(Unicode(30), nullable=False)  # facebook, github, etc...
-    user_id = Column(Integer, ForeignKey('users.id'))
 
 
 class Story(Base):

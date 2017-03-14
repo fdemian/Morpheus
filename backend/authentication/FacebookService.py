@@ -31,6 +31,7 @@ class FacebookAuthService(RequestHandler, FacebookGraphMixin):
 
         if method == "login":
             user = self.get_user_from_db(fb_user)
+            print(user)
         elif method == "register":
             user = self.get_user_to_save(fb_user)
 

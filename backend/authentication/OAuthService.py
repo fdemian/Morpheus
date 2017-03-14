@@ -2,7 +2,7 @@ from tornado import gen
 from .FacebookService import FacebookAuthService
 from .GoogleService import GoogleAuthService
 from backend.authentication.AuthExceptions import OAuthFailedException, NoSuchServiceException
-from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
+from sqlalchemy.orm.exc import MultipleResultsFound
 from backend.model.sessionHelper import get_session
 from backend.model.models import User, OAuthAccount
 from backend.authentication.AuthExceptions import ExistingUserException
@@ -36,6 +36,7 @@ class OAuthService:
 
         return user
 
+    @gen.coroutine
     def register_user(self, service_type, auth_code, redirect_uri):
 
         auth_service = self.services.get(service_type)
@@ -45,11 +46,12 @@ class OAuthService:
 
         service_instance = auth_service(application=self.application, request=self.request)
         oauth_user = yield service_instance.get(auth_code, redirect_uri, "register")
-        user_avatar = yield download_avatar(oauth_user["avatar"], uglify_username(oauth_user["name"]))
+        uglified_username = uglify_username(oauth_user["username"])
+        user_avatar = yield download_avatar(oauth_user["avatar"], uglified_username)
 
         user = User()
         user.username = oauth_user["username"]
-        user.fullname = oauth_user["name"]
+        user.fullname = oauth_user["fullname"]
         user.email = oauth_user['email']
         user.valid = True  # Identity verified by the oauth provider.
         user.password = None
@@ -60,14 +62,12 @@ class OAuthService:
         oauth_account.oauth_id = oauth_user["id"]
         oauth_account.provider = service_type
 
-        user.accounts.add(oauth_account)
-
-        saved_user = self.save_user(user)
+        saved_user = self.save_user(user, oauth_account)
 
         return saved_user        
 
     @staticmethod
-    def save_user(user):
+    def save_user(user, oauth_account):
 
         # Save user.
         session_object = get_session()
@@ -79,6 +79,7 @@ class OAuthService:
             if user_exists is not None:
                 raise ExistingUserException
 
+            user.accounts.append(oauth_account)
             session.add(user)
             session.commit()
 

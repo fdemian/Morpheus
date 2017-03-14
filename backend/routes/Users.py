@@ -1,8 +1,6 @@
 import json
 import uuid
-
 from tornado.web import RequestHandler
-
 from backend.mail.ConcreteMailSender import ConcreteMailSender
 from backend.SendEmail import send_confirmation_email
 from backend.authentication.Database import DatabaseAuthService
@@ -10,6 +8,7 @@ from backend.authentication.OAuthService import OAuthService
 from backend.model.models import User
 from backend.model.sessionHelper import get_session
 from tornado.gen import coroutine
+
 
 class UserHandler(RequestHandler):
 
@@ -92,7 +91,7 @@ class UsersHandler(RequestHandler):
             auth_code = json_request["code"]
             redirect_uri = json_request["redirectURL"]
             authentication = OAuthService(application=self.application, request=self.request)
-            registered_user = authentication.register_user(register_type, auth_code, redirect_uri)
+            registered_user = yield authentication.register_user(register_type, auth_code, redirect_uri)
             if registered_user is not None:
                 resp_status = 200
                 response = {"message": "User sucessfully registered."}
