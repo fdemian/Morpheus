@@ -6,12 +6,11 @@ from backend.routes.Users import UsersHandler, UserHandler
 from backend.routes.Categories import CategoriesHandler, CategoryHandler, CategoryTopicsHandler
 from backend.routes.Index import IndexHandler
 from backend.routes.Auth import LogoutHandler
-from backend.routes.GetRegisterInfo import RegisterInfo
 from backend.routes.Comments import CommentsHandler
 from backend.routes.ConfigOptions import ConfigHandler
 from backend.routes.Notifications import Notifications
 from backend.routes.Auth import BaseAuth
-from backend.routes.TwitterRedirect import TwitterHandler
+# from backend.routes.TwitterRedirect import TwitterHandler
 from backend.routes.Activation import UserActivationHandler
 from tornado.web import StaticFileHandler
 
@@ -22,7 +21,6 @@ def get_app_routes(static_path):
     params = {'notifications_handler': notifications_handler}
 
     routes = [
-       (r"/api/userinfo/(.*)/(.*)", RegisterInfo),
        (r"/api/stories/(.*)/comments", CommentsHandler, params),
        (r"/api/stories", StoriesHandler),
        (r"/api/stories/([0-9]+)", StoryHandler),

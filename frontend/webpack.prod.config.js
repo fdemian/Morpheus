@@ -1,3 +1,19 @@
+var path = require('path');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var cssnano = require('cssnano');
+var responsiveImages = require('postcss-responsive-images');
+var webpack = require('webpack');
+
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
+
+var rewriteUrl = function (replacePath) {
+  return function (req, opt) {  // gets called with request and proxy object
+    var queryIndex = req.url.indexOf('?');
+    var query = queryIndex >= 0 ? req.url.substr(queryIndex) : '';
+    req.url = req.path.replace(opt.path, replacePath) + query;
+  };
+};
+
 var config = {
   /*devtool: 'cheap-module-source-map',*/
   entry: {
@@ -47,7 +63,6 @@ var config = {
 		keep_fnames: false
 	  }
 	}),
-    new webpack.optimize.DedupePlugin(),
 	new webpack.optimize.OccurrenceOrderPlugin(),
 	new webpack.DefinePlugin({
       'process.env': {

@@ -75,11 +75,11 @@ class UsersHandler(RequestHandler):
         # TODO: validate user information (through forms library?)
         request = self.request.body.decode("utf-8")
         json_request = json.loads(request)
-        authentication = DatabaseAuthService()
         register_type = json_request["type"]
 
         if register_type == "database":
             activation_code = str(uuid.uuid4())
+            authentication = DatabaseAuthService()
             user_to_validate = authentication.save_user(json_request, activation_code)
             self.send_email(user_to_validate, activation_code)
             if user_to_validate is not None:

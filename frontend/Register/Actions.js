@@ -78,8 +78,7 @@ export default function register(_type, code, redirectURL) {
               password: _password,
               email: _email,
               name: _name,
-              type: _type,
-			  redirectURL: redirectURL
+              type: _type
           });
       }
       else

@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Register from './Register';
 
+import register from './Actions';
+
 import {
-  register,
   updateEmailFn,
   updateNameFn,
   updateUsernameFn,
@@ -22,8 +23,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onRegisterClick: (type) => {
-	  dispatch(register(type));
+    onRegisterClick: (type, code, redirectURL) => {
+	  dispatch(register(type, code, redirectURL));
 	},
     updateEmail: (value) =>{
       dispatch(updateEmailFn(value));
