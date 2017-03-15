@@ -19,9 +19,7 @@ class OAuthService:
     def __init__(self, oauth_settings):
         self.oauth_settings = oauth_settings
 
-    @gen.coroutine
-    def get_user_by_service(self, service_type, auth_code, redirect_uri):
-
+    def get_service_instance(self, service_type):
         auth_service = self.services.get(service_type)
 
         if auth_service is None:
@@ -29,8 +27,14 @@ class OAuthService:
 
         service_key = self.oauth_settings[service_type]["key"]
         service_secret = self.oauth_settings[service_type]["secret"]
-
         service_instance = auth_service(service_key, service_secret)
+
+        return service_instance
+
+    @gen.coroutine
+    def get_user_by_service(self, service_type, auth_code, redirect_uri):
+
+        service_instance = self.get_service_instance(service_type)
         user = yield service_instance.get(auth_code, redirect_uri, "login")
 
         if user is None:
@@ -41,12 +45,7 @@ class OAuthService:
     @gen.coroutine
     def register_user(self, service_type, auth_code, redirect_uri):
 
-        auth_service = self.services.get(service_type)
-
-        if auth_service is None:
-            raise NoSuchServiceException
-
-        service_instance = auth_service(application=self.application, request=self.request)
+        service_instance = self.get_service_instance(service_type)
         oauth_user = yield service_instance.get(auth_code, redirect_uri, "register")
         uglified_username = uglify_username(oauth_user["username"])
         user_avatar = yield download_avatar(oauth_user["avatar"], uglified_username)
