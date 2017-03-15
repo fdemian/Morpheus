@@ -16,12 +16,13 @@ class GoogleAuthService(GoogleOAuth2Mixin):
     @tornado.gen.coroutine
     def get(self, auth_code, redirect_url, method):
 
-        openid_configuration = yield self.oauth2_request(self.settings["google_discovery_url"])
+        discovery_url = "https://accounts.google.com/.well-known/openid-configuration"
+
+        openid_configuration = yield self.oauth2_request(discovery_url)
         user_info_endpoint = openid_configuration["userinfo_endpoint"]
         token_endpoint = openid_configuration["token_endpoint"]
 
-        # request_token_url = google_api_url + "token"
-
+        # Request access token.
         access = yield self.oauth2_request(token_endpoint, post_args={
                                                    "client_id": self.key,
                                                    "client_secret": self.secret,
@@ -34,6 +35,7 @@ class GoogleAuthService(GoogleOAuth2Mixin):
         token = access["access_token"]
         # expires_in = access["expires_in"]
 
+        # Request google user.
         google_user = yield self.oauth2_request(user_info_endpoint, access_token=token)
 
         if not google_user:
