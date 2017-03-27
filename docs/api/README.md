@@ -35,7 +35,7 @@
  User-Agent: <user agent string>
  ```
  
- Where <token> is the JWT token provided by the application upon successfull authentication.
+ Where <token> is the JWT token provided by the application upon successful authentication.
  If a valid token is not included in a request headers to a method that requires authentication you will recieve the following error object:
 
  ```
