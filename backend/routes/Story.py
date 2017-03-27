@@ -106,14 +106,24 @@ class StoryHandler(AuthenticatedHandler):
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_status(status, status_str)
-        self.write(response)		
+        self.write(response)
 
 
     # DELETE /story/id
     def delete(self, story_id):
 
         if not self.get_current_user():
-            raise HTTPError(403)
+             status = 403
+             status_str = 'Authenticaton failed.'
+             response = {'data': {'code': status, 'error': status_str}}
+             json.dumps(response)
+ 
+             self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
+             self.set_header("Access-Control-Allow-Origin", "*")
+             self.set_status(status, status_str)
+             self.write(response)
+             
+             return
 
         session_object = get_session()
         session = session_object()
