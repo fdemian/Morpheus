@@ -19,7 +19,7 @@ GET /categories
 }
 ```
 
-# Create new category (**Authentication required**)
+# Create new category (*Authentication required*)
 
 Sample request:
 
