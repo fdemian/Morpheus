@@ -2,7 +2,7 @@
 
  Lists the comments for a given story. 
  
-# Create new comment (**Authentication required**)
+# Create new comment (*Authentication required*)
  
  Post a new comment in a given story.  
  

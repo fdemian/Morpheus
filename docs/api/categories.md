@@ -24,7 +24,7 @@ GET /categories
 Sample request:
 
 ```
-POST --data="categoryName=name" /categories
+POST -d '{'categoryName': 'name'}' /categories
 
 {
   "data": [

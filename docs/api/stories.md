@@ -28,10 +28,10 @@ GET /stories
 Where category is a category object, author is a user object and <content> is a raw draftJS
 content object.
 
-# Create new story (**Authentication required**)
+# Create new story (*Authentication required*)
 
-# Delete a story (**Authentication required**)
+# Delete a story (*Authentication required*)
 
-# Update a story (**Authentication required**)
+# Update a story (*Authentication required*)
 
 

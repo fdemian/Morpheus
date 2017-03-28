@@ -2,11 +2,13 @@
 
 Blog application powered by tornado and material UI. 
 
-## How to run
+## How to run 
+
+ Instructions to run the application. See the deployment section of the documentation for a more detailed overview.
 
 ### Prerequisites
 
-To run this in your local environment you must install the following dependencies first:
+ To run this in your local environment you must install the following dependencies first:
 
  - Python 3.4+
  - PostgreSQL 
@@ -14,15 +16,15 @@ To run this in your local environment you must install the following dependencie
  
 ### Installation
 
-Once you've installed all the dependencies follow this steps:
+ Once you've installed all the dependencies follow this steps:
 
  1) Edit your configuration file
  
  2) Run the application configuration:
    
-   ```python
-   python3 setup.py 
-   ```
+  ```python
+  python3 setup.py 
+  ```
 
   This will create your database, run the migrations and download all necesary python packages.
  
@@ -42,6 +44,6 @@ Once you've installed all the dependencies follow this steps:
 
  4) Run the application 
 
-   ```python
-   <python3> main.py
-   ```
+ ```python
+ <python3> main.py
+ ```
