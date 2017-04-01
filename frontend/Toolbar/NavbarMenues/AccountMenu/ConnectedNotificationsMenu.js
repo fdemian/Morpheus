@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import NotificationsMenu from './NotificationsMenu';
-import initializeNotifications from '../../../App/Actions.js';
+import {initializeNotifications} from '../../../App/Actions.js';
 
 const mapStateToProps = (state) => {
   return {

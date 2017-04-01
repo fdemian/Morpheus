@@ -18,15 +18,11 @@ class Notifications(WebSocketHandler, AuthenticatedHandler):
 
         current_user_id = self.get_current_user()
 
-        print(self.get_current_user)
-        print(current_user_id)
-        print("(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)(.)")
-
         if not current_user_id:
             self.write_message("{}")
         else:
             print(current_user_id)
-            self.write_message("{'madea': 'boo!'}")
+            self.write_message("{'authenticated': 'yes'}")
 
     # TODO: Print a message?
     def on_close(self):
