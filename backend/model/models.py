@@ -20,6 +20,7 @@ class User(Base):
 
     stories = relationship("Story", backref="user")
     accounts = relationship("OAuthAccount", back_populates="user", lazy='dynamic')
+    notifications = relationship("Notification")
 
 
 class OAuthAccount(Base):
@@ -90,6 +91,16 @@ class Comment(Base):
     avatar = Column(Text, nullable=False)
     url = Column(Text, nullable=False)
     story_id = Column(Integer, ForeignKey('stories.id'))
+
+
+class Notification(Base):
+    __tablename__ = 'notifications'
+
+    id = Column(Integer, primary_key=True, nullable=False)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    type = Column(Text, nullable=False)
+    text = Column(Text, nullable=False)
+    link = Column(Text, nullable=False)
 
 
 def create_from_scratch(connection_string):

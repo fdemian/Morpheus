@@ -23,6 +23,8 @@ function webSocketMiddleware({ dispatch, getState }) {
     webSocket.onopen =  function(event){ onWsOpen(dispatch, successType) };
     webSocket.onmessage = function(event){ onWsMessage(event, dispatch, notificationType); } ;
 
+    window.webSocket = webSocket;
+
     return;
   }
 }

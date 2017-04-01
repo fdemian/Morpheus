@@ -28,7 +28,6 @@ injectTapEventPlugin();
 
 // Load configuration and initialize websocket.
 store.dispatch(loadConfig());
-store.dispatch(initializeNotifications());
 
 function requireAuth(nextState, replace) {
   const state = store.getState();
