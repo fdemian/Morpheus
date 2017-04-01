@@ -26,7 +26,7 @@ const store = storeCreator();
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-// Load configuration and initialize websocket.
+// Load configuration.
 store.dispatch(loadConfig());
 
 function requireAuth(nextState, replace) {

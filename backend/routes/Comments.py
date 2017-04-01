@@ -54,7 +54,7 @@ class CommentsHandler(AuthenticatedHandler):
             }
 
             text = json_comment["author"] + " commented on " + json_comment["story"]
-            link = "/stories" + str(json_comment["storyId"]) + "/" + json_comment["story"]
+            link = "/stories/" + str(json_comment["storyId"]) + "/" + json_comment["story"]
 
             self.save_notification(author, "comment", text, link)
             self.notify_new_comment(json_comment, text, link)
