@@ -17,7 +17,7 @@ import Authentication from './Authentication/Container';
 import Register from './Register/Container';
 import Home from './App/Home'; // Home
 import NotFound from './Errors/NotFound'; // 404
-import loadConfig, {initializeNotifications} from './App/Actions';
+import loadConfig from './App/Actions';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 const store = storeCreator();

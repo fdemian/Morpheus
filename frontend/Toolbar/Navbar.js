@@ -4,8 +4,8 @@ import Styles from './css/Toolbar.scss';
 import { Link } from 'react-router';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import TextField from 'material-ui/TextField';
-import AccountMenu from './NavbarMenues/ConnectedAccountMenu';
-import LoginMenu from './NavbarMenues/ConnectedLoginMenu';
+import AccountMenu from './NavbarMenues/AccountMenu/ConnectedAccountMenu';
+import LoginMenu from './NavbarMenues/LoginMenu/LoginMenu';
 
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';

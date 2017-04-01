@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import AccountMenu from './AccountMenu';
-import {signOut} from '../../Authentication/Actions';
+import {signOut} from '../../../Authentication/Actions';
 
-const mapStateToProps = (state) => {    
+const mapStateToProps = (state) => {
   return {
 	 authType: state.session.type,
-     token : state.session.token	  
+     token : state.session.token
   }
 }
 
@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onLogoutClick: () => {
 	  dispatch(signOut());
-	}	
+	}
   }
 }
 

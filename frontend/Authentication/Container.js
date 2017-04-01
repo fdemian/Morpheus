@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     performAuth:(type, token, redirectURL, username, password) => {
-	  dispatch(signIn(type, token, redirectURL, username, password)).then(dispatch(initializeNotifications()));
+	  dispatch(signIn(type, token, redirectURL, username, password));
 	},
     performRegistration(type, token, redirectURL){
       dispatch(register(type, token, redirectURL));

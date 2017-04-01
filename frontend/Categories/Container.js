@@ -6,7 +6,7 @@ import loadCategories, {createCategory} from './Actions';
 const mapStateToProps = (state) => {
   return {
     categories: state.categories.items,
-	  isFetching: state.categories.isFetching,
+	isFetching: state.categories.isFetching,
     error: state.categories.error
   }
 }

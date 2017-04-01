@@ -21,8 +21,6 @@ const OAuthButtons = ({provider, redirectURL}) => {
    const baseURL = "/static/icons/";
    const iconPath = baseURL + provider.iconURL;
 
-   console.log(authUrl);
-
    return(
    <span >
     <a href={"/auth/" + provider.name} onClick={(evt) => onClick(evt, authUrl)} >

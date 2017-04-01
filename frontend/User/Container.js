@@ -6,7 +6,7 @@ import {loadUser, loadUserStories} from './Actions';
 const mapStateToProps = (state) => {
   return {
     user: state.user.user,
-	  isFetching: state.user.isFetching,
+	isFetching: state.user.isFetching,
     error: state.user.error,
     stories: state.user.stories
   }

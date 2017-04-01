@@ -1,7 +1,6 @@
 import React from 'react';
 import UserMenu from './UserMenu';
-import NotificationsMenu from './NotificationsMenu';
-
+import NotificationsMenu from './ConnectedNotificationsMenu';
 
 const AccountMenu = ({user, notifications, onLogoutClick}) => {
 

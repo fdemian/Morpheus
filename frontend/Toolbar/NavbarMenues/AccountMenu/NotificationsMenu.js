@@ -9,7 +9,9 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 const DefaultNotification = <MenuItem value={-1} key={-1} primaryText="No new notifications." />;
 
-const NotificationsMenu = ({notifications}) => {
+const NotificationsMenu = ({notifications, onInit}) => {
+
+ onInit();
 
  return (
 	<IconMenu
