@@ -32,6 +32,7 @@
     "draft-js": "latest",
     "file-loader": "latest",
     "isomorphic-fetch": "latest",
+    "katex": "^0.7.1",
     "material-ui": "^0.16.5",
     "postcss-responsive-images": "^1.0.3",
     "react": "latest",
