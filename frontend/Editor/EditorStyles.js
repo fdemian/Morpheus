@@ -2,6 +2,8 @@ import Draft from 'draft-js';
 import Spoiler from './TextElements/SpoilerWrapper';
 import Media from './TextElements/Media';
 import Link from  './TextElements/Link';
+import TeXBlock from './TextElements/Latex/TeXBlock';
+import {insertTeXBlock} from './TextElements/Latex/insertTeXBlock';
 
 /* ----------------------- Icons  -------------------------------- */
 
@@ -23,6 +25,9 @@ import LinkRemove from 'material-ui/svg-icons/content/link';
 import Image from 'material-ui/svg-icons/editor/insert-photo';
 import SpoilerIcon from 'material-ui/svg-icons/action/visibility';
 import Video from 'material-ui/svg-icons/av/movie';
+import TexIcon from 'material-ui/svg-icons/social/share';
+
+import {Map} from 'immutable';
 
 /*---------------------------------------------------------------------*/
 
@@ -57,7 +62,8 @@ const CUSTOM_STYLES =
   {label: 'LinkRemove', style: 'LinkRemove', toggleFn: removeLink, requiresInput: false, requiresSelection: false, icon: LinkRemove},
   {label: 'Image', style: 'Image', toggleFn: insertMedia, requiresInput: true, requiresSelection: false, icon: Image},
   {label: 'Spoiler', style: 'Spoiler', toggleFn: insertSpoiler, requiresInput: false, requiresSelection: true, icon: SpoilerIcon},
-  {label: 'Video', style: 'Video', toggleFn: insertMedia, requiresInput: true, requiresSelection: false, icon: Video}
+  {label: 'Video', style: 'Video', toggleFn: insertMedia, requiresInput: true, requiresSelection: false, icon: Video},
+  {label: 'Latex', style: 'Latex', toggleFn: insertLaTexBlock, requiresInput: false, requiresSelection: false, icon: TexIcon}
 ];
 
 /* ------------------------------------------------------------------------------------------------------ */
@@ -80,17 +86,25 @@ export function insertMedia(editor, type, value)
    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
 
    editor.setState({
-     editorState: AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ')
+     editorState: AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, 'media')
    }, () => {setTimeout(() => editor.focus(), 0); });
  }
-
+ 
  export function insertLink(editor, type, value)
- {
+ {  
    const {editorState} = editor.state;
-   const contentState = editorState.getCurrentContent();
-   const contentStateWithEntity = contentState.createEntity('LINK', 'MUTABLE', {url: value});
-
-   insertEntity(editor, editorState, contentStateWithEntity);
+   const contentState = editorState.getCurrentContent();   
+   const contentStateWithEntity = contentState.createEntity('LINK','MUTABLE', {url: value}); 
+   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+   const newEditorState = EditorState.set(editorState, {currentContent: contentStateWithEntity });
+   const newStateSelection = newEditorState.getSelection();
+     
+   editor.setState({
+     editorState: RichUtils.toggleLink(newEditorState, newStateSelection, entityKey)      
+   }, 
+   () => {	
+       setTimeout(() => editor.focus(), 0);
+   });	 
  }
 
  export function removeLink(editor)
@@ -120,6 +134,14 @@ export function insertMedia(editor, type, value)
    insertEntity(editor, editorState, contentStateWithEntity);
  }
 
-const EditorStyles = { BLOCK_TYPES, INLINE_STYLES, CUSTOM_STYLES };
+ export function insertLaTexBlock(editor){
+      
+   editor.setState({
+     liveTeXEdits: Map(),
+     editorState: insertTeXBlock(editor.state.editorState),
+   });
+ }
 
-export default EditorStyles;
+ const EditorStyles = { BLOCK_TYPES, INLINE_STYLES, CUSTOM_STYLES };
+
+ export default EditorStyles;

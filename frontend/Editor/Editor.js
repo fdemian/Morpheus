@@ -1,10 +1,12 @@
 import React from 'react';
 import Draft from 'draft-js';
-import Immutable from 'immutable';
+import {Map} from 'immutable';
 import cssModules from 'react-css-modules';
 import Styles from './css/Editor.scss';
 import EditorControls from './Controls';
 
+import TeXBlock from './TextElements/Latex/TeXBlock';
+import {removeTeXBlock} from './TextElements/Latex/removeTeXBlock';
 import Spoiler from './TextElements/SpoilerWrapper';
 import Media from './TextElements/Media';
 import Link from  './TextElements/Link';
@@ -21,11 +23,11 @@ const {
  convertFromRaw
 } = Draft;
 
-const {Map} = Immutable;
-const blockRenderMap = Immutable.Map({'SPOILER':{ element: Spoiler }});
+const blockRenderMap = Map({'SPOILER':{ element: Spoiler }});
 const extendedBlockRenderMap = Draft.DefaultDraftBlockRenderMap.merge(blockRenderMap);
 
 function getBlockStyle(block) {
+		
 	switch (block.getType()) {
 	  case 'blockquote':
         return 'Blockquote';
@@ -38,7 +40,7 @@ function getBlockStyle(block) {
 	}
 }
 
-function findLinkEntities(contentBlock, callback, contentState) {
+function findLinkEntities(contentBlock, callback, contentState) {  
   contentBlock.findEntityRanges(
      (character) => {
         const entityKey = character.getEntity();
@@ -50,6 +52,7 @@ function findLinkEntities(contentBlock, callback, contentState) {
      callback
   );
 }
+
 
 function findSpoilerEntities(contentBlock, callback, contentState) {
   contentBlock.findEntityRanges(
@@ -74,7 +77,7 @@ class EditorComponent extends React.Component {
    const decorator = new CompositeDecorator([
       {
         strategy: (contentBlock, callback, contentState) => findLinkEntities(contentBlock, callback, contentState),
-       component: Link,
+        component: Link,
       },
       {
         strategy: (contentBlock, callback, contentState) => findSpoilerEntities(contentBlock, callback, contentState),
@@ -95,9 +98,9 @@ class EditorComponent extends React.Component {
      const _contentState = convertFromRaw(JSON.parse(initialState));
      _initalEditorState = EditorState.createWithContent(_contentState, decorator);
    }
-
+   
    this.setClearEditorFn = this.props.setClearEditorFn;
-   this.state = {editorState: _initalEditorState };
+   this.state = {liveTeXEdits: Map(), editorState: _initalEditorState};
    this.editorStyles = this.props.editorStyles;
    this.focus = () => this.refs.editor.focus();
    this.onStateChange = (rawState) => this.props.onEditorChange(rawState);
@@ -112,9 +115,24 @@ class EditorComponent extends React.Component {
    this.inlineIsActive = (style) => this._inlineIsActive(style);
    this.customBlockIsActive = (block) => this._customBlockIsActive(block);
    this.clear = () => this._clear();
-
+   this.removeTex = (blockKey) => this._removeTex(blockKey);   
    this.setClearEditorFn(this.clear)
  } 
+ 
+ _removeTeX = (blockKey) => {
+   var {editorState, liveTeXEdits} = this.state;
+    this.setState({
+      liveTeXEdits: liveTeXEdits.remove(blockKey),
+      editorState: removeTeXBlock(editorState, blockKey),
+    });
+ };
+
+ _insertTeX = () => {
+   this.setState({
+     liveTeXEdits: Map(),
+     editorState: insertTeXBlock(this.state.editorState),
+   });
+ };
  
  _clear()
  {
@@ -180,12 +198,34 @@ class EditorComponent extends React.Component {
  customRenderFn(contentBlock)
  {
 	const type = contentBlock.getType();
-
-	if (type === 'atomic') {
+    const text = contentBlock.getText();
+		
+	if (text === 'media') {
      return {
        component: Media,
        editable: false,
      };
+    }
+		
+    if (type === 'atomic') {	  
+      return {
+         component: TeXBlock,
+         editable: false,
+         props: {
+           onStartEdit: (blockKey) => {
+              var {liveTeXEdits} = this.state;
+              this.setState({liveTeXEdits: liveTeXEdits.set(blockKey, true)});
+           },
+           onFinishEdit: (blockKey, newContentState) => {
+              var {liveTeXEdits} = this.state;			  
+              this.setState({
+                liveTeXEdits: liveTeXEdits.remove(blockKey),
+                editorState:EditorState.createWithContent(newContentState),
+              });
+           },
+           onRemove: (blockKey) => this._removeTeX(blockKey),
+         },
+      };
     }
 
     return null;
@@ -237,17 +277,19 @@ class EditorComponent extends React.Component {
      editor={this}
 	/>
 	<div className={className} onClick={this.focus} styleName="MainEditor">
-	   <Editor
-		blockStyleFn={getBlockStyle}
-		blockRendererFn={this.customRenderFn.bind(this)}
-		blockRenderMap={extendedBlockRenderMap}
-		editorState={editorState}
-		handleKeyCommand={this.handleKeyCommand}
-		onChange={this.onChange}
-		ref="editor"
-		spellCheck={false}
-	   />
+	   <Editor		  
+		   blockStyleFn={getBlockStyle}
+		   blockRendererFn={this.customRenderFn.bind(this)}
+		   blockRenderMap={extendedBlockRenderMap}
+		   editorState={editorState}
+		   handleKeyCommand={this.handleKeyCommand}
+		   onChange={this.onChange}
+		   ref="editor"
+		   spellCheck={false}
+		   readOnly={this.state.liveTeXEdits.count()}
+	   />	
 	</div>
+	
   </div>
   );
  }

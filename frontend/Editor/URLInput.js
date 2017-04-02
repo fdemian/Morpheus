@@ -5,8 +5,10 @@ import ConfirmIcon from 'material-ui/svg-icons/action/done';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
 import FlatButton from 'material-ui/FlatButton';
 
-const URLInput = ({changeFn, urlValue, confirmFn, cancelFn}) => {
+const URLInput = ({changeFn, urlValue,confirmFn, cancelFn, type}) => {
   
+ const hintText = "Enter " + type.toLowerCase() + " URL";
+ 
  return(
  <span>
   
@@ -15,24 +17,24 @@ const URLInput = ({changeFn, urlValue, confirmFn, cancelFn}) => {
 	    name={"URL input"} 
 		onChange={changeFn} 
 		value={urlValue} 
-		hintText="Enter URL"
+		hintText={hintText}
 		style={{'width': '400px', 'marginLeft': '40px'}}
 	  />
    </span>
 
    <span style={{'marginLeft': '8px'}}>   
       <FlatButton
-        icon={<CancelIcon color="red" />}
-  	    onClick={cancelFn}  
-        hoverColor="white"
-		style={{'minWidth': '30px'}}
-      />  	      
-      <FlatButton
-        icon={<ConfirmIcon color="green" />}
+        icon={<ConfirmIcon color="gainsboro" />}
   	    onClick={confirmFn}
         hoverColor="white"
 		style={{'minWidth': '30px'}}
       />	  
+	  <FlatButton
+        icon={<CancelIcon color="gainsboro" />}
+  	    onClick={cancelFn}  
+        hoverColor="white"
+		style={{'minWidth': '30px'}}
+      />  	      
    </span>
 	 
  </span>

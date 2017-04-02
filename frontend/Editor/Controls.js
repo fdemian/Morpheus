@@ -100,19 +100,11 @@ class EditorControls extends Component {
 
 	let urlInput;
 	let colorPicker;
-
-	if (this.state.showURLInput)
-	{
-      urlInput = <URLInput changeFn={this.onURLChange} urlValue={this.state.urlValue} keyDownFn={this.onURLInputKeyDown}
-                  cancelFn={this.cancelUrlFn} confirmFn={this.confirmUrl}  />;
-    }
-	else
-	{
-      if(this.state.showColorPicker)
-	    {
+	
+   /*
+   if(this.state.showColorPicker){
           colorPicker = <span>Color</span>;
-      }
-	}
+    }*/
 	
 	if(this.state.showURLInput)
 		return (
@@ -123,6 +115,7 @@ class EditorControls extends Component {
 			   urlValue={this.state.urlValue} 
                cancelFn={this.cancelUrlFn} 
 			   confirmFn={this.confirmUrl}  
+			   type={this.state.urlType}
 		     />
 		   </div>
 		</div>
