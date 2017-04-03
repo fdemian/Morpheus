@@ -6,6 +6,7 @@ import Message from 'material-ui/svg-icons/communication/message';
 import Mail from  'material-ui/svg-icons/communication/email';
 import Badge from 'material-ui/Badge';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
+import { Link } from 'react-router';
 
 const DefaultNotification = <MenuItem value={-1} key={-1} primaryText="No new notifications." />;
 
@@ -22,8 +23,6 @@ class NotificationsMenu extends Component {
 
  render() {
 
-  console.log(this.props.notifications);
-
   return (
 	<IconMenu
 	 iconButtonElement={
@@ -36,11 +35,14 @@ class NotificationsMenu extends Component {
 	 targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
 	 anchorOrigin={{horizontal: 'left', vertical: 'top'}}
 	>
-	{this.props.notifications.length == 0 ? (DefaultNotification) :
+	 {this.props.notifications.length == 0 ? (DefaultNotification) :
 	  (this.props.notifications.map((notification, i) =>
+	     <Link to={notification.link} style={{textDecoration: 'none'}} >
           <MenuItem value={i} key={i} primaryText={notification.text} />
+         </Link>
       ))
-    }
+     }
+     <MenuItem value={-1} key={-1} primaryText="Dismiss all" />
 	</IconMenu>
   );
 
