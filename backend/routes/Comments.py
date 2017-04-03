@@ -53,11 +53,11 @@ class CommentsHandler(AuthenticatedHandler):
                 'storyId': story.id
             }
 
-            text = json_comment["author"] + " commented on " + json_comment["story"]
-            link = "/stories/" + str(json_comment["storyId"]) + "/" + json_comment["story"]
+            text = comment.author + " commented on " + story.title
+            link = "/stories/" + str(story.id) + "/" + story.title
 
             self.save_notification(author, "comment", text, link)
-            self.notify_new_comment(json_comment, text, link)
+            self.notify_new_comment(text, link)
 
             response = {'data': json_comment}
 
@@ -93,8 +93,7 @@ class CommentsHandler(AuthenticatedHandler):
            'link': link
         }
 
-        json.dumps(message)
-        notifications_handler.write_message(json.dumps(message))
+        notifications_handler.write_message(json.dumps({'data': [message]}))
 
         return
 

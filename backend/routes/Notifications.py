@@ -40,7 +40,6 @@ class Notifications(WebSocketHandler):
         for notificaton in notifications:
 
             json_notification = {
-                'id': notificaton.id,
                 'type': notificaton.type,
                 'text': notificaton.text,
                 'link': notificaton.link

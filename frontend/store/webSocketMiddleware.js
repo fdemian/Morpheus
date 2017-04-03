@@ -63,6 +63,9 @@ export function onWsOpen(dispatch, sucessType, requestTypes, token){
 
 export function onWsMessage(event, dispatch, notificationType){
    var notifications = JSON.parse(event.data);
+   console.log(notifications);
+   console.log("MADEA!");
+
    dispatch({type: notificationType, data: notifications.data });
 }
 

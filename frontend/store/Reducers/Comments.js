@@ -9,7 +9,7 @@ const initialState = {
 export function comment(state = initialState, action) {
  switch (action.type) {
     case COMMENT_CHANGED:
-	    return { ...state, text: action.data };
+	   return { ...state, text: action.data };
     default:
       return state;
   }

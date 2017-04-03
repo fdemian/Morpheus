@@ -8,7 +8,6 @@ export const POST_COMMENT_FAILURE = 'POST_COMMENT_FAILURE';
 
 
 export function updateCommentText(text){
-
    return dispatch =>{
       dispatch({ type:COMMENT_CHANGED, data: text});
    }

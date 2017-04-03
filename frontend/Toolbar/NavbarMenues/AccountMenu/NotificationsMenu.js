@@ -9,7 +9,6 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 const DefaultNotification = <MenuItem value={-1} key={-1} primaryText="No new notifications." />;
 
-
 class NotificationsMenu extends Component {
 
  constructor(props) {
@@ -22,6 +21,8 @@ class NotificationsMenu extends Component {
  }
 
  render() {
+
+  console.log(this.props.notifications);
 
   return (
 	<IconMenu
@@ -37,7 +38,7 @@ class NotificationsMenu extends Component {
 	>
 	{this.props.notifications.length == 0 ? (DefaultNotification) :
 	  (this.props.notifications.map((notification, i) =>
-          <MenuItem value={notification.id} key={notification.id} primaryText={notification.text} />
+          <MenuItem value={i} key={i} primaryText={notification.text} />
       ))
     }
 	</IconMenu>
