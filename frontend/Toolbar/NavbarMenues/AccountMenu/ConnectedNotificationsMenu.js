@@ -5,14 +5,15 @@ import {initializeNotifications} from '../../../App/Actions.js';
 const mapStateToProps = (state) => {
   return {
 	 loggedIn: state.session.loggedIn,
+	 user: state.session.user,
      token : state.session.token,
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onInit: (loggedIn, token) => {
-	  dispatch(initializeNotifications());
+    onInit: (loggedIn, token, user) => {
+	  dispatch(initializeNotifications())
 	}
   }
 }

@@ -1,8 +1,10 @@
+import json
+from backend.Utils import validate_token
+from backend.model.sessionHelper import get_session
+from backend.model.models import Notification
 from tornado.websocket import WebSocketHandler
-from backend.routes.Auth import AuthenticatedHandler
 
-
-class Notifications(WebSocketHandler, AuthenticatedHandler):
+class Notifications(WebSocketHandler):
 
     def initialize(self, notifications_handler):
         self.notifications_handler = notifications_handler
@@ -16,13 +18,40 @@ class Notifications(WebSocketHandler, AuthenticatedHandler):
     # Notifications for a given user were requested.
     def on_message(self, message):
 
-        current_user_id = self.get_current_user()
+        json_message = json.loads(message)
+        jwt_token = json_message["token"]
+        jwt_secret = self.settings["jwt_secret"]
+        jwt_algorhitm = self.settings["jwt_algorithm"]
 
-        if not current_user_id:
+        validated_user = validate_token(jwt_token, jwt_secret, jwt_algorhitm)
+
+        if validated_user is None:
             self.write_message("{}")
-        else:
-            print(current_user_id)
-            self.write_message("{'authenticated': 'yes'}")
+
+        # Perform additional validation on JWT claims.
+        user_id = int(self.get_secure_cookie("user", value=validated_user["user_token"]))
+        session_object = get_session()
+        session = session_object()
+        notifications = session.query(Notification).filter(Notification.user_id == user_id)\
+                                                   .order_by(Notification.id.desc())\
+                                                   .all()
+        data = []
+
+        for notificaton in notifications:
+
+            json_notification = {
+                'id': notificaton.id,
+                'type': notificaton.type,
+                'text': notificaton.text,
+                'link': notificaton.link
+            }
+
+            data.append(json_notification)
+
+        response = {'data': data}
+        print(response)
+        self.write_message(json.dumps(response))
+
 
     # TODO: Print a message?
     def on_close(self):

@@ -4,23 +4,9 @@ from datetime import datetime, timedelta
 from backend.authentication.OAuthService import OAuthService
 from backend.authentication.Database import DatabaseAuthService
 from backend.authentication.AuthExceptions import OAuthFailedException, NoSuchServiceException, InvalidUserException
-from backend.Utils import get_oauth_settings
+from backend.Utils import get_oauth_settings, validate_token
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
-
-
-# Decode a JWT token and return the results.
-def validate_token(jwt_token, secret, algorithm):
-    try:
-        if jwt_token is None:
-            return None
-
-        payload = jwt.decode(jwt_token, secret, algorithms=[algorithm])
-
-        return payload
-
-    except (jwt.DecodeError, jwt.ExpiredSignatureError):
-        return None
 
 
 class AuthenticatedHandler(RequestHandler):

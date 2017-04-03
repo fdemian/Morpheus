@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -9,14 +9,24 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 
 const DefaultNotification = <MenuItem value={-1} key={-1} primaryText="No new notifications." />;
 
-const NotificationsMenu = ({notifications, onInit}) => {
 
- onInit();
+class NotificationsMenu extends Component {
 
- return (
+ constructor(props) {
+   super(props)
+   this.onInit = this.props.onInit;
+ }
+
+ componentDidMount() {
+   this.onInit();
+ }
+
+ render() {
+
+  return (
 	<IconMenu
 	 iconButtonElement={
-	     <Badge badgeContent={notifications.length} secondary={true} badgeStyle={{top: 12, right: 12}} >
+	     <Badge badgeContent={this.props.notifications.length} secondary={true} badgeStyle={{top: 12, right: 12}} >
 	        <IconButton disableTouchRipple={true} tooltip="Notifications">
                <NotificationsIcon color="gainsboro" />
 	        </IconButton>
@@ -25,14 +35,16 @@ const NotificationsMenu = ({notifications, onInit}) => {
 	 targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
 	 anchorOrigin={{horizontal: 'left', vertical: 'top'}}
 	>
-	{notifications.length == 0 ? (DefaultNotification) :
-	  (notifications.map((notification, i) =>
+	{this.props.notifications.length == 0 ? (DefaultNotification) :
+	  (this.props.notifications.map((notification, i) =>
           <MenuItem value={notification.id} key={notification.id} primaryText={notification.text} />
       ))
     }
 	</IconMenu>
-   );
-}
+  );
 
+ }
+
+}
 
 export default NotificationsMenu;

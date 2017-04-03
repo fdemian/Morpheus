@@ -1,8 +1,21 @@
+import jwt
 import re
 from tornado.gen import coroutine
 from tornado.httpclient import AsyncHTTPClient
 from os import path, getcwd
 
+# Decode a JWT token and return the results.
+def validate_token(jwt_token, secret, algorithm):
+    try:
+        if jwt_token is None:
+            return None
+
+        payload = jwt.decode(jwt_token, secret, algorithms=[algorithm])
+
+        return payload
+
+    except (jwt.DecodeError, jwt.ExpiredSignatureError):
+        return None
 
 @coroutine
 def fetch_coroutine(url):

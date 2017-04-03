@@ -17,7 +17,7 @@ function callAPIMiddleware({ dispatch, getState }) {
     if (!types)
         return next(action)
 
-    if(types.length === 4)
+    if(types.length === 7)
         return next(action);
 
     if(!Array.isArray(types) || types.length !== 3 || !types.every(type => typeof type === 'string'))

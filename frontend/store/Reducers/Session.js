@@ -97,6 +97,7 @@ export function session(state = initialState, action) {
     case LOGOUT_FAILURE:
       return { ...state, isFetching: false, error: true};
 
+    /* Notifications.  */
     case NEW_NOTIFICATION:
       const items = state.notifications.concat(action.data);
       return { ...state, notifications: items};
