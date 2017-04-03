@@ -5,6 +5,7 @@ import NotificationsMenu from './ConnectedNotificationsMenu';
 const AccountMenu = ({user, notifications, onLogoutClick}) => {
 
  const _notifications = notifications.slice(0, 4);
+ console.log(_notifications);
 
  return(
   <div>
