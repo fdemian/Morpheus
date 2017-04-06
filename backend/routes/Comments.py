@@ -105,6 +105,7 @@ class CommentsHandler(AuthenticatedHandler):
         notification_to_save.type = notification_type
         notification_to_save.text = text
         notification_to_save.link = link
+        notification_to_save.read = False
 
         session_object = get_session()
         session = session_object()

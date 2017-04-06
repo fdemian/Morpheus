@@ -43,3 +43,12 @@ export function initializeNotifications() {
     middlewareType: "websocket",
   }
 }
+
+export function getNotifications(token) {
+
+  const endpoint = "alerts";
+  const types = [REQUEST_NOTIFICATIONS, RECEIVE_NOTIFICATIONS, REQUEST_NOTIFICATIONS_FAILURE];
+  const content = "{}";
+
+  return _GET(endpoint, types, content, token);
+}

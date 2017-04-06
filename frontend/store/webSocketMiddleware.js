@@ -58,28 +58,11 @@ export function onWsError (dispatch, errorType) {
 
 export function onWsOpen(dispatch, sucessType, requestTypes, token){
    dispatch({type: sucessType});
-   getNotifications(dispatch, requestTypes, token);
 }
 
 export function onWsMessage(event, dispatch, notificationType){
    var notifications = JSON.parse(event.data);
    dispatch({type: notificationType, data: notifications.data });
-}
-
-export function getNotifications(dispatch, requestTypes, token) {
-
-    dispatch({type: requestTypes.request});
-    webSocket = window.webSocket;
-
-    const requestJSON = JSON.stringify({token: token});
-
-    try {
-      webSocket.send(requestJSON);
-      dispatch({type: requestTypes.success});
-    }
-    catch(exception) {
-       dispatch({type: requestTypes.error});
-    }
 }
 
 

@@ -101,7 +101,7 @@ class Notification(Base):
     type = Column(Text, nullable=False)
     text = Column(Text, nullable=False)
     link = Column(Text, nullable=False)
-	read = Column(Boolean, nullable=False)
+    read = Column(Boolean, nullable=False)
 
 
 def create_from_scratch(connection_string):
