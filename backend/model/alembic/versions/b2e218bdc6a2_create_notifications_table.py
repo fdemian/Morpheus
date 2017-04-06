@@ -24,7 +24,8 @@ def upgrade():
         sa.Column('user_id', sa.Integer, sa.ForeignKey('users.id')),
         sa.Column('type', sa.Text, nullable=False),
         sa.Column('text', sa.Text, nullable=False),
-        sa.Column('link', sa.Text, nullable=False)
+        sa.Column('link', sa.Text, nullable=False),
+        sa.Column('read', sa.Boolean, nullable=False)
     )
 
 

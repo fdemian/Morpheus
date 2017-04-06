@@ -42,7 +42,7 @@ class Notifications(WebSocketHandler):
             json_notification = {
                 'type': notificaton.type,
                 'text': notificaton.text,
-                'link': notificaton.link
+                'link': "/"
             }
 
             data.append(json_notification)
