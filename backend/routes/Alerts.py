@@ -3,9 +3,9 @@ from backend.model.models import Notification
 from .Auth import AuthenticatedHandler
 
 
-class Alerts(AuthenticatedHandler):
+class AlertsHandler(AuthenticatedHandler):
 
-    # GET /story/id
+    # GET /alerts
     def get(self):
 
         current_user = self.get_current_user()

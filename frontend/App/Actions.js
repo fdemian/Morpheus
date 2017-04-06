@@ -44,11 +44,15 @@ export function initializeNotifications() {
   }
 }
 
-export function getNotifications(token) {
+export function getNotifications() {
 
-  const endpoint = "alerts";
-  const types = [REQUEST_NOTIFICATIONS, RECEIVE_NOTIFICATIONS, REQUEST_NOTIFICATIONS_FAILURE];
-  const content = "{}";
+   const endpoint = "alerts";
+   const types = [REQUEST_NOTIFICATIONS, RECEIVE_NOTIFICATIONS, REQUEST_NOTIFICATIONS_FAILURE];
 
-  return _GET(endpoint, types, content, token);
+   return (dispatch, getState) => {
+      const state = getState();
+      const token = state.session.token;
+
+      dispatch(_GET(endpoint, types, token));
+    }
 }

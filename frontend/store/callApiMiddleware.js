@@ -27,9 +27,8 @@ function callAPIMiddleware({ dispatch, getState }) {
         return
 
     const [ requestType, successType, failureType ] = types
-
     dispatch({type: requestType })
-
+    console.log(API_ROOT + endpoint);
     return fetch(API_ROOT + endpoint, callHeaders).then(
 	  response => {
           if(response.ok)

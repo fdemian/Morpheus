@@ -14,9 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onInit: (loggedIn, token, user) => {
 	  dispatch(initializeNotifications());
-	  console.log(getNotifications);
-	  console.log(token);
-	  dispatch(getNotifications(token));
+	  dispatch(getNotifications());
 	}
   }
 }
