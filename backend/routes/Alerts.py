@@ -16,16 +16,14 @@ class AlertsHandler(AuthenticatedHandler):
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)
 
-        # Perform additional validation on JWT claims.
-        user_id = int(self.get_secure_cookie("user", value=current_user["user_token"]))
+            return
 
         session_object = get_session()
         session = session_object()
 
-        # Only return notifications the user has currently read.
-        notifications = session.query(Notification).filter(Notification.user_id == user_id and not Notification.read) \
-            .order_by(Notification.id.desc()) \
-            .all()
+        notifications = session.query(Notification).filter(Notification.user_id == current_user)\
+                                                   .order_by(Notification.id.desc())\
+                                                   .all()
 
         data = []
 
@@ -37,10 +35,11 @@ class AlertsHandler(AuthenticatedHandler):
                 'link': notification.link,
                 'read': notification.read
             }
-
             data.append(json_notification)
 
         response = {'data': data}
         self.set_status(200, 'Ok ')
         self.set_header("Access-Control-Allow-Origin", "*")
         self.write(response)
+
+        return

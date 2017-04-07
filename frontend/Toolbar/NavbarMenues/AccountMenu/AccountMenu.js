@@ -2,11 +2,11 @@ import React from 'react';
 import UserMenu from './UserMenu';
 import NotificationsMenu from './ConnectedNotificationsMenu';
 
-const AccountMenu = ({user, notifications, onLogoutClick}) => {
+const AccountMenu = ({user, onLogoutClick}) => {
 
  return(
   <div>
-    <NotificationsMenu notifications={notifications} />
+    <NotificationsMenu  />
     <UserMenu user={user} logoutFn={onLogoutClick} />
   </div>
  );

@@ -22,8 +22,6 @@ def get_app_routes(static_path):
     params = {'notifications_handler': notifications_handler}
 
     routes = [
-       (r'/api/alerts', AlertsHandler),
-       (r'/api/alerts/(.*)', AlertsHandler),
        (r"/api/stories/(.*)/comments", CommentsHandler, params),
        (r"/api/stories", StoriesHandler),
        (r"/api/stories/([0-9]+)", StoryHandler),
@@ -39,6 +37,8 @@ def get_app_routes(static_path):
        (r'/api/config',  ConfigHandler),
        (r'/api/notifications', Notifications, params),
        (r'/api/activation', UserActivationHandler),
+       (r'/api/alerts', AlertsHandler),
+       (r'/api/alerts/', AlertsHandler),
        (r'/static/(.*)', StaticFileHandler, {'path': static_path}),
        (r"/.*", IndexHandler)
        # (r'/twitter', TwitterHandler)

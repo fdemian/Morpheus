@@ -4,9 +4,7 @@ import {initializeNotifications, getNotifications} from '../../../App/Actions.js
 
 const mapStateToProps = (state) => {
   return {
-	 loggedIn: state.session.loggedIn,
-	 user: state.session.user,
-     token : state.session.token,
+     notifications: state.session.notifications
   }
 }
 

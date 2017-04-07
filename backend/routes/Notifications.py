@@ -7,7 +7,6 @@ class Notifications(WebSocketHandler):
         self.notifications_handler = notifications_handler
 
     def open(self):
-        print("Notifications opening")
         if len(self.notifications_handler) == 0:
             self.notifications_handler.append(self)
         else:

@@ -1,4 +1,10 @@
-import { NEW_NOTIFICATION } from '../../App/Actions';
+import
+{
+  NEW_NOTIFICATION,
+  REQUEST_NOTIFICATIONS,
+  RECEIVE_NOTIFICATIONS,
+  REQUEST_NOTIFICATIONS_FAILURE
+} from '../../App/Actions';
 
 import
 {
@@ -101,6 +107,13 @@ export function session(state = initialState, action) {
     case NEW_NOTIFICATION:
       const items = state.notifications.concat(action.data);
       return { ...state, notifications: items};
+    case REQUEST_NOTIFICATIONS:
+ 	  return state;
+    case RECEIVE_NOTIFICATIONS:
+      const _items = state.notifications.concat(action.data);
+      return { ...state, notifications: _items};
+    case REQUEST_NOTIFICATIONS_FAILURE:
+      return { ...state, isFetching: false, error: true};
 
     default:
       return state;

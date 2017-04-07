@@ -44,6 +44,23 @@ export function initializeNotifications() {
   }
 }
 
+
+
+/*
+export function getNotifications() {
+
+  const _endpoint = "alerts/";
+
+  return {
+   types: [REQUEST_NOTIFICATIONS, RECEIVE_NOTIFICATIONS, REQUEST_NOTIFICATIONS_FAILURE],
+   shouldCallAPI: (state) => true,
+   endpoint: _endpoint,
+   callHeaders: { mode: 'cors', cache: 'default' },
+   payload: null
+  }
+}*/
+
+
 export function getNotifications() {
 
    const endpoint = "alerts";

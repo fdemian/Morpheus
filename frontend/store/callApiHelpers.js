@@ -13,7 +13,7 @@ export default function sendContent(_endpoint, _types, content) {
 
 export function _GET(endpoint, types, jwtToken)
 {
-   return authenticatedRequest(endpoint, types, "{}", jwtToken, "get");
+   return authenticatedRequest(endpoint, types, null, jwtToken, "get");
 }
 
 export function _POST(endpoint, types, content, jwtToken)
