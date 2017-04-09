@@ -13,6 +13,10 @@ import { format_link_string } from '../../../../utils/formats.js';
 
 function markAllAsRead(notifications, markAsReadFn)
 {
+
+    if(notifications.length == 0)
+       return;
+
     for(const notification of notifications)
     {
         markAsReadFn(notification);
