@@ -20,7 +20,7 @@ export function categories(state = initialState, action) {
    case CREATE_CATEGORY:
      return state;
    case CREATE_CATEGORY_SUCCESS:
-     const _items = state.items.push(action.data);
+     const _items = state.items.concat(action.data);
      return {...state, items: _items};
    case CREATE_CATEGORY_FAILURE:
      return state;

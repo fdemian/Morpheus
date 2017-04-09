@@ -127,12 +127,11 @@ export function session(state = initialState, action) {
     case MARK_NOTIFICATION_READ:
        return state;
     case MARK_NOTIFICATION_READ_SUCCESS:
-       const _notifications = state.notifications;
-       //return { ...state, notifications: _items};*/
-       console.log(action.data);
-       return state;
+       const updatedNotifications = state.notifications.filter(element => element.id != action.data.id);;
+       return { ...state, notifications: updatedNotifications};
     case MARK_NOTIFICATION_READ_FAILURE:
        return state;
+
     default:
       return state;
 

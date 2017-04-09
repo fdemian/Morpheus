@@ -7,8 +7,6 @@ export const MARK_NOTIFICATION_READ_FAILURE = 'MARK_NOTIFICATION_READ_FAILURE';
 export default function markAsRead(notification) {
 
    notification.read = true;
-   console.log(notification);
-
    const endpoint = "alerts";
    const types = [MARK_NOTIFICATION_READ, MARK_NOTIFICATION_READ_SUCCESS, MARK_NOTIFICATION_READ_FAILURE];
    const content = JSON.stringify(notification);

@@ -50,15 +50,15 @@ class NotificationsMenu extends Component {
     {this.props.notifications.length == 0 ? (DefaultNotification) : (
        this.props.notifications.map((notification, i) =>
 	    <Link to={format_link_string(notification.link)} key={i}  style={{textDecoration: 'none'}} >
-          <MenuItem value={i} key={i} primaryText={notification.text} onClick={() => this.props.onRead(notification)} />
+          <MenuItem value={i} key={notification.id} primaryText={notification.text} onClick={() => this.props.onRead(notification)} />
         </Link>
        )
      )
      }
         <Divider />
-        <MenuItem value={-1} key={-1} primaryText="See all notifications" leftIcon={<NotificationsIcon />} />
+        <MenuItem value={-2} key={-2} primaryText="See all notifications" leftIcon={<NotificationsIcon />} />
         <Divider />
-        <MenuItem value={-2} key={-2} primaryText="Mark all as read" leftIcon={<Clear />} />
+        <MenuItem value={-3} key={-3} primaryText="Mark all as read" leftIcon={<Clear />} />
      </IconMenu>
   );
 
