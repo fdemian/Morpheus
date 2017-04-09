@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import Divider from 'material-ui/Divider';
 import Message from 'material-ui/svg-icons/communication/message';
 import Badge from 'material-ui/Badge';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import NotificationsOffIcon from 'material-ui/svg-icons/social/notifications-off';
+import Clear from  'material-ui/svg-icons/communication/clear-all';
 import { Link } from 'react-router';
 import { format_link_string } from '../../../utils/formats.js';
 
@@ -47,12 +49,15 @@ class NotificationsMenu extends Component {
 	>
 	 {this.props.notifications.length == 0 ? (DefaultNotification) :
 	  (this.props.notifications.map((notification, i) =>
-	     <Link to={format_link_string(notification.link)} style={{textDecoration: 'none'}} >
+	     <Link to={format_link_string(notification.link)} key={i}  style={{textDecoration: 'none'}} >
           <MenuItem value={i} key={i} primaryText={notification.text} />
          </Link>
       ))
      }
-     <MenuItem value={-1} key={-1} primaryText="Dismiss all" />
+     <Divider />
+     <MenuItem value={-1} key={-1} primaryText="See all notifications" leftIcon={<NotificationsIcon />} />
+     <Divider />
+     <MenuItem value={-2} key={-2} primaryText="Mark all as read" leftIcon={<Clear />} />
 	</IconMenu>
   );
 
