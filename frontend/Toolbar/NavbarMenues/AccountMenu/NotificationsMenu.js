@@ -52,13 +52,14 @@ class NotificationsMenu extends Component {
 	     <Link to={format_link_string(notification.link)} key={i}  style={{textDecoration: 'none'}} >
           <MenuItem value={i} key={i} primaryText={notification.text} />
          </Link>
-      ))
+      )
+        <Divider />
+        <MenuItem value={-1} key={-1} primaryText="See all notifications" leftIcon={<NotificationsIcon />} />
+        <Divider />
+        <MenuItem value={-2} key={-2} primaryText="Mark all as read" leftIcon={<Clear />} />
+      )
      }
-     <Divider />
-     <MenuItem value={-1} key={-1} primaryText="See all notifications" leftIcon={<NotificationsIcon />} />
-     <Divider />
-     <MenuItem value={-2} key={-2} primaryText="Mark all as read" leftIcon={<Clear />} />
-	</IconMenu>
+     </IconMenu>
   );
 
  }

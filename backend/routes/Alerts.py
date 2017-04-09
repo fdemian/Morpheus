@@ -29,15 +29,13 @@ class AlertsHandler(AuthenticatedHandler):
         session_object = get_session()
         session = session_object()
 
-        print(current_user)
-
-        notifications = session.query(Notification).filter(Notification.user_id == current_user)\
+        alerts = session.query(Notification).filter(Notification.user_id == current_user, Notification.read == False)\
                                                    .order_by(Notification.id.desc())\
                                                    .all()
 
         data = []
 
-        for notification in notifications:
+        for notification in alerts:
             json_notification = {
                 'id': notification.id,
                 'type': notification.type,
