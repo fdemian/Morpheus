@@ -6,7 +6,6 @@ def load_options(config_file):
     # General application settings
     define('port', type=int, group='application', help='Port to run the application from.')
     define('compress_response', type=bool, group='application', help='Whether or not to compress the response.')
-    define('notifications_limit', type=int, group='application', help="Max number of notifications to show.")
     define('notifications_enabled', type=bool, group='application', help='Whether or not to enable notifications.')
 
     # Security options
