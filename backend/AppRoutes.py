@@ -11,18 +11,14 @@ from backend.routes.ConfigOptions import ConfigHandler
 from backend.routes.Notifications import Notifications
 from backend.routes.Alerts import AlertsHandler
 from backend.routes.Auth import BaseAuth
-# from backend.routes.TwitterRedirect import TwitterHandler
 from backend.routes.Activation import UserActivationHandler
 from tornado.web import StaticFileHandler
 
 
-def get_app_routes(static_path):
-
-    notifications_handler = []
-    params = {'notifications_handler': notifications_handler}
+def get_app_routes(static_path, notifications_enabled):
 
     routes = [
-       (r"/api/stories/(.*)/comments", CommentsHandler, params),
+       (r"/api/stories/(.*)/comments", CommentsHandler),
        (r"/api/stories", StoriesHandler),
        (r"/api/stories/([0-9]+)", StoryHandler),
        (r"/api/story/([0-9]+)", StoryHandler),
@@ -35,13 +31,15 @@ def get_app_routes(static_path):
        (r"/api/auth", BaseAuth),
        (r"/api/auth/logout/", LogoutHandler),
        (r'/api/config',  ConfigHandler),
-       (r'/api/notifications', Notifications, params),
        (r'/api/activation', UserActivationHandler),
+       (r'/api/notifications', Notifications),
        (r'/api/alerts', AlertsHandler),
        (r'/api/alerts/', AlertsHandler),
        (r'/static/(.*)', StaticFileHandler, {'path': static_path}),
        (r"/.*", IndexHandler)
-       # (r'/twitter', TwitterHandler)
     ]
+
+    if notifications_enabled:
+        print("/")
 
     return routes

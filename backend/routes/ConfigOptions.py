@@ -35,7 +35,8 @@ class ConfigHandler(RequestHandler):
                             'key': self.settings["github_client_id"],
                             'authorizeURL': self.settings["github_redirect_url"],
                             'iconURL': self.settings["github_icon_url"]
-                        }]
+                        }],
+                    "notificationsEnabled": self.settings['notifications_enabled']
                 }
             }
 

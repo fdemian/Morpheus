@@ -3,14 +3,11 @@ from tornado.websocket import WebSocketHandler
 
 class Notifications(WebSocketHandler):
 
-    def initialize(self, notifications_handler):
-        self.notifications_handler = notifications_handler
+    def initialize(self):
+        print("Initializing websocket")
 
     def open(self):
-        if len(self.notifications_handler) == 0:
-            self.notifications_handler.append(self)
-        else:
-            self.notifications_handler[0] = self
+        self.settings['notifications_handler'] = self
 
     # Notifications for a given user were requested.
     def on_message(self, message):

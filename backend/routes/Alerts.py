@@ -21,6 +21,8 @@ class AlertsHandler(AuthenticatedHandler):
         session_object = get_session()
         session = session_object()
 
+        print(current_user)
+
         notifications = session.query(Notification).filter(Notification.user_id == current_user)\
                                                    .order_by(Notification.id.desc())\
                                                    .all()

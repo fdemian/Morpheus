@@ -7,9 +7,6 @@ from .Auth import AuthenticatedHandler
 
 class CommentsHandler(AuthenticatedHandler):
 
-    def initialize(self, notifications_handler):
-        self.notifications_handler = notifications_handler
-
     # POST /stories/id/comments
     def post(self, story_id):
 
@@ -85,7 +82,7 @@ class CommentsHandler(AuthenticatedHandler):
 
     def notify_new_comment(self, text, link):
 
-        notifications_handler = self.notifications_handler[0]
+        notifications_handler = self.settings['notifications_handler']
 
         message = {
            'type': "comment",

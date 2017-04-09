@@ -15,7 +15,7 @@ secret = b64encode(random_bytes).decode('utf-8')
 
 if __name__ == "__main__":
     options = load_options(config_file)
-    routes = get_app_routes(static_path)
+    routes = get_app_routes(static_path, options['notifications_enabled'])
     application = tornado.web.Application(routes, **options)
 
     if options['serve_https']:
