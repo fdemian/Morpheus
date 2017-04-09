@@ -5,6 +5,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Message from 'material-ui/svg-icons/communication/message';
 import Badge from 'material-ui/Badge';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
+import NotificationsOffIcon from 'material-ui/svg-icons/social/notifications-off';
 import { Link } from 'react-router';
 import { format_link_string } from '../../../utils/formats.js';
 
@@ -18,10 +19,19 @@ class NotificationsMenu extends Component {
  }
 
  componentDidMount() {
-   this.onInit();
+   if(this.props.notificationsEnabled)
+       this.onInit();
  }
 
  render() {
+
+  if(!this.props.notificationsEnabled)
+    return(
+    <IconButton disableTouchRipple={true} tooltip="Notifications" disabled={true}>
+            <NotificationsOffIcon color="gainsboro" />
+     </IconButton>
+    );
+
 
   return (
 	<IconMenu

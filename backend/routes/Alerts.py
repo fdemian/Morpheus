@@ -18,6 +18,14 @@ class AlertsHandler(AuthenticatedHandler):
 
             return
 
+        if not self.settings['notifications_enabled']:
+            response = {'Error': "Notifications disabled."}
+            self.set_status(501, 'Error')
+            self.set_header("Access-Control-Allow-Origin", "*")
+            self.write(response)
+
+            return
+
         session_object = get_session()
         session = session_object()
 

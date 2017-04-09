@@ -54,7 +54,9 @@ class CommentsHandler(AuthenticatedHandler):
             link = "/stories/" + str(story.id) + "/" + story.title
 
             self.save_notification(author, "comment", text, link)
-            self.notify_new_comment(text, link)
+
+            if self.settings['notifications_enabled']:
+                self.notify_new_comment(text, link)
 
             response = {'data': json_comment}
 
