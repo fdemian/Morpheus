@@ -11,6 +11,14 @@ import Clear from  'material-ui/svg-icons/communication/clear-all';
 import { Link } from 'react-router';
 import { format_link_string } from '../../../../utils/formats.js';
 
+function markAllAsRead(notifications, markAsReadFn)
+{
+    for(const notification of notifications)
+    {
+        markAsReadFn(notification);
+    }
+}
+
 const DefaultNotification = <MenuItem value={-1} key={-1} primaryText="No new notifications." />;
 
 class NotificationsMenu extends Component {
@@ -58,7 +66,7 @@ class NotificationsMenu extends Component {
         <Divider />
         <MenuItem value={-2} key={-2} primaryText="See all notifications" leftIcon={<NotificationsIcon />} />
         <Divider />
-        <MenuItem value={-3} key={-3} primaryText="Mark all as read" leftIcon={<Clear />} />
+        <MenuItem value={-3} key={-3} primaryText="Mark all as read" leftIcon={<Clear />} onClick={() => markAllAsRead(this.props.notifications, this.props.onRead)} />
      </IconMenu>
   );
 
