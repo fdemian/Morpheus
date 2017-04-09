@@ -9,7 +9,7 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import NotificationsOffIcon from 'material-ui/svg-icons/social/notifications-off';
 import Clear from  'material-ui/svg-icons/communication/clear-all';
 import { Link } from 'react-router';
-import { format_link_string } from '../../../utils/formats.js';
+import { format_link_string } from '../../../../utils/formats.js';
 
 const DefaultNotification = <MenuItem value={-1} key={-1} primaryText="No new notifications." />;
 
@@ -38,27 +38,27 @@ class NotificationsMenu extends Component {
   return (
 	<IconMenu
 	 iconButtonElement={
-	     <Badge badgeContent={this.props.notifications.length} secondary={true} badgeStyle={{top: 12, right: 12}} >
-	        <IconButton disableTouchRipple={true} tooltip="Notifications">
-               <NotificationsIcon color="gainsboro" />
-	        </IconButton>
-	     </Badge>
+	   <Badge badgeContent={this.props.notifications.length} secondary={true} badgeStyle={{top: 12, right: 12}} >
+	     <IconButton disableTouchRipple={true} tooltip="Notifications">
+            <NotificationsIcon color="gainsboro" />
+	     </IconButton>
+	   </Badge>
 	 }
 	 targetOrigin={{horizontal: 'left', vertical: 'bottom'}}
 	 anchorOrigin={{horizontal: 'left', vertical: 'top'}}
 	>
-	 {this.props.notifications.length == 0 ? (DefaultNotification) :
-	  (this.props.notifications.map((notification, i) =>
-	     <Link to={format_link_string(notification.link)} key={i}  style={{textDecoration: 'none'}} >
-          <MenuItem value={i} key={i} primaryText={notification.text} />
-         </Link>
-      )
+    {this.props.notifications.length == 0 ? (DefaultNotification) : (
+       this.props.notifications.map((notification, i) =>
+	    <Link to={format_link_string(notification.link)} key={i}  style={{textDecoration: 'none'}} >
+          <MenuItem value={i} key={i} primaryText={notification.text} onClick={() => this.props.onRead(notification)} />
+        </Link>
+       )
+     )
+     }
         <Divider />
         <MenuItem value={-1} key={-1} primaryText="See all notifications" leftIcon={<NotificationsIcon />} />
         <Divider />
         <MenuItem value={-2} key={-2} primaryText="Mark all as read" leftIcon={<Clear />} />
-      )
-     }
      </IconMenu>
   );
 

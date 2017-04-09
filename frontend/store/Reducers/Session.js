@@ -30,6 +30,14 @@ import
    REGISTER_FAILURE
  } from '../../Register/Actions';
 
+import
+{
+   MARK_NOTIFICATION_READ ,
+   MARK_NOTIFICATION_READ_SUCCESS,
+   MARK_NOTIFICATION_READ_FAILURE
+}
+from '../../Toolbar/NavbarMenues/AccountMenu/NotificationsMenu/Actions';
+
 const initialState = {
   loggedIn: false,
   isFetching: false,
@@ -115,6 +123,16 @@ export function session(state = initialState, action) {
     case REQUEST_NOTIFICATIONS_FAILURE:
       return { ...state, isFetching: false, error: true};
 
+    /* Mark notification as read */
+    case MARK_NOTIFICATION_READ:
+       return state;
+    case MARK_NOTIFICATION_READ_SUCCESS:
+       const _notifications = state.notifications;
+       //return { ...state, notifications: _items};*/
+       console.log(action.data);
+       return state;
+    case MARK_NOTIFICATION_READ_FAILURE:
+       return state;
     default:
       return state;
 

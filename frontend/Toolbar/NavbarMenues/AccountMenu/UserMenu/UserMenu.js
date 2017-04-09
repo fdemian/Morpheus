@@ -4,7 +4,6 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Exit from 'material-ui/svg-icons/action/exit-to-app';
-import InsertFile from 'material-ui/svg-icons/editor/insert-drive-file';
 import Divider from 'material-ui/Divider';
 import { Link } from 'react-router';
 

@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import NotificationsMenu from './NotificationsMenu';
-import {initializeNotifications, getNotifications} from '../../../App/Actions.js';
+import {initializeNotifications, getNotifications} from '../../../../App/Actions.js';
+import markAsRead from './Actions.js';
 
 const mapStateToProps = (state) => {
   return {
@@ -14,6 +15,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onInit: (loggedIn, token, user) => {
 	  dispatch(initializeNotifications());
 	  dispatch(getNotifications());
+	},
+	onRead: (notification) => {
+	  dispatch(markAsRead(notification));
 	}
   }
 }
