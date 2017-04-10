@@ -59,7 +59,7 @@ class BaseAuth(RequestHandler):
                 user = yield authentication.get_user_by_service(auth_type, auth_code, redirect_url)
 
             jwt_token = self.perform_authentication(user, auth_type, '3600')
-            data = {'data': {'token': jwt_token.decode('utf-8')}}
+            data = {'data': {'token': jwt_token.decode('utf-8'), 'user': user, 'type': auth_type}}
             response = json.dumps(data)
 
             self.set_status(200, 'Ok')
@@ -94,7 +94,6 @@ class BaseAuth(RequestHandler):
         expdate = datetime.utcnow() + timedelta(int(jwt_expiration))
 
         jwt_payload = {
-            'user': user,
             'user_token': user_token,
             'type': auth_type,
             'exp': expdate

@@ -91,15 +91,9 @@ export function session(state = initialState, action) {
 	    return { ...state, isFetching: true };
     case AUTH_SUCCESS:
         const jwt_token = action.data.token;
-        const decoded = JSON.parse(window.atob(jwt_token.split(".")[1].replace('-', '+').replace('_', '/')));
-	    return { ...state,
-               user: decoded.user,
-               token: jwt_token,
-	           authType: decoded.authType,
-               isFetching: false,
-               loggedIn:true,
-               authType: decoded.type
-             };
+        const _user = action.data.user;
+        const _authType = action.data.type;
+	    return { ...state, user: _user, token: jwt_token, authType: _authType,isFetching: false, loggedIn:true };
     case AUTH_FAILURE:
       return { ...state, isFetching: false, error: true};
 
