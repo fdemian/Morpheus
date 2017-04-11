@@ -60,7 +60,7 @@ class StoryComposer extends Component {
    const {title, content, category, tags, id, posted, editing, categories} = this.props;
    const {clearFn} = this.props;
    const _initialComposerState = (content == null ? null : JSON.parse(content));
-   
+
    if(posted)
    {
        clearFn();

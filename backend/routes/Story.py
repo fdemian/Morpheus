@@ -84,8 +84,8 @@ class StoryHandler(AuthenticatedHandler):
             story = session.query(Story).filter(Story.id == story_id).one()
             story.title = json_request["title"]
             story.content = json_request["content"]
-            # story.tags = json_request["tags"]
-            # story.category = json_request["category"]
+            story.tags = json_request["tags"]
+            story.category_id = json_request["category"]
             session.commit()
 
             status = 200

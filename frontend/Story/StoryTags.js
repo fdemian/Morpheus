@@ -8,9 +8,7 @@ const StoryTags = ({tags}) => {
 
   return(
    <div>
-   {
-     data.map((tag, i) => <Chip style={chipStlye}>{tag}</Chip>)
-    }
+   {data.map((tag, i) => <Chip style={chipStlye}>{tag}</Chip>)}
    </div>
   );
 
