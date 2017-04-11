@@ -6,6 +6,7 @@ import Renderer from './DraftRenderer';
 import CommentBox from '../Comments/Container';
 import CommentList from '../Comments/CommentList';
 import CommentLogin from '../Comments/CommentLogin';
+import StoryTags from './StoryTags';
 
 class Story extends Component {
 
@@ -41,7 +42,12 @@ class Story extends Component {
   const CommentComposer = isLoggedIn ? <CommentBox /> :
                                        <CommentLogin storyId={id} storyName={title} providers={oauthProviders} /> ;
 
-  console.log(tags);
+  let Tags;
+
+  if(tags == null)
+    Tags = <p>No tags</p>;
+  else
+    Tags = <StoryTags tags={tags} />
 
 
   return(
@@ -51,6 +57,10 @@ class Story extends Component {
 	<br />	
 	<div styleName="StoryContent">
 	  <Renderer raw={rawPostContent} />
+	</div>
+	<hr styleName="Divider" />
+	<div styleName="StoryTags">
+	  {Tags}
 	</div>
 	<hr styleName="Divider" />
     <div styleName="StoryComments" id="comments" >
