@@ -2,7 +2,10 @@ import
 {
   REQUEST_CATEGORY_DATA,
   RECEIVE_CATEGORY_DATA,
-  RECEIVE_CATEGORY_FAILURE
+  RECEIVE_CATEGORY_FAILURE,
+  REQUEST_CATEGORY_TOPICS,
+  RECEIVE_CATEGORY_TOPICS,
+  RECEIVE_CATEGORY_TOPICS_FAILURE
 } from '../../Category/Actions';
 
 
@@ -30,6 +33,15 @@ export function category(state = initiaState, action) {
 	    return { ...state, category: action.data, isFetching: false, error: false};
     case RECEIVE_CATEGORY_FAILURE:
   	    return state;
+
+  	/* TOPICS BY CATEGORY */
+    case REQUEST_CATEGORY_TOPICS:
+       return state;
+    case RECEIVE_CATEGORY_TOPICS:
+	   return { ...state, topics: action.data };
+    case RECEIVE_CATEGORY_TOPICS_FAILURE:
+       return { ...state, error: true };
+
     default:
       return state;
   }

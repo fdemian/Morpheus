@@ -6,6 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 // Route components.
 import App from './App/App'; // Main application.
+import Category from './Category/Container';
 import Categories from './Categories/Container';
 import Activation from './Activation/Container';
 import User from  './User/Container';
@@ -87,6 +88,7 @@ class Root extends React.Component {
            <Route path="/stories/new" component={StoryComposer} onEnter={requireAuthExtra} />
            <Route path="/stories/:storyId/:storyName" component={Story} />
            <Route path="/categories" component={Categories} />
+           <Route path="/categories/:categoryId/:categoryName" component={Category} />
            <Route path="/activation/:code" component={Activation} />
            <Route path="*" component={NotFound} />
          </Route>

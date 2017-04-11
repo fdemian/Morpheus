@@ -18,3 +18,16 @@ export default function loadCategory(id) {
     payload: null
   }
 }
+
+export function loadCategoryTopics(id, page)
+{
+   const _endpoint = "categories/" + id + "/" + page;
+
+   return {
+      types: [REQUEST_CATEGORY_TOPICS, RECEIVE_CATEGORY_TOPICS, RECEIVE_CATEGORY_TOPICS_FAILURE],
+      shouldCallAPI: (state) => true,
+	  endpoint: _endpoint,
+	  callHeaders: { mode: 'cors', cache: 'default' },
+      payload: null
+   }
+}

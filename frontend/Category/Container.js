@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Category from './Category';
-import loadCategory from './Actions';
+import loadCategory, {loadCategoryTopics} from './Actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -14,7 +14,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onLoad: (categoryId) => {
 	    dispatch(loadCategory(categoryId));
-	  }
+	    dispatch(loadCategoryTopics(categoryId, 1));
+	}
   }
 }
 

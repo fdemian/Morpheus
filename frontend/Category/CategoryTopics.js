@@ -36,7 +36,7 @@ const CategoryTopics = ({topics, isFetching }) => {
 					  </td>
 					  <td onClick={() => onUserLinkClick(topic.author.name) }>
 						<Link to={"/users/" + topic.author.name}>
-						  <img src={topic.author.avatar} alt={topic.author.name} width="30px" height="30px" />
+						  <img src={"/static/images/" + topic.author.avatar} alt={topic.author.name} width="30px" height="30px" />
 						 {topic.author.name}
 						</Link>
 					  </td>

@@ -73,8 +73,13 @@ class CategoryTopicsHandler(RequestHandler):
             json_item = {
                 'id': story.id,
                 'name': story.title,
-                'author': story.user
+                'author': {
+                    'id': story.user.id,
+                    'name': story.user.username,
+                    'avatar': story.user.avatar
+                }
             }
+
             data.append(json_item)
 
         response = {
@@ -84,8 +89,6 @@ class CategoryTopicsHandler(RequestHandler):
                 'items': data
             }
         }
-
-        json.dumps(response)
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
