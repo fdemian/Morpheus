@@ -27,7 +27,7 @@ class Category extends Component {
 
   return(
 	<div className="Category">
-		<p className="CategoryName">{category.category.name}</p>
+		<h1 style={{textAlign: 'center'}}>{category.category.name}</h1>
 		<hr />
 	   <CategoryTopics topics={category.topics.items} isFetching={category.isFetching} />
     </div>
