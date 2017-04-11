@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Categories from './Categories';
-import loadCategories, {createCategory} from './Actions';
+import loadCategories, {createCategory, deleteCategory} from './Actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(createCategory(name));
     },
     onDelete: (id) => {
-      console.log("Delete category: " + id);
+      dispatch(deleteCategory(id));
     }
   }
 }

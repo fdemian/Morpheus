@@ -29,25 +29,21 @@ export function createCategory(name)
   }
 }
 
-/*
+
 export function deleteCategory(id)
 {
   return (dispatch, getState) => {
 
-	  //const state = getState();
-	  /if(!state.toolbar.loggedIn)
-		  return dispatch(authenticationRequired());
-	  /
-	  const endpoint = "categories";
-	  const jsonData = JSON.stringify({categoryName: name});
-
-    const types = [CREATE_CATEGORY, CREATE_CATEGORY_SUCCESS, CREATE_CATEGORY_FAILURE];
-
-    dispatch(sendContent(endpoint, types, jsonData))
+      const state = getState();
+      const _token = state.session.token;
+	  const endpoint = "categories/" + id;
+      const types = [DELETE_CATEGORY, DELETE_CATEGORY_SUCCESS, DELETE_CATEGORY_FAILURE];
+      dispatch(_DELETE(endpoint, types, _token));
   }
-}*/
+}
 
-export function loadCategories(){
+export function loadCategories()
+{
 
   const _endpoint = "categories";
 

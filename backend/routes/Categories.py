@@ -4,9 +4,10 @@ from backend.model.models import Category, Story
 from .Auth import AuthenticatedHandler
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
+from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 
 
-class CategoryHandler(RequestHandler):
+class CategoryHandler(AuthenticatedHandler):
 
     def get(self, category_id):
 
@@ -25,6 +26,38 @@ class CategoryHandler(RequestHandler):
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
         self.write(response)
+
+    @coroutine
+    def delete(self, category_id):
+
+        if not self.get_current_user():
+            response = {'Error': "Token is invalid."}
+            self.set_status(403, 'Error')
+            self.set_header("Access-Control-Allow-Origin", "*")
+            self.write(response)
+
+            return
+
+        try:
+
+            session_object = get_session()
+            session = session_object()
+            category = session.query(Category).filter(Category.id == category_id).one()
+            session.delete(category)
+            session.commit()
+
+            response = {'data': {'id': category_id}}
+            self.set_status(200, 'Ok')
+            self.set_header("Access-Control-Allow-Origin", "*")
+            self.write(response)
+
+            return
+
+        except (NoResultFound, MultipleResultsFound):
+            self.set_status(500, 'Error')
+            self.set_header("Access-Control-Allow-Origin", "*")
+
+            return
 
 
 class CategoryTopicsHandler(RequestHandler):
@@ -108,7 +141,7 @@ class CategoriesHandler(AuthenticatedHandler):
         session.add(category)
         session.commit()
 
-        response = {'data': {'id': 0, 'name': category.name}}
+        response = {'data': {'id': category.id, 'name': category.name}}
 
         json.dumps(response)
 
@@ -117,24 +150,4 @@ class CategoriesHandler(AuthenticatedHandler):
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.write(response)
 
-    @coroutine
-    def delete(self):
-
-        request = json.loads(self.request.body.decode("utf-8"))
-
-        if not self.get_current_user():
-            response = {'Error': "Token is invalid."}
-            self.set_status(301, 'Error')
-            self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(response)
-
-        category_id = request["id"]
-
-        session_object = get_session()
-        session = session_object()
-        category = session.query(Category).filter(Category.id == category_id).one()
-        session.delete(category)
-        session.commit()
-
-        self.set_status(200, 'Ok')
-        self.set_header("Access-Control-Allow-Origin", "*")
+        return

@@ -14,6 +14,8 @@ class AuthenticatedHandler(RequestHandler):
     def get_current_user(self):
         auth_headers = self.request.headers.get("Authorization")
 
+        print(auth_headers)
+
         if auth_headers is None:
             return None
 

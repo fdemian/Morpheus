@@ -23,7 +23,6 @@ export function topics(state = initialStoriesState, action) {
 	case RECEIVE_TOPICS_FAILURE:
 	  return { ...state, isFetching: false, error: true }
   case DELETE_STORY:
-      console.log(state.stories)
 	  return { ...state, isFetching: true }
   case DELETE_STORY_OK:
       const updatedStories = state.stories.filter(element => element.id != action.data.id);

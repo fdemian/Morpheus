@@ -6,7 +6,22 @@ import AddIcon from 'material-ui/svg-icons/content/add-circle-outline';
 import TextField from 'material-ui/TextField';
 import ConfirmIcon from 'material-ui/svg-icons/action/done';
 import CancelIcon from 'material-ui/svg-icons/content/clear';
+import IconButton from 'material-ui/IconButton';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
 
+const DeleteButton = (props) => {
+
+    if(props.loggedIn)
+       return(
+       <span onClick={() => props.deleteFn(props.id)} >
+          <IconButton tooltip="Delete">
+            <DeleteIcon color='#3b5998' />
+          </IconButton>
+       </span>
+       );
+    else
+      return null;
+}
 
 class Categories extends React.Component {
 
@@ -17,7 +32,6 @@ class Categories extends React.Component {
 	this.onLoad = this.props.onLoad;
 	this.onDelete = this.props.onDelete;
 	this.onCreate = this.props.onCreate;
-	this.isLoggedIn = this.props.isLoggedIn;
 
 	this.toggleCategoryMenu = this.toggleCategoryMenu.bind(this);
 	this.newCategoryChange = this.newCategoryChange.bind(this);
@@ -42,6 +56,10 @@ class Categories extends React.Component {
  }
 
  render() {
+
+    const loggedIn = this.props.isLoggedIn;
+    console.log(loggedIn);
+    console.log("___________");
 
 	const {categories, isFetching, error} = this.props;
 	const buttonStyle = this.state.categoryMenuVisible ? "Visible" : "Invisible";
@@ -98,7 +116,7 @@ class Categories extends React.Component {
  				        {category.name}
  				        </td>
  				        <td>
- 						    <button onClick={() => this.onDelete(category.id)}>Delte</button>
+                            <DeleteButton id={category.id} loggedIn={loggedIn} deleteFn={this.onDelete} />
  					    </td>
  			         </tr>
  		        )}
