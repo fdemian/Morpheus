@@ -26,7 +26,7 @@ class CategoriesDropdown extends Component {
   const {categories} = this.props;
 
   return(
-  <SelectField disabled={true} value={this.state.currentValue} onChange={this.onDropdownChange} style={selectStyle} >
+  <SelectField disabled={false} value={this.state.currentValue} onChange={this.onDropdownChange} style={selectStyle} >
     <MenuItem value={-1} key={-1} primaryText="Uncategorized" />
     {categories.map((category, i) =>
       <MenuItem value={category.id} key={category.id} primaryText={category.name} />

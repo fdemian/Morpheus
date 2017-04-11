@@ -60,7 +60,6 @@ export function postNewStory()
       const _token = state.session.token;
       const endpoint = "stories";
 
-  	  //const userId = state.toolbar.user.id;
   	  const jsonData = JSON.stringify({
          title: _title,
          tags: _tags,

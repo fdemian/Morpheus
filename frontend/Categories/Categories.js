@@ -58,13 +58,10 @@ class Categories extends React.Component {
  render() {
 
     const loggedIn = this.props.isLoggedIn;
-    console.log(loggedIn);
-    console.log("___________");
-
 	const {categories, isFetching, error} = this.props;
 	const buttonStyle = this.state.categoryMenuVisible ? "Visible" : "Invisible";
 	const inputStyle = this.state.categoryMenuVisible ? "Invisible" : "Visible";
-    const CreateCategoryButton = this.isLoggedIn? (
+    const CreateCategoryButton = loggedIn ? (
     		        <FlatButton
                    hoverColor="gainsboro"
 		           label="New category"

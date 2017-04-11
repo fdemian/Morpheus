@@ -12,6 +12,8 @@ import {
   postNewStory
 } from './Actions';
 
+import loadCategories from '../Categories/Actions';
+
 const mapStateToProps = (state) => {
   return {
   	  id: state.composer.id,
@@ -27,6 +29,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    onLoad: () => {
+       loadCategories();
+    },
 	onEditorChange: (rawState) => {
         dispatch(updateContent(rawState));
 	},
