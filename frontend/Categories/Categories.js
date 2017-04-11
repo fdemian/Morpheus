@@ -1,6 +1,12 @@
 import React from 'react';
 import cssModules from 'react-css-modules';
 import Styles from './Styles.scss';
+import FlatButton from 'material-ui/FlatButton';
+import AddIcon from 'material-ui/svg-icons/content/add-circle-outline';
+import TextField from 'material-ui/TextField';
+import ConfirmIcon from 'material-ui/svg-icons/action/done';
+import CancelIcon from 'material-ui/svg-icons/content/clear';
+
 
 class Categories extends React.Component {
 
@@ -11,6 +17,7 @@ class Categories extends React.Component {
 	this.onLoad = this.props.onLoad;
 	this.onDelete = this.props.onDelete;
 	this.onCreate = this.props.onCreate;
+	this.isLoggedIn = this.props.isLoggedIn;
 
 	this.toggleCategoryMenu = this.toggleCategoryMenu.bind(this);
 	this.newCategoryChange = this.newCategoryChange.bind(this);
@@ -39,26 +46,38 @@ class Categories extends React.Component {
 	const {categories, isFetching, error} = this.props;
 	const buttonStyle = this.state.categoryMenuVisible ? "Visible" : "Invisible";
 	const inputStyle = this.state.categoryMenuVisible ? "Invisible" : "Visible";
+    const CreateCategoryButton = this.isLoggedIn? (
+    		        <FlatButton
+                   hoverColor="gainsboro"
+		           label="New category"
+		           labelStyle={{'color': '#3b5998'}}
+		           icon={<AddIcon  color='#3b5998' />}
+		           onClick={this.toggleCategoryMenu}/>)  : null;
 
 	return (
  	<div>
 
 		<div>
 
-			 <div styleName={buttonStyle}>
-			 		<button type="button" onClick={this.toggleCategoryMenu}>
-					+ New category
-					</button>
-			 </div>
+            <div>
+                {CreateCategoryButton}
+            </div>
 
 			 <div styleName={inputStyle} >
-			 	 <input type="input" onChange={this.newCategoryChange} />
-				 <button type="button" onClick={() => this.createCategory()}>
-				  Create
-				 </button>
-				 <button type="button" onClick={this.toggleCategoryMenu}>
-					Cancel
-				 </button>
+			 	 <TextField onChange={this.newCategoryChange} />
+
+                 <FlatButton
+                    icon={<ConfirmIcon color="gainsboro" />}
+  	                onClick={() => this.createCategory()}
+                    hoverColor="white"
+		            style={{'minWidth': '30px'}}
+                 />
+	            <FlatButton
+                    icon={<CancelIcon color="gainsboro" />}
+  	                onClick={this.toggleCategoryMenu}
+                    hoverColor="white"
+		            style={{'minWidth': '30px'}}
+                />
 			 </div>
 
 		</div>

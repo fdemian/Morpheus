@@ -90,13 +90,15 @@ class CategoriesHandler(AuthenticatedHandler):
     def post(self):
 
         request = json.loads(self.request.body.decode("utf-8"))
-        name = request["categoryName"]
+        name = request["name"]
 
         if not self.get_current_user():
             response = {'Error': "Token is invalid."}
             self.set_status(301, 'Error')
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)
+
+            return
 
         category = Category()
         category.name = name

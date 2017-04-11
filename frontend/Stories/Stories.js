@@ -64,6 +64,14 @@ class Stories extends Component {
 		           icon={<AddIcon  color='#3b5998' />}
 		        />
 		     </Link>
+             <Link to="/categories">
+		        <FlatButton
+                   hoverColor="gainsboro"
+		           label="Categories"
+		           labelStyle={{'color': '#3b5998'}}
+		           icon={<AddIcon  color='#3b5998' />}
+		        />
+		     </Link>
 	      </div>
 	    :
 	    <Divider />

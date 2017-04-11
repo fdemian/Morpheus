@@ -1,4 +1,5 @@
-import sendContent from '../store/callApiHelpers';
+import {_POST, _PUT, _DELETE} from '../store/callApiHelpers';
+
 
 export const CREATE_CATEGORY = 'CREATE_CATEGORY';
 export const CREATE_CATEGORY_SUCCESS = 'CREATE_CATEGORY_SUCCESS';
@@ -17,18 +18,14 @@ export function createCategory(name)
 {
   return (dispatch, getState) => {
 
-	  const state = getState();
+	const state = getState();
 
-	  if(!state.toolbar.loggedIn)
-		  return dispatch(authenticationRequired());
-
-      const auth_token = state.session.token;
-	  const endpoint = "categories";
-	  const jsonData = JSON.stringify({categoryName: name, token: auth_token});
-
+    const _token = state.session.token;
+	const endpoint = "categories";
+	const jsonData = JSON.stringify({name: name});
     const types = [CREATE_CATEGORY, CREATE_CATEGORY_SUCCESS, CREATE_CATEGORY_FAILURE];
 
-    dispatch(sendContent(endpoint, types, jsonData))
+    dispatch(_POST(endpoint, types, jsonData, _token));
   }
 }
 

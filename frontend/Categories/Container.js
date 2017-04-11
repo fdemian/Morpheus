@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
   return {
     categories: state.categories.items,
 	isFetching: state.categories.isFetching,
-    error: state.categories.error
+    error: state.categories.error,
+    isLoggedIn: state.session.loggedIn
   }
 }
 
