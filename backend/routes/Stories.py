@@ -75,7 +75,7 @@ class StoriesHandler(AuthenticatedHandler):
         except NoResultFound:
             category = None
 
-        story_id = self.save_story(content, title, author_id, category)
+        story_id = self.save_story(session, content, title, author_id, category)
 
         response = {'data': {'saved': 'yes', 'id': str(story_id)}}
         json.dumps(response)
@@ -84,10 +84,7 @@ class StoriesHandler(AuthenticatedHandler):
         self.write(response)
 
     @staticmethod
-    def save_story(content, title, author_id, category):
-
-        session_object = get_session()
-        session = session_object()
+    def save_story(session, content, title, author_id, category):
 
         user = session.query(User).filter(User.id == author_id).one()
 
@@ -95,6 +92,7 @@ class StoriesHandler(AuthenticatedHandler):
         story.title = title
         story.content = content
         story.category = category
+        story.user_id = author_id
 
         user.stories.append(story)
         session.commit()

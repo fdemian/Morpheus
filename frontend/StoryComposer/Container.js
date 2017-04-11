@@ -30,7 +30,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onLoad: () => {
-       loadCategories();
+       dispatch(loadCategories());
     },
 	onEditorChange: (rawState) => {
         dispatch(updateContent(rawState));

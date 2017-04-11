@@ -14,9 +14,12 @@ class CategoriesDropdown extends Component {
    this.onDropdownChange = this.onDropdownChange.bind(this);
  }
 
- onDropdownChange(event){
-   const value = event.target.value;
-   const category = {id: value, name: ""};
+ onDropdownChange(event, index, value){
+   const valueArray = this.props.categories.filter(c => c.id == value);
+   const _name = valueArray[0].name;
+   const category = {id: value, name: _name};
+   console.log(category);
+   console.log("------------------------->");
    this.changeFn(category);
    this.setState({currentValue: value})
  }
@@ -26,7 +29,7 @@ class CategoriesDropdown extends Component {
   const {categories} = this.props;
 
   return(
-  <SelectField disabled={false} value={this.state.currentValue} onChange={this.onDropdownChange} style={selectStyle} >
+  <SelectField value={this.state.currentValue} onChange={this.onDropdownChange} style={selectStyle} >
     <MenuItem value={-1} key={-1} primaryText="Uncategorized" />
     {categories.map((category, i) =>
       <MenuItem value={category.id} key={category.id} primaryText={category.name} />
