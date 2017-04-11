@@ -60,6 +60,7 @@ class Story(Base):
 
     id = Column(Integer, primary_key=True, nullable=False)
     title = Column(Unicode(100), nullable=False)
+    tags = Column(Text, nullable=True)
     content = Column(Text, nullable=False)
     user_id = Column(Integer, ForeignKey('users.id'))
     category_id = Column(Integer, ForeignKey('categories.id'))
