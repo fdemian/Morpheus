@@ -27,7 +27,6 @@ class Category extends Component {
 
   return(
 	<div className="Category">
-		<a href="javascript:void(0);">RSS Feed</a>
 		<p className="CategoryName">{category.category.name}</p>
 		<hr />
 	   <CategoryTopics topics={category.topics.items} isFetching={category.isFetching} />
