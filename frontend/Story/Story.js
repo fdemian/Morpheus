@@ -25,7 +25,7 @@ class Story extends Component {
 
   const { story, isLoggedIn, oauthProviders } = this.props;
   const {isFetching, error} = story;
-  const { content, title, id, category, comments } = story;
+  const { content, title, id, category, comments, tags } = story;
 
   if(isFetching)
     return (
@@ -40,7 +40,10 @@ class Story extends Component {
   const rawPostContent = JSON.parse(content);
   const CommentComposer = isLoggedIn ? <CommentBox /> :
                                        <CommentLogin storyId={id} storyName={title} providers={oauthProviders} /> ;
-   
+
+  console.log(tags);
+
+
   return(
   <div className="Story">
 	<h1 styleName="StoryTitle">{title}</h1>

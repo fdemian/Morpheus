@@ -42,7 +42,8 @@ class StoryHandler(AuthenticatedHandler):
                     'title': story.title,
                     'category': category,
                     'content': content,
-                    'comments': comments
+                    'comments': comments,
+                    'tags': story.tags
                 }
             }
 

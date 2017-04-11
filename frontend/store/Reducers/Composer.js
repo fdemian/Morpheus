@@ -9,6 +9,7 @@ import
   CONTENT_CHANGED,
   CATEGORY_CHANGED,
   ID_CHANGED,
+  TAGS_CHANGED,
   EDITING_STATE_CHANGED,
   POSTED_STATE_CHANGED,
   UPDATE_STORY,
@@ -21,7 +22,7 @@ const initialState = {
   title: "",
   content : null,
   category: { id:-1, name: "" },
-  tags: [],
+  tags: "",
   posted: false,
   editing: false,
   posting: false
@@ -39,6 +40,8 @@ export function composer(state = initialState, action) {
       return {... state, category: action.data};
    case ID_CHANGED:
       return {...state, id: action.data};
+   case TAGS_CHANGED:false
+      return {...state, tags: action.data};
 
    /* EDIT STATE CHANGED */
    case EDITING_STATE_CHANGED:

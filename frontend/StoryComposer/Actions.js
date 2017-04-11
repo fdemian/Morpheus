@@ -5,6 +5,7 @@ export const SEND_STORY_OK = 'SEND_STORY_OK';
 export const SEND_STORY_FAILURE = 'SEND_STORY_FAILURE';
 
 export const TITLE_CHANGED = 'TITLE_CHANGED';
+export const TAGS_CHANGED = 'TAGS_CHANGED';
 export const CONTENT_CHANGED = 'CONTENT_CHANGED';
 export const CATEGORY_CHANGED = 'CATEGORY_CHANGED';
 export const ID_CHANGED = "ID_CHANGED";
@@ -38,6 +39,11 @@ export function updateId(newId)
 export function updateEditingState(newState)
 {
   return { type:EDITING_STATE_CHANGED, data: newState};
+}
+
+export function updateTags(newTags)
+{
+  return { type: TAGS_CHANGED, data: newTags};
 }
 
 export function updatePostedState(newState)

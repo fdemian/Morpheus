@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import StoryComposer from './StoryComposer';
 import { 
-  updateTitle, 
+  updateTitle,
+  updateTags,
   updateContent, 
   updateCategory, 
   updateEditingState,
@@ -39,6 +40,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         const title = titleEvent.target.value;
 	    dispatch(updateTitle(title));
 	},
+	onTagsChange: (tagsEvent) => {
+	   const tags = tagsEvent.target.value;
+	   dispatch(updateTags(tags));
+	},
     onCategoryChange: (category)  => {
        dispatch(updateCategory(category));
     },
@@ -55,6 +60,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
        dispatch(updateCategory({id: -1, name: ""}));
        dispatch(updateEditingState(false));
        dispatch(updatePostedState(false));
+       dispatch(updateTags(""));
     }
   }
 }

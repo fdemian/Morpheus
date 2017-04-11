@@ -56,7 +56,7 @@ class StoryComposer extends Component {
  render() {
 
    const { router } = this.props;
-   const {onEditorChange, onTitleChange, onCategoryChange} = this.props;
+   const {onEditorChange, onTitleChange, onCategoryChange, onTagsChange} = this.props;
    const {title, content, category, tags, id, posted, editing, categories} = this.props;
    const {clearFn} = this.props;
    const _initialComposerState = (content == null ? null : JSON.parse(content));
@@ -85,6 +85,16 @@ class StoryComposer extends Component {
            initialState={_initialComposerState}
            editorStyles={EditorStyles}
        />
+     </div>
+
+     <div styleName="StoryTags">
+        <TextField
+            hintText="Tags"
+            floatingLabelText="Comma separated values."
+            value={tags}
+            onChange={onTagsChange}
+            fullWidth={true}
+        />
      </div>
      
      <div styleName="StoryControls">
