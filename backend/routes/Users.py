@@ -1,5 +1,7 @@
 import json
+import jwt
 import uuid
+from datetime import datetime, timedelta
 from tornado.web import RequestHandler
 from backend.mail.ConcreteMailSender import ConcreteMailSender
 from backend.SendEmail import send_confirmation_email
@@ -84,7 +86,7 @@ class UsersHandler(RequestHandler):
             self.send_email(user_to_validate, activation_code)
             if user_to_validate is not None:
                 resp_status = 200
-                response = {"message": "We sent you an email to verify your account."}
+                response = {'validated': False, 'user': None, 'token': None, 'type': 'database'}
             else:
                 resp_status = 500
                 response = {"message": "An error ocurred."}
@@ -96,10 +98,12 @@ class UsersHandler(RequestHandler):
             registered_user = yield authentication.register_user(register_type, auth_code, redirect_uri)
             if registered_user is not None:
                 resp_status = 200
-                response = {"message": "User sucessfully registered."}
+                jwt_token = self.perform_authentication(registered_user, register_type, '3600')
+                respdata = {'validated': True, 'user': registered_user, 'token': jwt_token.decode('utf-8'), 'type': register_type}
+                response = { 'data' : respdata }
             else:
                 resp_status = 500
-                response = {"message": "An error ocurred."}
+                response = {"message": "An error ocurred registering the user."}
 
         self.set_status(resp_status, 'Ok')
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -123,3 +127,20 @@ class UsersHandler(RequestHandler):
 
         mailer = ConcreteMailSender(self.settings["mail_host"], int(self.settings["mail_port"]))
         send_confirmation_email(mail_info, mailer)
+
+    def perform_authentication(self, user, auth_type, expires):
+
+        user_id = str(user["id"])
+        user_token = self.create_signed_value("user", user_id).decode('utf-8')
+        jwt_expiration = self.settings["jwt_expiration_seconds"]
+        expdate = datetime.utcnow() + timedelta(int(jwt_expiration))
+
+        jwt_payload = {
+            'user_token': user_token,
+            'type': auth_type,
+            'exp': expdate
+        }
+
+        jwt_token = jwt.encode(jwt_payload, self.settings["jwt_secret"], algorithm=self.settings["jwt_algorithm"])
+
+        return jwt_token

@@ -64,8 +64,9 @@ class OAuthService:
         oauth_account.provider = service_type
 
         saved_user = self.save_user(user, oauth_account)
-
-        return saved_user        
+        oauth_user["avatar"] = user_avatar
+		
+        return oauth_user        
 
     @staticmethod
     def save_user(user, oauth_account):

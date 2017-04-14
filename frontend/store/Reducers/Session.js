@@ -80,9 +80,13 @@ export function session(state = initialState, action) {
 
     /* Register user */
     case REGISTER_START:
- 	    return { ...state, isFetching: true }
+ 	    return { ...state, isFetching: true };
     case REGISTER_SUCCESS:
- 	    return { ...state, isFetching: false, error: false}
+        const reg_user = action.data.validated ? action.data.user : state.user;
+        const reg_token = action.data.validated ? action.data.token : state.token;
+        const reg_type = action.data.validated ? action.data.type : state.authType;
+		const loggedIn = action.data.validated ? true : false;
+ 	    return { ...state, isFetching: false, error: false, user: reg_user, token: reg_token, authType: reg_type, loggedIn: loggedIn};
     case REGISTER_FAILURE:
       return { ...state, isFetching: false, error: true};
 
@@ -99,7 +103,7 @@ export function session(state = initialState, action) {
 
     /* Logout */
     case LOGOUT_START:
-	    return { ...state, isFetching: true }
+	    return { ...state, isFetching: true };
     case LOGOUT_SUCCESS:
 	    return initialState;
     case LOGOUT_FAILURE:

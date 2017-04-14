@@ -84,6 +84,6 @@ export default function register(_type, code, redirectURL) {
       else
          jsonData = JSON.stringify({code: code,type: _type, redirectURL: redirectURL});
 
-      dispatch(sendContent(endpoint, types, jsonData))
+      dispatch(sendContent(endpoint, types, jsonData));
   }
 }

@@ -19,23 +19,24 @@ class FacebookAuthService(FacebookGraphMixin):
               client_id=self.key,
               client_secret=self.secret,
               code=auth_code)
-
-        access_token = user_info["access_token"]
-        # expires_in = user_info["session_expires"][0]
-
-        user_fields = "id,name,email,picture,link"
-        params = {'scope': 'email'}
-        fb_user = yield self.facebook_request("/me", access_token=access_token, extra_params=params, fields=user_fields)
-
-        if not fb_user:
-            return None
+        
+        if not 'email' in user_info:
+            # expires_in = user_info["session_expires"][0]
+            access_token = user_info["access_token"]        
+            user_fields = "id,name,email,picture,link"
+            params = {'scope': 'email'}
+            fb_user = yield self.facebook_request("/me", access_token=access_token, extra_params=params, fields=user_fields)
+			
+            if not fb_user:
+                return None
+        else:
+            fb_user = user_info
 
         if method == "login":
             user = self.get_user_from_db(fb_user)
-            print(user)
         elif method == "register":
             user = self.get_user_to_save(fb_user)
-
+				
         return user
 
     @staticmethod
@@ -54,7 +55,7 @@ class FacebookAuthService(FacebookGraphMixin):
             'email': fb_user["email"],
             'role': 'author'
         }
-
+		
         return payload
 
     @staticmethod
