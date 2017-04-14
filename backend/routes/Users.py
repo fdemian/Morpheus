@@ -101,7 +101,7 @@ class UsersHandler(RequestHandler):
                 resp_status = 200
                 jwt_token = self.perform_authentication(registered_user, register_type, '3600')
                 respdata = {'validated': True, 'user': registered_user, 'token': jwt_token.decode('utf-8'), 'type': register_type}
-                response = { 'data' : respdata }
+                response = {'data': respdata}
             else:
                 resp_status = 500
                 response = {"message": "An error ocurred registering the user."}

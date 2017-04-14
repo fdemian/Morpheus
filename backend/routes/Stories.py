@@ -5,6 +5,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
+from backend.Utils import authenticated
 
 
 class StoriesHandler(AuthenticatedHandler):
@@ -51,16 +52,10 @@ class StoriesHandler(AuthenticatedHandler):
         return
 
     # POST /stories/new
+    @authenticated
     def post(self):
         request = self.request.body.decode("utf-8")
         jsonrequest = json.loads(request)
-
-        if not self.get_current_user():
-            response = {'Error': "Token is invalid."}
-            self.set_status(301, 'Error')
-            self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(response)
-            return
 
         title = jsonrequest["title"]
         tags = jsonrequest["tags"]

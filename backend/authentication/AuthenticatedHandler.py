@@ -25,4 +25,3 @@ class AuthenticatedHandler(RequestHandler):
             return None
 
         return decoded_id
-

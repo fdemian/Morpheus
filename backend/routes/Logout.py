@@ -1,5 +1,6 @@
 from tornado.gen import coroutine
 from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
+from backend.Utils import authenticated
 
 
 class LogoutHandler(AuthenticatedHandler):
@@ -14,14 +15,8 @@ class LogoutHandler(AuthenticatedHandler):
         return
 
     @coroutine
+    @authenticated
     def post(self):
-
-        if not self.get_current_user():
-            response = {'Error': "Token is invalid."}
-            self.set_status(301, 'Error')
-            self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(response)
-            return
 
         self.set_status(200, 'Ok')
         self.set_header("Access-Control-Allow-Origin", "*")

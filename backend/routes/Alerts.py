@@ -4,22 +4,13 @@ from backend.model.models import Notification
 from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from tornado.gen import coroutine
-
+from backend.Utils import authenticated
 
 class AlertsHandler(AuthenticatedHandler):
 
     # GET /alerts
+    @authenticated
     def get(self):
-
-        current_user = self.get_current_user()
-
-        if not current_user:
-            response = {'Error': "Token is invalid."}
-            self.set_status(301, 'Error')
-            self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(response)
-
-            return
 
         if not self.settings['notifications_enabled']:
             response = {'Error': "Notifications disabled."}
@@ -57,17 +48,8 @@ class AlertsHandler(AuthenticatedHandler):
         return
 
     # PUT /alerts
+    @authenticated
     def put(self):
-
-        current_user = self.get_current_user()
-
-        if not current_user:
-            response = {'Error': "Token is invalid."}
-            self.set_status(301, 'Error')
-            self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(response)
-
-            return
 
         request = self.request.body.decode("utf-8")
         json_request = json.loads(request)

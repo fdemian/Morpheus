@@ -5,7 +5,7 @@ from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
-
+from backend.Utils import authenticated
 
 class CategoryHandler(AuthenticatedHandler):
 
@@ -28,15 +28,8 @@ class CategoryHandler(AuthenticatedHandler):
         self.write(response)
 
     @coroutine
+    @authenticated
     def delete(self, category_id):
-
-        if not self.get_current_user():
-            response = {'Error': "Token is invalid."}
-            self.set_status(403, 'Error')
-            self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(response)
-
-            return
 
         try:
 

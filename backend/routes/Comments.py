@@ -4,6 +4,7 @@ from backend.model.models import Story, Comment, Notification, User
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.gen import coroutine
+from backend.Utils import authenticated
 
 
 class CommentsHandler(AuthenticatedHandler):
@@ -18,16 +19,11 @@ class CommentsHandler(AuthenticatedHandler):
         return
 
     # POST /stories/id/comments
+    @authenticated
     def post(self, story_id):
 
         request = self.request.body.decode("utf-8")
         jsonrequest = json.loads(request)
-
-        if not self.get_current_user():
-            response = {'Error': "Token is invalid."}
-            self.set_status(301, 'Error')
-            self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(response)
         
         author_name = jsonrequest["name"]
         content = jsonrequest["content"]

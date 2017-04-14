@@ -5,6 +5,7 @@ from backend.model.models import Story
 from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.web import HTTPError
 from tornado.gen import coroutine
+from backend.Utils import authenticated
 
 
 class StoryHandler(AuthenticatedHandler):
@@ -69,10 +70,8 @@ class StoryHandler(AuthenticatedHandler):
         self.write(response)
 
     # GET /story/id
+    @authenticated
     def put(self, story_id):
-               
-        if not self.get_current_user():
-            raise HTTPError(403)
 
         request = self.request.body.decode("utf-8")
         json_request = json.loads(request)			
@@ -112,20 +111,8 @@ class StoryHandler(AuthenticatedHandler):
 
 
     # DELETE /story/id
+    @authenticated
     def delete(self, story_id):
-
-        if not self.get_current_user():
-             status = 403
-             status_str = 'Authenticaton failed.'
-             response = {'data': {'code': status, 'error': status_str}}
-             json.dumps(response)
- 
-             self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
-             self.set_header("Access-Control-Allow-Origin", "*")
-             self.set_status(status, status_str)
-             self.write(response)
-             
-             return
 
         session_object = get_session()
         session = session_object()

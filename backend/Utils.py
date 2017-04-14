@@ -4,6 +4,21 @@ from tornado.gen import coroutine
 from tornado.httpclient import AsyncHTTPClient
 from os import path, getcwd
 
+
+def authenticated(func):
+    def func_wrapper(self):
+        current_user = self.get_current_user()
+
+        if not current_user:
+            response = {'Error': "Token is invalid."}
+            self.set_status(301, 'Error')
+            self.set_header("Access-Control-Allow-Origin", "*")
+            self.write(response)
+
+            return
+    return func_wrapper
+
+
 # Decode a JWT token and return the results.
 def validate_token(jwt_token, secret, algorithm):
     try:
