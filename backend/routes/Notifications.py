@@ -13,7 +13,5 @@ class Notifications(WebSocketHandler):
     def on_message(self, message):
         print(message)
 
-
-    # TODO: Print a message?
     def on_close(self):
         print("Closing websocket")

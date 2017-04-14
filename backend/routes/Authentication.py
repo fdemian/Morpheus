@@ -4,37 +4,12 @@ from datetime import datetime, timedelta
 from backend.authentication.OAuthService import OAuthService
 from backend.authentication.Database import DatabaseAuthService
 from backend.authentication.AuthExceptions import OAuthFailedException, NoSuchServiceException, InvalidUserException
-from backend.Utils import get_oauth_settings, validate_token
+from backend.Utils import get_oauth_settings
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
 
 
-class AuthenticatedHandler(RequestHandler):
-
-    def get_current_user(self):
-        auth_headers = self.request.headers.get("Authorization")
-
-        if auth_headers is None:
-            return None
-
-        jwt_token = auth_headers.split(" ")[1]
-        jwt_secret = self.settings["jwt_secret"]
-        jwt_algorhitm = self.settings["jwt_algorithm"]
-        validated_user = validate_token(jwt_token, jwt_secret, jwt_algorhitm)
-
-        if validated_user is None:
-            return None
-
-        # Perform additional validation on JWT claims.
-        decoded_id = int(self.get_secure_cookie("user", value=validated_user["user_token"]))
-
-        if decoded_id is None:
-            return None
-
-        return decoded_id
-
-
-class BaseAuth(RequestHandler):
+class Authentication(RequestHandler):
 
     @coroutine
     def post(self):
@@ -86,6 +61,70 @@ class BaseAuth(RequestHandler):
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)
 
+    @coroutine
+    def put(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def delete(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def trace(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def connect(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def options(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def patch(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def head(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    # Helper method (move?)
     def perform_authentication(self, user, auth_type, expires):
 
         user_id = str(user["id"])
@@ -102,22 +141,3 @@ class BaseAuth(RequestHandler):
         jwt_token = jwt.encode(jwt_payload, self.settings["jwt_secret"], algorithm=self.settings["jwt_algorithm"])
 
         return jwt_token
-
-
-class LogoutHandler(AuthenticatedHandler):
-
-    @coroutine
-    def post(self):
-
-        if not self.get_current_user():
-            response = {'Error': "Token is invalid."}
-            self.set_status(301, 'Error')
-            self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(response)
-            return
-
-        self.set_status(200, 'Ok')
-        self.set_header("Access-Control-Allow-Origin", "*")
-        self.write({'status': 'ok'})
-
-        return

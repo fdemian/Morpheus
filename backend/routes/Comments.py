@@ -2,10 +2,20 @@ import json
 from backend.model.sessionHelper import get_session
 from backend.model.models import Story, Comment, Notification, User
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
-from .Auth import AuthenticatedHandler
+from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
+from tornado.gen import coroutine
 
 
 class CommentsHandler(AuthenticatedHandler):
+
+    @coroutine
+    def get(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
 
     # POST /stories/id/comments
     def post(self, story_id):
@@ -54,8 +64,8 @@ class CommentsHandler(AuthenticatedHandler):
                 text = comment.author + " commented on " + story.title
                 link = "/stories/" + str(story.id) + "/" + story.title
 
-                self.save_notification(author, "comment", text, link)
-                self.notify_new_comment(text, link)
+                notficitation_id = self.save_notification(author, "comment", text, link)
+                self.notify_new_comment(text, link, notficitation_id)
 
             response = {'data': json_comment}
 
@@ -81,11 +91,75 @@ class CommentsHandler(AuthenticatedHandler):
 
         return
 
-    def notify_new_comment(self, text, link):
+    @coroutine
+    def put(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def delete(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def trace(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def connect(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def options(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def patch(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def head(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    def notify_new_comment(self, text, link, id):
 
         notifications_handler = self.settings['notifications_handler']
 
         message = {
+           'id': id,
            'type': "comment",
            'text': text,
            'link': link
@@ -110,4 +184,4 @@ class CommentsHandler(AuthenticatedHandler):
         session.add(notification_to_save)
         session.commit()
 
-        return
+        return notification_to_save.id

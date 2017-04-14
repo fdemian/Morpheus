@@ -13,6 +13,7 @@ from backend.Utils import get_oauth_settings
 from tornado.gen import coroutine
 
 
+# TODO: integrate GET  in USERSHANDLER.
 class UserHandler(RequestHandler):
 
     # GET /users/id
@@ -106,6 +107,69 @@ class UsersHandler(RequestHandler):
                 response = {"message": "An error ocurred registering the user."}
 
         self.set_status(resp_status, 'Ok')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def put(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def delete(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def trace(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def connect(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def options(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def patch(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def head(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
         self.write(json.dumps(response))
 

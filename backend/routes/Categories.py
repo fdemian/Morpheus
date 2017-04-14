@@ -1,7 +1,7 @@
 import json
 from backend.model.sessionHelper import get_session
 from backend.model.models import Category, Story
-from .Auth import AuthenticatedHandler
+from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound

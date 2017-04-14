@@ -2,7 +2,7 @@ import json
 from backend.model.sessionHelper import get_session
 from backend.model.models import Story, User, Category
 from sqlalchemy.orm.exc import NoResultFound
-from .Auth import AuthenticatedHandler
+from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
 
@@ -84,6 +84,69 @@ class StoriesHandler(AuthenticatedHandler):
         self.set_header("Access-Control-Allow-Origin", "*")
         self.write(response)
 
+    @coroutine
+    def put(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def delete(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def trace(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def connect(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def options(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def patch(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def head(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
     @staticmethod
     def save_story(session, content, title, author_id, category, tags):
 
@@ -102,6 +165,7 @@ class StoriesHandler(AuthenticatedHandler):
         return story.id
 
 
+# TODO: integrate into stories handler.
 class StoriesByUserHandler(RequestHandler):
 
     # GET /user/stories

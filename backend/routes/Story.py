@@ -2,8 +2,9 @@ import json
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from backend.model.sessionHelper import get_session
 from backend.model.models import Story
-from .Auth import AuthenticatedHandler
+from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.web import HTTPError
+from tornado.gen import coroutine
 
 
 class StoryHandler(AuthenticatedHandler):
@@ -155,3 +156,48 @@ class StoryHandler(AuthenticatedHandler):
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_status(status, status_str)
         self.write(response)
+
+    @coroutine
+    def trace(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def connect(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def options(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def patch(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
+    def head(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
