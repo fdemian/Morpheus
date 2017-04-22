@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';

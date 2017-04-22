@@ -1,6 +1,6 @@
 import React from 'react'
 //import cssModules from 'react-css-modules';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const headerImageStyles = {
  'maxHeight': '1000px',

@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import storeCreator from './store/configureStore';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route } from 'react-router';
+import createBrowserHistory from 'history/createBrowserHistory'
 
 // Route components.
 import App from './App/App'; // Main application.
@@ -21,7 +22,11 @@ import NotFound from './Errors/NotFound'; // 404
 import loadConfig from './App/Actions';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
+// Required by material-ui.
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const store = storeCreator();
+const browserHistory = createBrowserHistory();
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -75,28 +80,29 @@ class Root extends React.Component {
  render() {
 
    return (
-   <div>
      <Provider store={store}>
        <Router history={browserHistory} >
-         <Route path="/" component={App}>
-           <IndexRoute component={Home} />
-           <Route path="/login" component={Login} onEnter={redirectFromLogin} />
-           <Route path="/auth" component={Authentication} />
-           <Route path="/register" component={Register} />
-           <Route path="/users/:userId/:userName" component={User}/>
-           <Route path="/stories" component={Stories} />
-           <Route path="/stories/new" component={StoryComposer} onEnter={requireAuthExtra} />
-           <Route path="/stories/:storyId/:storyName" component={Story} />
-           <Route path="/categories" component={Categories} />
-           <Route path="/categories/:categoryId/:categoryName" component={Category} />
-           <Route path="/activation/:code" component={Activation} />
-           <Route path="*" component={NotFound} />
-         </Route>
+	    <MuiThemeProvider>
+	     <div>
+		   <Route path="/" component={App}/>
+		   <Route exact path="/" component={Home}/>
+		   <Route exact path="/login" component={Login} onEnter={redirectFromLogin} />
+		   <Route exact path="/auth" component={Authentication} />
+		   <Route exact path="/register" component={Register} />
+           <Route exact path="/users/:userId/:userName" component={User}/>
+           <Route exact path="/stories" component={Stories} />
+           <Route exact path="/stories/new" component={StoryComposer} onEnter={requireAuthExtra} />
+           <Route exact path="/stories/:storyId/:storyName" component={Story} />
+           <Route exact path="/categories" component={Categories} />
+           <Route exact path="/categories/:categoryId/:categoryName" component={Category} />
+           <Route exact path="/activation/:code" component={Activation} />           
+	     </div>
+		</MuiThemeProvider>
        </Router>
       </Provider>
-    </div>
     );
   }
 }
 
+//<Route exact path="*" component={NotFound} />
 ReactDOM.render(<Root />, document.getElementById('root'));

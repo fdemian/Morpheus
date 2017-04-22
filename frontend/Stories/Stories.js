@@ -4,7 +4,7 @@ import StoryList from './StoryList';
 import cssModules from 'react-css-modules';
 import Styles from './Stories.scss';
 import Divider from 'material-ui/Divider';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import AddIcon from 'material-ui/svg-icons/content/add-circle-outline';
 import {withRouter} from 'react-router';

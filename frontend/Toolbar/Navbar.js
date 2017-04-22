@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import cssModules from 'react-css-modules';
 import Styles from './css/Toolbar.scss';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import TextField from 'material-ui/TextField';
 import AccountMenu from './NavbarMenues/AccountMenu/ConnectedAccountMenu';

@@ -5,7 +5,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import Exit from 'material-ui/svg-icons/action/exit-to-app';
 import Divider from 'material-ui/Divider';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const UserMenu = ({user, logoutFn}) => {
 

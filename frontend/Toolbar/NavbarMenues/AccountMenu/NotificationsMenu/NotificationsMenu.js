@@ -8,7 +8,7 @@ import Badge from 'material-ui/Badge';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import NotificationsOffIcon from 'material-ui/svg-icons/social/notifications-off';
 import Clear from  'material-ui/svg-icons/communication/clear-all';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { format_link_string } from '../../../../utils/formats.js';
 
 /*

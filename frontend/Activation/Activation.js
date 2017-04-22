@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FetchingIndicator from '../Fetching/FetchingIndicator';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class Activation extends Component {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import FetchingIndicator from '../Fetching/FetchingIndicator';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 function normalize_string(str)
 {

@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import Renderer from '../Story/DraftRenderer';
 import FlatButton from 'material-ui/FlatButton';
 import QuoteIcon from 'material-ui/svg-icons/editor/format-quote';
