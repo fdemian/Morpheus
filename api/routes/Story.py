@@ -3,7 +3,6 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from api.model.sessionHelper import get_session
 from api.model.models import Story
 from api.authentication.AuthenticatedHandler import AuthenticatedHandler
-from tornado.web import HTTPError
 from tornado.gen import coroutine
 from api.Utils import authenticated
 
@@ -143,6 +142,8 @@ class StoryHandler(AuthenticatedHandler):
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_status(status, status_str)
         self.write(response)
+        
+        return
 
     @coroutine
     def trace(self):

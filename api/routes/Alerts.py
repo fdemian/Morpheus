@@ -22,10 +22,12 @@ class AlertsHandler(AuthenticatedHandler):
 
         session_object = get_session()
         session = session_object()
-
-        alerts = session.query(Notification).filter(Notification.user_id == current_user, Notification.read == False)\
-                                                   .order_by(Notification.id.desc())\
-                                                   .all()
+        current_user = self.current_user
+        
+        alerts = session.query(Notification)
+                        .filter(Notification.user_id == current_user, Notification.read == False)\
+                        .order_by(Notification.id.desc())\
+                        .all()
 
         data = []
 

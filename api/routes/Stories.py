@@ -90,6 +90,8 @@ class StoriesHandler(AuthenticatedHandler):
 
     @coroutine
     def delete(self):
+        print("WHAT THE FUCK.........................")
+        print("======================================")
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")

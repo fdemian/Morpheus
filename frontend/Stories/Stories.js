@@ -20,11 +20,11 @@ class Stories extends Component {
 
  editFn(id)
  {
-    const { router } = this.props;
+    const { history } = this.props;
     const _storyToEdit = this.props.stories.filter(s => s.id == id)[0];
     this.props.onEditClick(_storyToEdit);
 
-    router.replace('/stories/new');
+    history.push('/stories/new');
  }
 
  componentDidMount()
