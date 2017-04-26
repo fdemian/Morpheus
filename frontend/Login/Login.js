@@ -40,10 +40,10 @@ class Login extends Component {
 
  render() {
 
-  const { router, isLoggedIn } = this.props;
+  const { history, isLoggedIn } = this.props;
 
   if(isLoggedIn)
-    router.replace("/");
+    history.push("/");
 
   return(
   <div styleName="Login">

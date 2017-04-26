@@ -1,8 +1,8 @@
 from tornado.auth import FacebookGraphMixin
 from tornado.gen import coroutine
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
-from backend.model.sessionHelper import get_session
-from backend.model.models import User
+from api.model.sessionHelper import get_session
+from api.model.models import User
 
 
 class FacebookAuthService(FacebookGraphMixin):

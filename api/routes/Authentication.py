@@ -1,10 +1,10 @@
 import jwt
 import json
 from datetime import datetime, timedelta
-from backend.authentication.OAuthService import OAuthService
-from backend.authentication.Database import DatabaseAuthService
-from backend.authentication.AuthExceptions import OAuthFailedException, NoSuchServiceException, InvalidUserException
-from backend.Utils import get_oauth_settings
+from api.authentication.OAuthService import OAuthService
+from api.authentication.Database import DatabaseAuthService
+from api.authentication.AuthExceptions import OAuthFailedException, NoSuchServiceException, InvalidUserException
+from api.Utils import get_oauth_settings
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
 

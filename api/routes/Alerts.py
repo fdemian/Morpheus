@@ -1,10 +1,10 @@
 import json
-from backend.model.sessionHelper import get_session
-from backend.model.models import Notification
-from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
+from api.model.sessionHelper import get_session
+from api.model.models import Notification
+from api.authentication.AuthenticatedHandler import AuthenticatedHandler
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from tornado.gen import coroutine
-from backend.Utils import authenticated
+from api.Utils import authenticated
 
 class AlertsHandler(AuthenticatedHandler):
 

@@ -3,13 +3,13 @@ import jwt
 import uuid
 from datetime import datetime, timedelta
 from tornado.web import RequestHandler
-from backend.mail.ConcreteMailSender import ConcreteMailSender
-from backend.SendEmail import send_confirmation_email
-from backend.authentication.Database import DatabaseAuthService
-from backend.authentication.OAuthService import OAuthService
-from backend.model.models import User
-from backend.model.sessionHelper import get_session
-from backend.Utils import get_oauth_settings
+from api.mail.ConcreteMailSender import ConcreteMailSender
+from api.SendEmail import send_confirmation_email
+from api.authentication.Database import DatabaseAuthService
+from api.authentication.OAuthService import OAuthService
+from api.model.models import User
+from api.model.sessionHelper import get_session
+from api.Utils import get_oauth_settings
 from tornado.gen import coroutine
 
 

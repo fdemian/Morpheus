@@ -1,6 +1,6 @@
 import unittest
-from backend.SendEmail import send_confirmation_email
-from backend.mail import MockMailSender
+from api.SendEmail import send_confirmation_email
+from api.mail import MockMailSender
 
 
 class TestSendEmail(unittest.TestCase):

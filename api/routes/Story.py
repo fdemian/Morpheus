@@ -1,11 +1,11 @@
 import json
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
-from backend.model.sessionHelper import get_session
-from backend.model.models import Story
-from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
+from api.model.sessionHelper import get_session
+from api.model.models import Story
+from api.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.web import HTTPError
 from tornado.gen import coroutine
-from backend.Utils import authenticated
+from api.Utils import authenticated
 
 
 class StoryHandler(AuthenticatedHandler):

@@ -1,8 +1,8 @@
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
-from backend.model.sessionHelper import get_session
-from backend.model.models import User, UserActivation
-from backend.authentication.AuthExceptions import InvalidUserException
-from backend.Crypto import hash_password, check_password
+from api.model.sessionHelper import get_session
+from api.model.models import User, UserActivation
+from api.authentication.AuthExceptions import InvalidUserException
+from api.Crypto import hash_password, check_password
 
 
 class DatabaseAuthService:

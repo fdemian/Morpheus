@@ -1,6 +1,6 @@
 import json
-from backend.model.sessionHelper import get_session
-from backend.model.models import User, UserActivation
+from api.model.sessionHelper import get_session
+from api.model.models import User, UserActivation
 from tornado.web import RequestHandler
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from tornado.gen import coroutine

@@ -1,4 +1,4 @@
-from backend.Utils import validate_token
+from api.Utils import validate_token
 from tornado.web import RequestHandler
 
 

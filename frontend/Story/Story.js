@@ -18,7 +18,7 @@ class Story extends Component {
 
  componentDidMount()
  {
-   const storyId = this.props.params.storyId;
+   const storyId = this.props.match.params.storyId;
    this.props.onLoad(storyId);
  }
 

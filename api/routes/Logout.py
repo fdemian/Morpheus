@@ -1,6 +1,6 @@
 from tornado.gen import coroutine
-from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
-from backend.Utils import authenticated
+from api.authentication.AuthenticatedHandler import AuthenticatedHandler
+from api.Utils import authenticated
 
 
 class LogoutHandler(AuthenticatedHandler):

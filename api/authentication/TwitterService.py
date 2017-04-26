@@ -2,8 +2,8 @@ import tornado
 import tornado.web
 import tornado.auth
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
-from backend.model.sessionHelper import get_session
-from backend.model.models import User
+from api.model.sessionHelper import get_session
+from api.model.models import User
 
 
 class TwitterService(tornado.web.RequestHandler, tornado.auth.TwitterMixin):

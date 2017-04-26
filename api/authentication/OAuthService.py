@@ -1,12 +1,12 @@
 from tornado import gen
 from .FacebookService import FacebookAuthService
 from .GoogleService import GoogleAuthService
-from backend.authentication.AuthExceptions import OAuthFailedException, NoSuchServiceException
+from api.authentication.AuthExceptions import OAuthFailedException, NoSuchServiceException
 from sqlalchemy.orm.exc import MultipleResultsFound
-from backend.model.sessionHelper import get_session
-from backend.model.models import User, OAuthAccount
-from backend.authentication.AuthExceptions import ExistingUserException
-from backend.Utils import download_avatar, uglify_username
+from api.model.sessionHelper import get_session
+from api.model.models import User, OAuthAccount
+from api.authentication.AuthExceptions import ExistingUserException
+from api.Utils import download_avatar, uglify_username
 
 
 class OAuthService:

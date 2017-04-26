@@ -3,8 +3,8 @@ import tornado.web
 from tornado.auth import GoogleOAuth2Mixin
 from tornado.web import RequestHandler
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
-from backend.model.sessionHelper import get_session
-from backend.model.models import User
+from api.model.sessionHelper import get_session
+from api.model.models import User
 
 
 class GoogleAuthService(GoogleOAuth2Mixin):

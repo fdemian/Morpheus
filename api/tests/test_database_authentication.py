@@ -1,8 +1,8 @@
 import unittest
-from backend.model.models import User
-from backend.authentication.Database import DatabaseAuthService
-from backend.model.sessionHelper import get_session
-from backend.authentication.AuthExceptions import InvalidUserException
+from api.model.models import User
+from api.authentication.Database import DatabaseAuthService
+from api.model.sessionHelper import get_session
+from api.authentication.AuthExceptions import InvalidUserException
 
 
 class TestDatabaseAuthentication(unittest.TestCase):

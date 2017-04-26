@@ -2,8 +2,8 @@ from tornado import gen
 from tornado.web import RequestHandler
 from tornado.auth import TwitterMixin, AuthError
 from tornado.escape import json_encode
-from backend.model.sessionHelper import get_session
-from backend.model.models import User
+from api.model.sessionHelper import get_session
+from api.model.models import User
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 
 

@@ -2,8 +2,8 @@ import ssl
 import tornado.web
 from base64 import b64encode
 from os import urandom, path
-from backend.AppRoutes import get_app_routes
-from backend.LoadOptions import load_options
+from api.AppRoutes import get_app_routes
+from api.LoadOptions import load_options
 from tornado.httpserver import HTTPServer
 
 config_file = 'config.ini'

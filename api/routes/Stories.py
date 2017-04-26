@@ -1,11 +1,11 @@
 import json
-from backend.model.sessionHelper import get_session
-from backend.model.models import Story, User, Category
+from api.model.sessionHelper import get_session
+from api.model.models import Story, User, Category
 from sqlalchemy.orm.exc import NoResultFound
-from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
+from api.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
-from backend.Utils import authenticated
+from api.Utils import authenticated
 
 
 class StoriesHandler(AuthenticatedHandler):

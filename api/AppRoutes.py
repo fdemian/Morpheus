@@ -1,17 +1,17 @@
 # Route imports
-from backend.routes.Stories import StoriesHandler
-from backend.routes.Story import StoryHandler
-from backend.routes.Stories import StoriesByUserHandler
-from backend.routes.Users import UsersHandler, UserHandler
-from backend.routes.Categories import CategoriesHandler, CategoryHandler, CategoryTopicsHandler
-from backend.routes.Index import IndexHandler
-from backend.routes.Comments import CommentsHandler
-from backend.routes.ConfigOptions import ConfigHandler
-from backend.routes.Notifications import Notifications
-from backend.routes.Alerts import AlertsHandler
-from backend.routes.Authentication import Authentication
-from backend.routes.Activation import UserActivationHandler
-from backend.routes.Logout import LogoutHandler
+from api.routes.Stories import StoriesHandler
+from api.routes.Story import StoryHandler
+from api.routes.Stories import StoriesByUserHandler
+from api.routes.Users import UsersHandler, UserHandler
+from api.routes.Categories import CategoriesHandler, CategoryHandler, CategoryTopicsHandler
+from api.routes.Index import IndexHandler
+from api.routes.Comments import CommentsHandler
+from api.routes.ConfigOptions import ConfigHandler
+from api.routes.Notifications import Notifications
+from api.routes.Alerts import AlertsHandler
+from api.routes.Authentication import Authentication
+from api.routes.Activation import UserActivationHandler
+from api.routes.Logout import LogoutHandler
 from tornado.web import StaticFileHandler
 
 

@@ -1,10 +1,10 @@
 import json
-from backend.model.sessionHelper import get_session
-from backend.model.models import Story, Comment, Notification, User
+from api.model.sessionHelper import get_session
+from api.model.models import Story, Comment, Notification, User
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
-from backend.authentication.AuthenticatedHandler import AuthenticatedHandler
+from api.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.gen import coroutine
-from backend.Utils import authenticated
+from api.Utils import authenticated
 
 
 class CommentsHandler(AuthenticatedHandler):
