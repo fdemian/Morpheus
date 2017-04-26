@@ -29,12 +29,12 @@ class StoryComposer extends Component {
  }
  
  onDiscardClick(){
-   const { router, clearFn, editing } = this.props;
+   const { history, clearFn, editing } = this.props;
 
    if(editing)
       clearFn();
 
-   router.goBack();
+   history.goBack();
  }
 
  setClearFn(clearFunction){
@@ -55,7 +55,7 @@ class StoryComposer extends Component {
  
  render() {
 
-   const { router } = this.props;
+   const { history } = this.props;
    const {onEditorChange, onTitleChange, onCategoryChange, onTagsChange} = this.props;
    const {title, content, category, tags, id, posted, editing, categories} = this.props;
    const {clearFn} = this.props;
@@ -64,7 +64,7 @@ class StoryComposer extends Component {
    if(posted)
    {
        clearFn();
-	   router.replace('/stories/' + id + '/' + title);
+	   history.push('/stories/' + id + '/' + title);
    }
 
    return (

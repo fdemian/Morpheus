@@ -16,9 +16,10 @@ class AuthDialog extends Component {
 		
    const {query, hash, search, pathname} = this.props.location;
    const {code, redirectPath, state, method} = query;
-   const {router, performAuth, performRegistration} = this.props;
+   const {history, performAuth, performRegistration} = this.props;
    const authType = state;
-
+   console.log(this.props);
+   console.log
    let authenticateUser = false;
 
    if(code)
@@ -45,7 +46,7 @@ class AuthDialog extends Component {
          performRegistration(authType, code, authRedirectURL);
       }
 	  
-	  router.replace(redirectURL);
+	  history.push(redirectURL);
    }
 
  }

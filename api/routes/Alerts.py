@@ -24,8 +24,7 @@ class AlertsHandler(AuthenticatedHandler):
         session = session_object()
         current_user = self.current_user
         
-        alerts = session.query(Notification)
-                        .filter(Notification.user_id == current_user, Notification.read == False)\
+        alerts = session.query(Notification).filter(Notification.user_id == current_user, Notification.read == False)\
                         .order_by(Notification.id.desc())\
                         .all()
 
