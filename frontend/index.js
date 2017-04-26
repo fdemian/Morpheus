@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import storeCreator from './store/configureStore';
-import { Router, Route } from 'react-router';
-import {  Redirect } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory'
+import PrivateRoute from './PrivateRoutes/PrivateRoute';
 
 // Route components.
 import App from './App/App'; // Main application.
@@ -75,12 +75,6 @@ function redirectFromLogin(nextState, replace) {
     })
   }
 }
-
-const PrivateRoute = ({ component: Component, ...rest, state }) => (
-  <Route {...rest} render={props => (state.session.loggedIn ? (<Component {...props}/>) :
-  (<Redirect to={{pathname: '/login', state: { from: props.location }}} />) )}
-  />
-);
 
 class Root extends React.Component {
 
