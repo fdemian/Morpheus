@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import storeCreator from './store/configureStore';
 import { Router, Route } from 'react-router';
+import {  Redirect } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory'
 
 // Route components.
@@ -75,6 +76,12 @@ function redirectFromLogin(nextState, replace) {
   }
 }
 
+const PrivateRoute = ({ component: Component, ...rest, state }) => (
+  <Route {...rest} render={props => (state.session.loggedIn ? (<Component {...props}/>) :
+  (<Redirect to={{pathname: '/login', state: { from: props.location }}} />) )}
+  />
+);
+
 class Root extends React.Component {
 
  render() {
@@ -91,7 +98,7 @@ class Root extends React.Component {
 		   <Route exact path="/register" component={Register} />
            <Route exact path="/users/:userId/:userName" component={User}/>
            <Route exact path="/stories" component={Stories} />
-           <Route exact path="/stories/new" component={StoryComposer} onEnter={requireAuthExtra} />
+           <PrivateRoute exact path="/stories/new" component={StoryComposer} state={store.getState()} />
            <Route exact path="/stories/:storyId/:storyName" component={Story} />
            <Route exact path="/categories" component={Categories} />
            <Route exact path="/categories/:categoryId/:categoryName" component={Category} />
