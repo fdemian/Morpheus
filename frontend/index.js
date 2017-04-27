@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import storeCreator from './store/configureStore';
-import { Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory'
-import PrivateRoute from './PrivateRoutes/PrivateRoute';
+import AdminRoute from './PrivateRoutes/AdminRoute';
 
 // Route components.
 import App from './App/App'; // Main application.
@@ -36,73 +36,30 @@ injectTapEventPlugin();
 // Load configuration.
 store.dispatch(loadConfig());
 
-function requireAuth(nextState, replace) {
-  const state = store.getState();
-  const loggedIn = state.session.loggedIn;
+const Root = () => {
 
-  if (!loggedIn) {
-    replace({
-      pathname: '/login',
-      state: { nextPathname: nextState.location.pathname }
-    })
-  }
-}
-
-function requireAuthExtra(nextState, replace){
-
-  const state = store.getState();
-  const loggedIn = state.session.loggedIn;
-  const role = state.session.user.role;
-
-  if (!loggedIn || role != "author") {
-    replace({
-      pathname: '/login',
-      state: { nextPathname: nextState.location.pathname }
-    })
-  }
-
-}
-
-function redirectFromLogin(nextState, replace) {
-
-  const state = store.getState();
-  const loggedIn = state.session.loggedIn;
-
-  if (loggedIn) {
-    replace({
-      pathname: '/',
-      state: { nextPathname: nextState.location.pathname }
-    })
-  }
-}
-
-class Root extends React.Component {
-
- render() {
-
-   return (
+    return (
      <Provider store={store}>
        <Router history={browserHistory} >
 	    <MuiThemeProvider>
 	     <div>
 		   <Route path="/" component={App}/>
 		   <Route exact path="/" component={Home}/>
-		   <Route exact path="/login" component={Login} onEnter={redirectFromLogin} />
+		   <Route exact path="/login" component={Login}  />
 		   <Route exact path="/auth" component={Authentication} />
 		   <Route exact path="/register" component={Register} />
            <Route exact path="/users/:userId/:userName" component={User}/>
            <Route exact path="/stories" component={Stories} />
-           <PrivateRoute exact path="/stories/new" component={StoryComposer} state={store.getState()} />
+           <AdminRoute exact path="/stories/new" component={StoryComposer} store={store} />
            <Route exact path="/stories/:storyId/:storyName" component={Story} />
            <Route exact path="/categories" component={Categories} />
            <Route exact path="/categories/:categoryId/:categoryName" component={Category} />
-           <Route exact path="/activation/:code" component={Activation} />           
+           <Route exact path="/activation/:code" component={Activation} />
 	     </div>
 		</MuiThemeProvider>
        </Router>
       </Provider>
     );
-  }
 }
 
 //<Route exact path="*" component={NotFound} />

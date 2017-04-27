@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {withRouter} from 'react-router';
 import CategoriesDropdown from './CategoriesDropdown';
 
 // Editor and styles
@@ -16,16 +15,32 @@ import Styles from './Styles.scss';
 
 class StoryComposer extends Component {
 
- contextTypes: {
-    router: React.PropTypes.func
- }
-
  constructor(props) {
    super(props)
+      
+   // Class functions.
    this.onDiscardClick = this.onDiscardClick.bind(this);
    this.clearEditor = null;
    this.setClearFn = this.setClearFn.bind(this);
    this.postStory = this.postStory.bind(this);
+   this.clearStateAndRedirect = this.clearStateAndRedirect.bind(this);
+
+   // Inherited functions
+   this.clearFn = this.props.clearFn;
+   this.onEditorChange = this.props.onEditorChange;
+   this.onTitleChange = this.props.onTitleChange;
+   this.onCategoryChange = this.props.onCategoryChange;
+   this.onTagsChange = this.props.onTagsChange;
+ }
+ 
+ componentDidUpdate()
+ {
+   const {posted} = this.props;
+
+   if(posted)
+   {
+     this.clearStateAndRedirect();
+   }
  }
  
  onDiscardClick(){
@@ -52,35 +67,34 @@ class StoryComposer extends Component {
      this.props.onUpdateClick();   
    }
  }
- 
+
+ clearStateAndRedirect()
+ {
+   const { history, id, title } = this.props;
+
+   this.clearFn();
+   history.push('/stories/' + id + '/' + title);
+ }
+  
  render() {
 
-   const { history } = this.props;
-   const {onEditorChange, onTitleChange, onCategoryChange, onTagsChange} = this.props;
-   const {title, content, category, tags, id, posted, editing, categories} = this.props;
-   const {clearFn} = this.props;
+   const {title, content, category, tags, id, editing, categories} = this.props;
    const _initialComposerState = (content == null ? null : JSON.parse(content));
-
-   if(posted)
-   {
-       clearFn();
-	   history.push('/stories/' + id + '/' + title);
-   }
-
+   
    return (
    <div className="Story">
 	 
      <div styleName="TitleInput">
-        <TextField hintText="Title" value={title} onChange={onTitleChange} fullWidth={true} />
+        <TextField hintText="Title" value={title} onChange={(e) => this.onTitleChange(e)} fullWidth={true} />		
      </div>
 
 	 <div styleName="CategoryInput">
-        <CategoriesDropdown categories={categories} onChange={onCategoryChange} />
+        <CategoriesDropdown categories={categories} onChange={(c) => this.onCategoryChange(c)} />
      </div>
      
      <div styleName="StoryContent">
        <StoryEditor
-           onEditorChange={onEditorChange}
+           onEditorChange={this.onEditorChange}
            setClearEditorFn={this.setClearFn}
            initialState={_initialComposerState}
            editorStyles={EditorStyles}
@@ -92,7 +106,7 @@ class StoryComposer extends Component {
             hintText="Tags"
             floatingLabelText="Comma separated values."
             value={tags}
-            onChange={onTagsChange}
+            onChange={(e) => this.onTagsChange(e)}
             fullWidth={true}
         />
      </div>
@@ -105,7 +119,7 @@ class StoryComposer extends Component {
 		  labelStyle={{'color':'black'}}
 		  hoverColor="red"
 		  icon={<Cancel />}
-          onClick={this.onDiscardClick}
+          onClick={() => this.onDiscardClick}
 		 />
 	 	 <FlatButton
           label="Send"
@@ -124,5 +138,4 @@ class StoryComposer extends Component {
 
 }
 
-const composerComponent = cssModules(StoryComposer, Styles, { allowMultiple: true });
-export default withRouter(composerComponent, { withRef: true });
+export default cssModules(StoryComposer, Styles, { allowMultiple: true });

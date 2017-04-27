@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider';
 import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import AddIcon from 'material-ui/svg-icons/content/add-circle-outline';
-import {withRouter} from 'react-router';
+import {withRouter} from 'react-router-dom';
 
 class Stories extends Component {
 
