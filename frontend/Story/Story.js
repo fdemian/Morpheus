@@ -7,6 +7,7 @@ import CommentBox from '../Comments/Container';
 import CommentList from '../Comments/CommentList';
 import CommentLogin from '../Comments/CommentLogin';
 import StoryTags from './StoryTags';
+import CommentSpace from './CommentSpace';
 
 class Story extends Component {
 
@@ -33,42 +34,43 @@ class Story extends Component {
     <div styleName="Loading">
 	   <FetchingIndicator />
 	</div>
-	);
+    );
    
   if(error)
     return <p>There was an error fetching the content of this topic.</p>;
   
   const rawPostContent = JSON.parse(content);
-  const CommentComposer = isLoggedIn ? <CommentBox /> :
-                                       <CommentLogin storyId={id} storyName={title} providers={oauthProviders} /> ;
-
-  let Tags;
-
-  if(tags == null)
-    Tags = <p>No tags</p>;
-  else
-    Tags = <StoryTags tags={tags} />
-
 
   return(
   <div className="Story">
-	<h1 styleName="StoryTitle">{title}</h1>
+
+    <div>
+	    <h1 styleName="StoryTitle">{title}</h1>
+	</div>
+
 	<br />
-	<br />	
+	<br />
+
 	<div styleName="StoryContent">
 	  <Renderer raw={rawPostContent} />
 	</div>
+
 	<hr styleName="Divider" />
+
 	<div styleName="StoryTags">
-	  {Tags}
+	  <StoryTags tags={tags} />
 	</div>
+
 	<hr styleName="Divider" />
+
     <div styleName="StoryComments" id="comments" >
 	  <CommentList comments={comments} loggedIn={isLoggedIn} />
-	  {CommentComposer}
+	  <CommentSpace isLoggedIn={isLoggedIn} id={id} title={title} oauthProviders={oauthProviders} />
     </div>
+
   </div>
   );
+
  }
  
 }

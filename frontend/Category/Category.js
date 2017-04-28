@@ -11,7 +11,7 @@ class Category extends Component {
    
  componentDidMount()
  {
-   const categoryId = this.props.params.categoryId;
+   const categoryId = this.props.match.params.categoryId;
    this.props.onLoad(categoryId);
  }
 

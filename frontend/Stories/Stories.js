@@ -1,14 +1,22 @@
-﻿import React, { Component, PropTypes } from 'react';
+﻿import React, { Component } from 'react';
 import FetchingIndicator from '../Fetching/FetchingIndicator';
 import StoryList from './StoryList';
 import cssModules from 'react-css-modules';
 import Styles from './Stories.scss';
-import Divider from 'material-ui/Divider';
 import { Link } from 'react-router-dom';
-import FlatButton from 'material-ui/FlatButton';
-import AddIcon from 'material-ui/svg-icons/content/add-circle-outline';
 
-// TODO: cambiar esto por un componente funcional.
+import StoriesHeading from './StoriesHeading';
+
+/*
+// Props => stories, history, id, onEditClick
+function editFn(id, stories, history, onEditClick)
+{
+    const _storyToEdit = stories.filter(s => s.id == id)[0];
+    onEditClick(_storyToEdit);
+    history.push('/stories/new');
+}
+*/
+
 class Stories extends Component {
 
  constructor(props) {
@@ -34,13 +42,14 @@ class Stories extends Component {
  {
 
     const { isFetching, error, stories, loggedIn, userRole, onDelete} = this.props;
+    const adminLoggedIn = (loggedIn && userRole == "author");
 
     if(isFetching)
-    return (
-    <div styleName="Loading">
-	   <FetchingIndicator />
-	</div>
-    );
+      return (
+      <div styleName="Loading">
+	     <FetchingIndicator />
+	  </div>
+      );
 
     if(error)
       return <p>There was an error fetching your posts</p>;
@@ -49,35 +58,20 @@ class Stories extends Component {
       return (
       <div styleName="StoriesContainer">
 
-	    <p styleName="MainSectionText">Stories</p>
+        <div>
+	        <p styleName="MainSectionText">Stories</p>
+        </div>
 
-	    {loggedIn && userRole == "author" ?
-	      <div styleName="StoriesHeading">
-             <Link to="/stories/new">
-		        <FlatButton
-                   hoverColor="gainsboro"
-		           label="New story"
-		           labelStyle={{'color': '#3b5998'}}
-		           icon={<AddIcon  color='#3b5998' />}
-		        />
-		     </Link>
-             <Link to="/categories">
-		        <FlatButton
-                   hoverColor="gainsboro"
-		           label="Categories"
-		           labelStyle={{'color': '#3b5998'}}
-		           icon={<AddIcon  color='#3b5998' />}
-		        />
-		     </Link>
-	      </div>
-	    :
-	    <Divider />
-	    }
+        <div styleName="StoriesHeading">
+	        <StoriesHeading isAdminLoggedIn={adminLoggedIn} />
+	    </div>
 
-        <StoryList storiesList={stories} loggedIn={loggedIn} deleteFn={onDelete} editFn={this.editFn} />
+	    <div>
+           <StoryList storiesList={stories} loggedIn={loggedIn} deleteFn={onDelete} editFn={this.editFn} />
+        </div>
 
-    </div>
-    );
+      </div>
+      );
 
   }
 }

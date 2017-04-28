@@ -17,6 +17,7 @@ export default function loadCategory(id) {
 	callHeaders: { mode: 'cors', cache: 'default' },
     payload: null
   }
+
 }
 
 export function loadCategoryTopics(id, page)

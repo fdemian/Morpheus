@@ -4,7 +4,14 @@ const chipStlye = {margin: 4};
 
 const StoryTags = ({tags}) => {
 
- const data = tags.split(",");
+  if(tags == null)
+    return(
+     <div>
+        <p>No tags</p>
+     </div>
+    );
+
+  const data = tags.split(",");
 
   return(
    <div>
