@@ -7,15 +7,12 @@ import Divider from 'material-ui/Divider';
 import { Link } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import AddIcon from 'material-ui/svg-icons/content/add-circle-outline';
-import {withRouter} from 'react-router-dom';
 
+// TODO: cambiar esto por un componente funcional.
 class Stories extends Component {
 
- constructor(props) { super(props) }
-
- contextTypes:
- {
-    router: React.PropTypes.func
+ constructor(props) {
+    super(props)
  }
 
  editFn(id)
@@ -85,7 +82,5 @@ class Stories extends Component {
   }
 }
 
-
-const storiesComponent = cssModules(Stories, Styles, { allowMultiple: true });
-export default withRouter(storiesComponent, { withRef: true });
+export default cssModules(Stories, Styles, { allowMultiple: true });
 
