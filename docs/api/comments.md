@@ -6,7 +6,7 @@
  
  Post a new comment in a given story.  
  
- Sample request:
+ **Request:**
  
  ```
  POST /stories/<story id>/comments 

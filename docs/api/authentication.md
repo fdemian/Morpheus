@@ -39,4 +39,19 @@
   +	token : the JWT token.
   + user: the user data (name, avatar, etc...).
   + type: type of authentication used.
-   
+
+  ## Logout
+  
+   **Request:**
+  
+  ```
+  POST /auth/logout  
+  ```
+  
+  **Response:**
+  
+  ```
+  {
+	status: "ok"
+  }
+  ```
