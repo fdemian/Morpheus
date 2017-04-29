@@ -30,4 +30,4 @@
 	- authorizeURL: oauth url service where to redirect the user for authorization.
 	- key: oauth service public key.
   
-  - notificationsEnabled: a boolean indicating wether notifications are enabled.
+  - notificationsEnabled: a boolean indicating whether notifications are enabled.
