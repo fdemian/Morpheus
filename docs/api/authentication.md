@@ -39,3 +39,4 @@
   +	token : the JWT token.
   + user: the user data (name, avatar, etc...).
   + type: type of authentication used.
+   
