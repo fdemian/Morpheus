@@ -4,7 +4,6 @@ import StoryList from './StoryList';
 import cssModules from 'react-css-modules';
 import Styles from './Stories.scss';
 import { Link } from 'react-router-dom';
-
 import StoriesHeading from './StoriesHeading';
 
 /*
@@ -23,9 +22,8 @@ class Stories extends Component {
     super(props)
  }
 
- editFn(id)
+ editFn(id, history)
  {
-    const { history } = this.props;
     const _storyToEdit = this.props.stories.filter(s => s.id == id)[0];
     this.props.onEditClick(_storyToEdit);
 
@@ -41,7 +39,7 @@ class Stories extends Component {
  render()
  {
 
-    const { isFetching, error, stories, loggedIn, userRole, onDelete} = this.props;
+    const { isFetching, error, stories, loggedIn, userRole, onDelete, history} = this.props;
     const adminLoggedIn = (loggedIn && userRole == "author");
 
     if(isFetching)
@@ -67,7 +65,7 @@ class Stories extends Component {
 	    </div>
 
 	    <div>
-           <StoryList storiesList={stories} loggedIn={loggedIn} deleteFn={onDelete} editFn={this.editFn} />
+           <StoryList storiesList={stories} history={history} loggedIn={loggedIn} deleteFn={onDelete} editFn={this.editFn} />
         </div>
 
       </div>

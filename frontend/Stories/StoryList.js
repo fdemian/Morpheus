@@ -1,11 +1,11 @@
 import React from 'react';
 import StoryElement from './StoryElement';
 
-const StoryList = ({storiesList, loggedIn, deleteFn, editFn}) => (
+const StoryList = ({storiesList, history, loggedIn, deleteFn, editFn}) => (
 <div>  
  {storiesList.map((story, i) =>  
   <div key={i}>	  
-    <StoryElement story={story} loggedIn={loggedIn} deleteFn={deleteFn} editFn={editFn} />
+    <StoryElement story={story} history={history} loggedIn={loggedIn} deleteFn={deleteFn} editFn={editFn} />
   </div>
  )}
 </div>

@@ -36,7 +36,7 @@ const containerStyle = {
  'padding': '20px'
 };
 
-const StoryElement = ({story, loggedIn, deleteFn, editFn}) => {
+const StoryElement = ({story, history, loggedIn, deleteFn, editFn}) => {
 
   const {category, author} = story;
   const linkToUser = "/users/" + author.id + "/" + format_title_string(author.name);
@@ -69,7 +69,7 @@ const StoryElement = ({story, loggedIn, deleteFn, editFn}) => {
     );
 
     editButton = (
-       <span onClick={() => editFn(storyId)}>
+       <span onClick={() => editFn(storyId, history)}>
          <IconButton tooltip="Edit">
            <EditIcon color='#3b5998' />
          </IconButton>

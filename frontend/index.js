@@ -43,8 +43,8 @@ const Root = () => {
        <Router history={browserHistory} >
 	    <MuiThemeProvider>
 	     <div>
-		   <Route path="/" component={App}/>
-		   <Route exact path="/" component={Home}/>
+		   <Route path="/" component={App} />
+		   <Route exact path="/" component={Home} />
 		   <Route exact path="/login" component={Login}  />
 		   <Route exact path="/auth" component={Authentication} />
 		   <Route exact path="/register" component={Register} />
