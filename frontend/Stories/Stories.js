@@ -6,15 +6,6 @@ import Styles from './Stories.scss';
 import { Link } from 'react-router-dom';
 import StoriesHeading from './StoriesHeading';
 
-/*
-// Props => stories, history, id, onEditClick
-function editFn(id, stories, history, onEditClick)
-{
-    const _storyToEdit = stories.filter(s => s.id == id)[0];
-    onEditClick(_storyToEdit);
-    history.push('/stories/new');
-}
-*/
 
 class Stories extends Component {
 
@@ -39,10 +30,6 @@ class Stories extends Component {
  render()
  {
 
-	console.log("============================================()");
-	console.log(this.props);
-	console.log("============================================()");
-	
     const { isFetching, error, stories, loggedIn, userRole, onDelete, history} = this.props;
     const adminLoggedIn = (loggedIn && userRole == "author");
 
