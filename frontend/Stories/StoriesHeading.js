@@ -4,8 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import AddIcon from 'material-ui/svg-icons/content/add-circle-outline';
 import Divider from 'material-ui/Divider';
 
-const StoriesHeading = ({isAdminLoggedIn}) =>
-{
+const StoriesHeading = ({isAdminLoggedIn}) => {
 
    if(isAdminLoggedIn)
    {
@@ -35,7 +34,7 @@ const StoriesHeading = ({isAdminLoggedIn}) =>
    }
    else
    {
-        return <Divider />;
+      return <Divider />;
    }
 
 }
