@@ -3,9 +3,7 @@ import FetchingIndicator from '../Fetching/FetchingIndicator';
 import cssModules from 'react-css-modules';
 import Styles from './css/Story.scss';
 import Renderer from './DraftRenderer';
-import CommentBox from '../Comments/Container';
 import CommentList from '../Comments/CommentList';
-import CommentLogin from '../Comments/CommentLogin';
 import StoryTags from './StoryTags';
 import CommentSpace from './CommentSpace';
 

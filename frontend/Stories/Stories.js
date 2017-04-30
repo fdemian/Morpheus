@@ -39,6 +39,10 @@ class Stories extends Component {
  render()
  {
 
+	console.log("============================================()");
+	console.log(this.props);
+	console.log("============================================()");
+	
     const { isFetching, error, stories, loggedIn, userRole, onDelete, history} = this.props;
     const adminLoggedIn = (loggedIn && userRole == "author");
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import CommentBox from '../Comments/Container';
+import CommentLogin from '../Comments/CommentLogin';
 
 const CommentSpace = ({isLoggedIn, id, title, oauthProviders}) => {
     if(isLoggedIn)
