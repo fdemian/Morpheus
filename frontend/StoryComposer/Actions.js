@@ -93,7 +93,7 @@ export function editStory()
       const _category = state.composer.category.id;
   	  const _content = JSON.stringify(state.composer.content);
       const _token = state.session.token;
-      const endpoint = "story/" + _id;
+      const endpoint = "stories/" + _id;
 
   	  const jsonData = JSON.stringify({
          title: _title,

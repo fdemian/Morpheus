@@ -9,7 +9,7 @@ where each object represents a single story.
 **Request:**
 
  ```
- GET /story/<id>
+ GET /stories?id=<id>
  ```
  
  - id: the id of the story to query.
@@ -139,20 +139,35 @@ POST /stories
 ## Delete a story (*Authentication required*)
 
  **Request:**
-```
-DELETE /stories/<id>
-```
+ 
+ ```
+ DELETE /stories/<id>
+ ```
 
 - id: id of the story to delete.
 
-**Response:**
+ **Response:**
 
-```
-{
+ ```
+ {
   "data": {
     "id": <id>
   }
-}
-```
+ }
+ ```
 
 - id: id of the story to delete.
+
+# Get a single story
+
+ **Request:**
+
+ ```
+ GET /story/id
+ ```
+ 
+ ```
+ 
+ ```
+ 
+ 
