@@ -68,6 +68,48 @@ Get a story.
  - author: the author of the story (a user object)
  - content: a is a draftJS raw state JSON.
 
+## List stories for a given user.
+ 
+ **Request:**
+ 
+ ```
+ GET /users/1/stories
+ ```
+ 
+ **Response:**
+ 
+ ```
+ {
+	"data": [{
+		"id": <id>,
+		"category": {
+			"id": <categoryId>,
+			"name": <categoryName>
+		},
+		"views": <views>,
+		"name": <name>,
+		"author": {
+			"id": <authorId>,
+			"name": <authorName>,
+			"avatar": <authorAvatar>
+		},
+		"replies": <replies>
+	}]
+ } 
+ ```
+ 
+ - id: id of the story.
+ - category: category the story belongs to.
+   - categoryId: id of the category.
+   - categoryName: name of the category.
+ - views: not used currently.
+ - name: name of the story.
+ - author: author of the story.
+   - id: id of the author.
+   - name: name of the author.
+   - avatar: url to the author avatar.
+ - replies: not used currently.
+ 
 ## Create new story (*Authentication required*)
 
  ```
