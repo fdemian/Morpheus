@@ -1,38 +1,77 @@
-# List categories
+ # Categories
+ 
+ ## Get a category
+ 
+ **Request:**
+ 
+ ``` 
+ GET categories/<id>
+ ```
+ 
+ **Response:**
+ 
+ ```
+ {
+	"data": {
+		"name": <name>,
+		"id": <id>
+	}
+ } 
+ ```
+  
+ - name: name of the category.
+ - id: id of the category.
+  
+ ## List categories
 
-List all categories for all posts. On success you will receive an array of JSON objects, 
-where each object represents a single story.
+ List all categories for all posts. On success you will receive an array of JSON objects, 
+ where each object represents a single story.
 
-Sample request:
+ **Request:**
 
-```
-GET /categories
+ ```
+ GET /categories
+ ```
+ 
+ **Response:**
+ 
+ ```
+ {
+	"data": [{
+		"name": <name>,
+		"id": <id>
+	}]
+ }
+ ```
+ 
+ - name: name of the category.
+ - id: id of the category.
 
-{
-  "data": [
-  {
-     "id": 1,
-	 "name": "foo"	
-  }
-  ...
-  ],
-}
-```
+## Create new category (*Authentication required*)
 
-# Create new category (*Authentication required*)
+ **Request:**
 
-Sample request:
-
-```
-POST -d '{'categoryName': 'name'}' /categories
-
-{
-  "data": [
-  {
-     "id": 1,
-	 "name": "foo"	
-  }
-  ...
-  ],
-}
-```
+ ```
+ POST /categories
+ 
+ {
+	"name": <name>
+ }
+ ```
+ 
+ - name: name of the category to create.
+ 
+ **Response:**
+ 
+ ```
+ {
+	"data": {
+	  "name": <name>,
+      "id": <id>
+	}
+ }
+ ```
+ 
+ - name: name of the category that was just created.
+ - id: id of the category that was just created.
+  
