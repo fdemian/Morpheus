@@ -2,11 +2,9 @@
 
 ## Show a story
 
+Get a story.
 
-List all stories posted by all the users. On success you will receive an array of JSON objects, 
-where each object represents a single story.
-
-**Request:**
+ **Request:**
 
  ```
  GET /stories?id=<id>
@@ -14,7 +12,7 @@ where each object represents a single story.
  
  - id: the id of the story to query.
 
-**Response:**
+ **Response:**
 
  ```
  {
@@ -43,17 +41,16 @@ where each object represents a single story.
 
 ## List stories
 
-List all stories posted by all the users. On success you will receive an array of JSON objects, 
-where each object represents a single story.
+ List all stories posted by all the users.
 
-Sample request:
+ **Request:**
 
-```
-GET /stories
+ ```
+ GET /stories
 
-{
-  "data": [
-  {
+ {
+   "data": [
+   {
      "id": 1,
 	 "name": "foo",
 	 "category": <category>,
@@ -61,28 +58,29 @@ GET /stories
 	 "content": "<content>",	 
 	 "replies": 0,
 	 "views": 0
-  }
+   }
   ...
   ],
-}
-```
+ }
+ ```
 
-Where category is a category object, author is a user object and <content> is a raw draftJS
-content object.
+ - category: a category object.
+ - author: the author of the story (a user object)
+ - content: a is a draftJS raw state JSON.
 
 ## Create new story (*Authentication required*)
 
-```
-POST /stories
+ ```
+ POST /stories
 
-{
-  "title": <title>,
-  "tags": <tags>,
-  "content": <content> ,
-  "author": <author>,
-  "category": <category>
-}
-```
+ {
+   "title": <title>,
+   "tags": <tags>,
+   "content": <content> ,
+   "author": <author>,
+   "category": <category>
+ }
+ ```
 
  - title: title of the story
  - tags: comma separated values
@@ -90,19 +88,19 @@ POST /stories
  - author: author id.
  - category: category id.
 
-**Response:**
+ **Response:**
 
-```
-{
-  "data": {
-	"id": <id>,
-	"saved": <saved>
-  }
-}
-```
+ ```
+ {
+   "data": {
+	 "id": <id>,
+	 "saved": <saved>
+   }
+ }
+ ```
 
-- id: id of the saved story.
-- saved: indicates if the story was saved or not.
+ - id: id of the saved story.
+ - saved: indicates if the story was saved or not.
 
 ## Update a story (*Authentication required*)
 
@@ -144,7 +142,7 @@ POST /stories
  DELETE /stories/<id>
  ```
 
-- id: id of the story to delete.
+ - id: id of the story to delete.
 
  **Response:**
 
@@ -156,18 +154,4 @@ POST /stories
  }
  ```
 
-- id: id of the story to delete.
-
-# Get a single story
-
- **Request:**
-
- ```
- GET /story/id
- ```
- 
- ```
- 
- ```
- 
- 
+ - id: id of the story to delete.
