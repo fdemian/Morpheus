@@ -110,6 +110,46 @@ Get a story.
    - avatar: url to the author avatar.
  - replies: not used currently.
  
+ ## List stories for a given category.
+ 
+ **Request:**
+ 
+ ```
+ GET /categories/<categoryId>/<page>
+ ```
+ 
+ - categoryId: id of the category to query.
+ - page of the results to obtain.
+ 
+ **Response:**
+ 
+ ```
+ {
+	"data": {
+		"totalPages": <totalPages>,
+		"currentPage": <currentPage>,
+		"items": [{
+			"id": <id>,
+			"name": <storyName>,
+			"author": {
+				"id": <authorId>,
+				"name": <authorName>,
+				"avatar": <avatar>
+			}
+		}]
+	}
+ }
+ ```
+ - totalPages: number of pages in total.
+ - currentPage: current page of results.
+ - items: array containing all the stories for the given category.
+    - id: id of the story.
+    - name: id of the stories.    
+    - author: author of the story.
+      - id: id of the author.
+      - name: name of the author.
+      - avatar: url to the author avatar.
+ 
 ## Create new story (*Authentication required*)
 
  ```
