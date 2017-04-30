@@ -95,6 +95,15 @@ class AlertsHandler(AuthenticatedHandler):
         return
 
     @coroutine
+    def post(self):
+        response = {"message": "This is not a valid method for this resource."}
+        self.set_status(405, 'Error')
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.write(json.dumps(response))
+
+        return
+
+    @coroutine
     def delete(self):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')

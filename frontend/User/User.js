@@ -11,7 +11,7 @@ class User extends Component {
   }
 
   componentDidMount() {
-    const userId = this.props.params.userId;
+    const userId = this.props.match.params.userId;
     this.props.onLoad(userId);
   }
 
