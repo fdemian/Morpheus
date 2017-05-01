@@ -1,13 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink as Link } from 'react-router-dom';
+import format_title_string from '../../utils/formats.js';
 
-const StoryLink = ({storyHref, story}) => {
+const linkStyle = {color: 'blue', textDecoration: 'none' };
+
+const StoryLink = ({story}) => {
+
+  const href = "/stories/" + story.id + "/" + format_title_string(story.name);
   
   return(
-  <Link to={storyHref}>
-	<p style={color:'blue'}>
-	  {story.name}
-	</p>
+  <Link to={href} activeStyle={linkStyle} style={linkStyle}>
+  	<span style={linkStyle}>
+	{story.name}
+	</span>
   </Link>	
   );	
 	

@@ -1,6 +1,7 @@
 import React from 'react';
 import Avatar from 'material-ui/Avatar';
 import { Link } from 'react-router-dom';
+import format_title_string from '../../utils/formats.js';
 
 const authorTextStyle = {
  'color': 'blue',
@@ -13,10 +14,12 @@ const authorTextStyle = {
  'marginTop': '7px'
 };
 
-const UserLink = ({userHref, author}) => {
+const UserLink = ({author}) => {
+  
+  const href = "/users/" + author.id + "/" + format_title_string(author.name);
   
   return(
-   <Link to={userHref}>
+   <Link to={href}>
 	  <Avatar src={"static/avatars/" + author.avatar} size={40} />
 	  <span style={authorTextStyle}>
 	    {author.name}

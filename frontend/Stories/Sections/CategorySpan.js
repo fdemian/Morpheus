@@ -1,4 +1,6 @@
 import React from 'react';
+import { NavLink as Link } from 'react-router-dom';
+import format_title_string from '../../utils/formats.js';
 
 const linkTextStyle = { 
  'color': 'blue',
@@ -9,20 +11,23 @@ const linkTextStyle = {
  'fontSize': '25px'
 };
 
-const CategorySpan = ({category, categoryHref}) => {
-
+const CategorySpan = ({category}) => {
+  
+  const href = "/categories/" + category.id + "/" + category.name;  
   const showCategory = category.id != -1;
   
   if(showCategory)
   {
 	return(	
-	<Link to={categoryHref} >
-	    <span style={linkTextStyle}>
-		  {category.name}
-		</span>
+	<Link to={href} >
+	  <span style={linkTextStyle}>
+         {category.name}
+	   </span>
 	</Link>
 	);
   }
   else
 	return null;  
 }
+
+export default CategorySpan;
