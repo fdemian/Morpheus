@@ -12,31 +12,37 @@ function callAPIMiddleware({ dispatch, getState }) {
 	    callHeaders,
         shouldCallAPI = () => true,
         payload = {}
-    } = action
+    } = action;
 
     if (!types)
-        return next(action)
+        return next(action);
 
     if(types.length === 7)
         return next(action);
 
     if(!Array.isArray(types) || types.length !== 3 || !types.every(type => typeof type === 'string'))
-        throw new Error('Expected an array of three string types.')
+        throw new Error('Expected an array of three string types.');
 
     if (!shouldCallAPI(getState()))
-        return
-
+        return;
+    
+	// Types for this request.
     const [ requestType, successType, failureType ] = types
-    dispatch({type: requestType })
+	
+	dispatch({type: requestType });
+	
     return fetch(API_ROOT + endpoint, callHeaders).then(
-	  response => {
-          if(response.ok)
-          {
-              response.json().then(function(json) {
-                  dispatch({ data: json.data, type: successType })
-              })
-          }
-          else { dispatch({type: failureType }) }
+	  response => {	
+		
+		response.json().then(function(json) {			
+			if(response.ok)
+			  action = { data: json.data, type: successType };
+		    else
+			  action = {data: json.message, type: failureType};
+		  
+		    dispatch(action);
+        });
+		
 	  },
       error => dispatch({type: failureType })
 	)

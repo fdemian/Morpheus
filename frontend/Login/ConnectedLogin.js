@@ -8,6 +8,8 @@ const mapStateToProps = (state) => {
   return {
     oauthProviders: state.app.oauth,
     isLoggedIn: state.session.loggedIn,
+	error: state.session.error,
+	message: state.session.errorMessage
   }
 }
 

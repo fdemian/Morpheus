@@ -51,6 +51,7 @@ const initialState = {
   },
   notifications: [],
   error: false,
+  errorMessage: "",
   token: "",
   authType: "",
   password: ""
@@ -99,7 +100,7 @@ export function session(state = initialState, action) {
         const _authType = action.data.type;
 	    return { ...state, user: _user, token: jwt_token, authType: _authType,isFetching: false, loggedIn:true };
     case AUTH_FAILURE:
-      return { ...state, isFetching: false, error: true};
+      return { ...state, isFetching: false, error: true, errorMessage: action.data};
 
     /* Logout */
     case LOGOUT_START:

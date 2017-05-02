@@ -5,6 +5,7 @@ import OAuthButtons from './OAuthButtons';
 import {withRouter} from 'react-router';
 import cssModules from 'react-css-modules';
 import Styles from './Styles.scss';
+import ErrorMessage from './ErrorMessage';
 
 class Login extends Component {
 
@@ -40,8 +41,8 @@ class Login extends Component {
 
  render() {
 
-  const { history, isLoggedIn } = this.props;
-
+  const { history, isLoggedIn, error, message } = this.props;
+  
   if(isLoggedIn)
     history.push("/");
 
@@ -51,6 +52,8 @@ class Login extends Component {
         <div styleName="Login Title">
            <h1>Log in to your account</h1>
         </div>
+		
+		<ErrorMessage error={error} message={message} />			
 
         <div>
             <TextField
