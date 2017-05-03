@@ -10,7 +10,7 @@ import {
  POST_COMMENT,
  POST_COMMENT_OK,
  POST_COMMENT_FAILURE
-} from '../../Comments/Actions';
+} from '../../CommentBox/Actions';
 
 const initialState = {
   id : 0,

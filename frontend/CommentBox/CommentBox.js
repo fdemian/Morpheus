@@ -22,7 +22,9 @@ class CommentBox extends React.Component {
 	this.postingComment = this.props.posting;
 	this.updateCommentText = this.props.updateCommentText;
 	this.clearEditor = null;
+	this.insertElement = null;
 	this.setClearFn = this.setClearFn.bind(this);
+	this.setInsertFn = this.setInsertFn.bind(this);
  }
 
  onInputChange(draftText)
@@ -33,6 +35,11 @@ class CommentBox extends React.Component {
  setClearFn(clearFn)
  {
    this.clearEditor = clearFn;
+ }
+
+ setInsertFn(insertFn)
+ {
+    this.insertElement = insertFn;
  }
 
  postComment()
@@ -63,6 +70,7 @@ class CommentBox extends React.Component {
 	    <Editor
 	        onEditorChange={this.onInputChange}
             setClearEditorFn={this.setClearFn}
+            setInsertFn={this.setInsertFn}
             initialState={initialState}
             editorStyles={EditorStyles}
 	    />

@@ -1,4 +1,4 @@
-import { COMMENT_CHANGED } from '../../Comments/Actions';
+import { COMMENT_CHANGED } from '../../CommentBox/Actions';
 
 const initialState = {
   text: "",

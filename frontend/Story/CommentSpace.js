@@ -1,5 +1,5 @@
 import React from 'react';
-import CommentBox from '../Comments/Container';
+import CommentBox from '../CommentBox/Container';
 import CommentLogin from '../Comments/CommentLogin';
 
 const CommentSpace = ({isLoggedIn, id, title, oauthProviders}) => {
