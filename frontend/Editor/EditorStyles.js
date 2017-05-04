@@ -58,6 +58,7 @@ const INLINE_STYLES =
 
 const CUSTOM_STYLES =
 [
+  /*{label: 'Quote', style: 'blockquote', toggleFn: insertQuote, requiresInput: false, requiresSelection: false, icon: Quote},*/
   {label: 'Link', style: 'Link', toggleFn: insertLink, requiresInput: true, requiresSelection: true, icon: LinkInsert},
   {label: 'LinkRemove', style: 'LinkRemove', toggleFn: removeLink, requiresInput: false, requiresSelection: false, icon: LinkRemove},
   {label: 'Image', style: 'Image', toggleFn: insertMedia, requiresInput: true, requiresSelection: false, icon: Image},
@@ -133,6 +134,21 @@ export function insertMedia(editor, type, value)
    const contentStateWithEntity = contentState.createEntity('SPOILER', 'IMMUTABLE', {text: selectedText});
    insertEntity(editor, editorState, contentStateWithEntity);
  }
+
+/*
+function insertQuote(editor,editorState, newContentState)
+
+ const {editorState} = editor.state;
+   const selection = editorState.getSelection();
+   const contentBlock = editorState.getCurrentContent().getBlockForKey(selection.getStartKey());
+   const selectionState = editorState.getSelection();
+   const start = selectionState.getStartOffset();
+   const end = selectionState.getEndOffset();
+   const selectedText = contentBlock.getText().slice(start, end);
+   const contentState = editorState.getCurrentContent();
+  return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ');
+}
+}*/
 
  export function insertLaTexBlock(editor){
       

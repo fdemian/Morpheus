@@ -14,10 +14,19 @@
 
 'use strict';
 
-import {
-  AtomicBlockUtils,
-  EditorState,
-} from 'draft-js';
+import Draft from 'draft-js';
+
+const {
+ CompositeDecorator,
+ ContentState,
+ Editor,
+ EditorState,
+ RichUtils,
+ AtomicBlockUtils,
+ DefaultDraftBlockRenderMap,
+ convertToRaw,
+ convertFromRaw
+} = Draft;
 
 let count = 0;
 

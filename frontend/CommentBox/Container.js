@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CommentBox from './CommentBox';
-import {updateCommentText, postNewComment} from './Actions';
+import {updateCommentText, postNewComment, updateQuoteFn} from './Actions';
 import login from './Actions';
 
 const mapStateToProps = (state) => {
@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	  },
       postComment: (content) => {
         dispatch(postNewComment(content));
+	  },
+	  updateQuoteFunction: (newFn) => {
+	     dispatch(updateQuoteFn(newFn));
 	  }
   }
 }

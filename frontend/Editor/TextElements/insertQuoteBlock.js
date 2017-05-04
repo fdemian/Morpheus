@@ -3,15 +3,9 @@ import {
   EditorState,
 } from 'draft-js';
 
-let count = 0;
-
-export function insertQuote(editorState) {
+export function insertQuote(editorState, quoteText, quoteSource) {
   const contentState = editorState.getCurrentContent();
-  const contentStateWithEntity = contentState.createEntity(
-    'TOKEN',
-    'IMMUTABLE',
-    {content:  '<latex>'},
-  );
+  const contentStateWithEntity = contentState.createEntity('TOKEN','IMMUTABLE',{text: quoteText, source: quoteSource});
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
   const newEditorState = EditorState.set(
     editorState,

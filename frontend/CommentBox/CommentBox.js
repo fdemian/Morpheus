@@ -16,7 +16,11 @@ class CommentBox extends React.Component {
  {
     super(props);
 
+	console.log(this.props);
+	console.log("==============");
+
     this.postCommentFn = this.props.postComment;
+    this.updateQuoteFunction = this.props.updateQuoteFunction;
     this.onInputChange = this.onInputChange.bind(this);
     this.postComment = this.postComment.bind(this);
 	this.postingComment = this.props.posting;
@@ -39,7 +43,7 @@ class CommentBox extends React.Component {
 
  setInsertFn(insertFn)
  {
-    this.insertElement = insertFn;
+    this.updateQuoteFunction(insertFn);
  }
 
  postComment()

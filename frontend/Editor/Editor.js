@@ -6,6 +6,7 @@ import Styles from './css/Editor.scss';
 import EditorControls from './Controls';
 
 import TeXBlock from './TextElements/Latex/TeXBlock';
+import {insertTeXBlock} from './TextElements/Latex/insertTeXBlock';
 import {removeTeXBlock} from './TextElements/Latex/removeTeXBlock';
 import Spoiler from './TextElements/SpoilerWrapper';
 import Media from './TextElements/Media';
@@ -100,6 +101,8 @@ class EditorComponent extends React.Component {
    }
    
    this.setClearEditorFn = this.props.setClearEditorFn;
+   this.setInsertFn = this.props.setInsertFn;
+
    this.state = {liveTeXEdits: Map(), editorState: _initalEditorState};
    this.editorStyles = this.props.editorStyles;
    this.focus = () => this.refs.editor.focus();
@@ -115,8 +118,15 @@ class EditorComponent extends React.Component {
    this.inlineIsActive = (style) => this._inlineIsActive(style);
    this.customBlockIsActive = (block) => this._customBlockIsActive(block);
    this.clear = () => this._clear();
-   this.removeTex = (blockKey) => this._removeTex(blockKey);   
-   this.setClearEditorFn(this.clear)
+   this.insertQuote = () => this._insertQuote();
+   this.removeTex = (blockKey) => this._removeTex(blockKey);
+
+   // Set clear editor.
+   this.setClearEditorFn(this.clear);
+
+    // TODO: replace with function to insert quotes (e.d: replying to a user).
+   this.setInsertFn(this._insertTeX);
+
  } 
  
  _removeTeX = (blockKey) => {
@@ -138,6 +148,14 @@ class EditorComponent extends React.Component {
  {
    const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(''));
    this.setState({ editorState });
+ }
+
+ _insertQuote(content, author)
+ {
+   console.log(content);
+   console.log(author);
+   console.log("::::::::::::::: insert quote inside editor");
+   this._toggleInlineStyle("quote");
  }
 
  _blockIsActive(block)

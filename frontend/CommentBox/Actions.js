@@ -1,11 +1,18 @@
 import {_POST} from '../store/callApiHelpers';
 
 export const COMMENT_CHANGED = 'COMMENT_CHANGED';
+export const INSERT_QUOTE_FN_CHANGED = 'INSERT_QUOTE_FN_CHANGED';
 
 export const POST_COMMENT = 'POST_COMMENT';
 export const POST_COMMENT_OK = 'POST_COMMENT_OK';
 export const POST_COMMENT_FAILURE = 'POST_COMMENT_FAILURE';
 
+
+export function updateQuoteFn(quoteFn){
+   return dispatch =>{
+      dispatch({type:INSERT_QUOTE_FN_CHANGED, data: quoteFn});
+   }
+}
 
 export function updateCommentText(text){
    return dispatch =>{

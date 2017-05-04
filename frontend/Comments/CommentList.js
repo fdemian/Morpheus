@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Comment from './Comment';
+import Comment from './Container';
 
 const textStyles = { 'textAlign' : 'center' };
 
