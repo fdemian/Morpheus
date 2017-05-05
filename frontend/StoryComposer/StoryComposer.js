@@ -96,6 +96,7 @@ class StoryComposer extends Component {
        <StoryEditor
            onEditorChange={this.onEditorChange}
            setClearEditorFn={this.setClearFn}
+           setInsertFn={function(){}}
            initialState={_initialComposerState}
            editorStyles={EditorStyles}
        />

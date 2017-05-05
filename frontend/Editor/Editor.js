@@ -11,6 +11,8 @@ import {removeTeXBlock} from './TextElements/Latex/removeTeXBlock';
 import Spoiler from './TextElements/SpoilerWrapper';
 import Media from './TextElements/Media';
 import Link from  './TextElements/Link';
+import QuoteBlockWrapper from './TextElements/QuoteBlockWrapper';
+
 
 const {
  CompositeDecorator,
@@ -118,14 +120,15 @@ class EditorComponent extends React.Component {
    this.inlineIsActive = (style) => this._inlineIsActive(style);
    this.customBlockIsActive = (block) => this._customBlockIsActive(block);
    this.clear = () => this._clear();
-   this.insertQuote = () => this._insertQuote();
+   this.insertQuote = (comment) => this._insertQuote(comment);
+   this.insertQuoteBlock = (type, content, author) => this._insertQuoteBlock(type, content, author);
    this.removeTex = (blockKey) => this._removeTex(blockKey);
 
    // Set clear editor.
    this.setClearEditorFn(this.clear);
 
     // TODO: replace with function to insert quotes (e.d: replying to a user).
-   this.setInsertFn(this._insertTeX);
+   this.setInsertFn(this.insertQuote);
 
  } 
  
@@ -150,12 +153,22 @@ class EditorComponent extends React.Component {
    this.setState({ editorState });
  }
 
- _insertQuote(content, author)
+ _insertQuote(comment)
  {
-   console.log(content);
-   console.log(author);
-   console.log("::::::::::::::: insert quote inside editor");
-   this._toggleInlineStyle("quote");
+   this.insertQuoteBlock("QuoteBlock", comment);
+ }
+
+ _insertQuoteBlock(type, comment)
+ {
+   const {editorState} = this.state;
+   const contentState = editorState.getCurrentContent();
+   const contentStateWithEntity = contentState.createEntity(type, 'IMMUTABLE', {props: comment });
+   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+
+   this.setState({
+     editorState: AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, 'QuoteBlock')
+     },
+     () => {setTimeout(() => this.focus(), 0); });
  }
 
  _blockIsActive(block)
@@ -221,6 +234,13 @@ class EditorComponent extends React.Component {
 	if (text === 'media') {
      return {
        component: Media,
+       editable: false,
+     };
+    }
+
+    if (text === 'QuoteBlock') {
+     return {
+       component: QuoteBlockWrapper,
        editable: false,
      };
     }

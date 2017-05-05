@@ -3,13 +3,16 @@ import {
   EditorState,
 } from 'draft-js';
 
-export function insertQuote(editorState, quoteText, quoteSource) {
-  const contentState = editorState.getCurrentContent();
-  const contentStateWithEntity = contentState.createEntity('TOKEN','IMMUTABLE',{text: quoteText, source: quoteSource});
-  const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-  const newEditorState = EditorState.set(
-    editorState,
-    {currentContent: contentStateWithEntity}
-  );
-  return AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ');
-}
+export function insertQuoteBlock(editor, type, value)
+ {
+   const {editorState} = editor.state;
+   const contentState = editorState.getCurrentContent();
+   const params = {text: value.text, author: value.author};
+   const contentStateWithEntity = contentState.createEntity(type, 'IMMUTABLE', params);
+   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+
+   editor.setState({
+     editorState: AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, 'QuoteBlock')
+     },
+     () => {setTimeout(() => editor.focus(), 0); });
+ }

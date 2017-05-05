@@ -4,17 +4,18 @@ import QuoteIcon from 'material-ui/svg-icons/editor/format-quote';
 import ReplyIcon from 'material-ui/svg-icons/content/reply';
 import insertTex from '../Editor/TextElements/Latex/insertTeXBlock';
 
-function reply(text, insertQuoteFn)
+function reply(comment, insertQuoteFn)
 {
-    insertQuoteFn();
+    insertQuoteFn(comment);
 }
 
-const CommentActions = ({loggedIn, insertQuoteFn, commentText}) => {
+const CommentActions = ({loggedIn, comment, insertQuoteFn }) => {
+
   if(loggedIn){
    return(
    <div>
      <FlatButton
-       onClick={() => reply(commentText, insertQuoteFn)}
+       onClick={() => reply(comment, insertQuoteFn)}
        label="Reply"
        labelPosition="after"
        hoverColor="gainsboro"

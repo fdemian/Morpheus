@@ -88,7 +88,7 @@ var config = {
 	      'sass-loader'
 		]
 	},
-	{ test: /\.css$/, loader: 'style!css' },
+	{ test: /\.css$/, loader: 'style-loader!css-loader' },
 	{ test: /\.(png|svg)$/, loader: 'url-loader?limit=100000' },
 	{ test: /\.jpg$/, loader: 'file-loader' }
 

@@ -4,7 +4,7 @@ import Renderer from '../Story/DraftRenderer';
 import CommentActions from './CommentActions';
 import AuthorLink from './AuthorLink';
 
-const Comment = ({comment, loggedIn, commentText, insertQuoteFn}) => {
+const Comment = ({comment, loggedIn, insertQuoteFn}) => {
 
    const rawContent = JSON.parse(comment.content);
 
@@ -20,7 +20,7 @@ const Comment = ({comment, loggedIn, commentText, insertQuoteFn}) => {
      </div>
 
      <div>
-       <CommentActions loggedIn={loggedIn} commentText={commentText} insertQuoteFn={insertQuoteFn} />
+       <CommentActions loggedIn={loggedIn} comment={comment} insertQuoteFn={insertQuoteFn} />
 	 </div>
 
    </div>
