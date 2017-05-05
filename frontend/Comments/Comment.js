@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Renderer from '../Story/DraftRenderer';
+import Renderer from '../DraftRenderer/DraftRenderer';
 import CommentActions from './CommentActions';
 import AuthorLink from './AuthorLink';
 

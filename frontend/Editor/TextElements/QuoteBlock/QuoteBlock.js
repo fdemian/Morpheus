@@ -1,5 +1,5 @@
 import React from 'react';
-import Renderer from '../../../Story/DraftRenderer';
+import Renderer from '../../../DraftRenderer/DraftRenderer';
 import './QuoteBlock.css';
 
 const QuoteBlock = ({comment}) => {

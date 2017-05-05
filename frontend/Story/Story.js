@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import FetchingIndicator from '../Fetching/FetchingIndicator';
 import cssModules from 'react-css-modules';
 import Styles from './css/Story.scss';
-import Renderer from './DraftRenderer';
+import Renderer from '../DraftRenderer/DraftRenderer';
 import CommentList from '../Comments/CommentList';
 import StoryTags from './StoryTags';
 import CommentSpace from './CommentSpace';
