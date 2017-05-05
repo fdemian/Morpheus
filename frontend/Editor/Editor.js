@@ -8,10 +8,10 @@ import EditorControls from './Controls';
 import TeXBlock from './TextElements/Latex/TeXBlock';
 import {insertTeXBlock} from './TextElements/Latex/insertTeXBlock';
 import {removeTeXBlock} from './TextElements/Latex/removeTeXBlock';
-import Spoiler from './TextElements/SpoilerWrapper';
-import Media from './TextElements/Media';
-import Link from  './TextElements/Link';
-import QuoteBlockWrapper from './TextElements/QuoteBlockWrapper';
+import Spoiler from './TextElements/Spoiler/SpoilerWrapper';
+import Media from './TextElements/Media/Media';
+import Link from  './TextElements/Link/Link';
+import QuoteBlockWrapper from './TextElements/QuoteBlock/QuoteBlockWrapper';
 
 
 const {

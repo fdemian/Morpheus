@@ -7,3 +7,9 @@ blockquote
    margin: 16px 0;
    padding: 10px 20px;
 }
+
+blockquote img {
+  max-width:100% !important;
+  height:auto;
+  display:block;
+}

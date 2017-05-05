@@ -1,6 +1,5 @@
 import React from 'react';
-import Renderer from '../../Story/DraftRenderer';
-import QuoteBlock from './QuoteBlock/QuoteBlock';
+import QuoteBlock from './QuoteBlock';
 
 const QuoteBlockWrapper = (props) => {
 

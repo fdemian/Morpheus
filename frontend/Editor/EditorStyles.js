@@ -1,7 +1,7 @@
 import Draft from 'draft-js';
-import Spoiler from './TextElements/SpoilerWrapper';
-import Media from './TextElements/Media';
-import Link from  './TextElements/Link';
+import Spoiler from './TextElements/Spoiler/SpoilerWrapper';
+import Media from './TextElements/Media/Media';
+import Link from  './TextElements/Link/Link';
 import TeXBlock from './TextElements/Latex/TeXBlock';
 import {insertTeXBlock} from './TextElements/Latex/insertTeXBlock';
 
@@ -58,7 +58,6 @@ const INLINE_STYLES =
 
 const CUSTOM_STYLES =
 [
-  /*{label: 'Quote', style: 'blockquote', toggleFn: insertQuote, requiresInput: false, requiresSelection: false, icon: Quote},*/
   {label: 'Link', style: 'Link', toggleFn: insertLink, requiresInput: true, requiresSelection: true, icon: LinkInsert},
   {label: 'LinkRemove', style: 'LinkRemove', toggleFn: removeLink, requiresInput: false, requiresSelection: false, icon: LinkRemove},
   {label: 'Image', style: 'Image', toggleFn: insertMedia, requiresInput: true, requiresSelection: false, icon: Image},

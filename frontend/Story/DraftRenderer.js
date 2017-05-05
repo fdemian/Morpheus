@@ -1,11 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import redraft from 'redraft';
-import Spoiler from '../Editor/TextElements/Spoiler';
-import Link from '../Editor/TextElements/Link';
-import EmbededVideo from '../Editor/TextElements/EmbededVideo';
+import Spoiler from '../Editor/TextElements/Spoiler/Spoiler';
+import Link from '../Editor/TextElements/Link/Link';
+import EmbededVideo from '../Editor/TextElements/Media/EmbededVideo';
 import QuoteBlock from '../Editor/TextElements/QuoteBlock/QuoteBlock';
-
-//blockquote: (children) => <blockquote key={1}>{addBreaklines(children)}</blockquote>,
 
 /* Style callbacks */
 const styles = {
@@ -47,6 +45,7 @@ const renderers = {
    */
   blocks: {
      unstyled: (children) => children.map(child => <p>{child}</p>),
+     blockquote: (children) => <blockquote key={1}>{addBreaklines(children)}</blockquote>,
     'header-one': (children) => children.map(child => <h1>{child}</h1>),
     'header-two': (children) => children.map(child => <h2>{child}</h2>),
     'code-block': (children) => <pre style={styles.codeBlock}>{addBreaklines(children)}</pre>,
@@ -66,8 +65,6 @@ const renderers = {
 }
 
 export default class Renderer extends Component {
-
-  static propTypes = { raw: PropTypes.object }
 
   renderWarning() {
     return <div>Nothing to render.</div>;
