@@ -5,4 +5,4 @@ scripts = [
      'run_migrations.py'
 ]
 
-setup("Shelob", "requirements.txt", scripts)
+setup("Morpheus", "requirements.txt", scripts)
