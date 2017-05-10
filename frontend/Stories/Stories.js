@@ -56,7 +56,13 @@ class Stories extends Component {
 	    </div>
 
 	    <div>
-           <StoryList storiesList={stories} history={history} loggedIn={loggedIn} deleteFn={onDelete} editFn={this.editFn} />
+           <StoryList
+              storiesList={stories}
+              history={history}
+              loggedIn={loggedIn}
+              deleteFn={onDelete}
+              editFn={this.editFn}
+           />
         </div>
 
       </div>
@@ -66,4 +72,3 @@ class Stories extends Component {
 }
 
 export default cssModules(Stories, Styles, { allowMultiple: true });
-

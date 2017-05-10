@@ -27,12 +27,6 @@ class ConfigHandler(RequestHandler):
                             'key': self.settings["google_oauth_key"],
                             'authorizeURL': self.settings["google_redirect_url"],
                             'iconURL': self.settings["google_icon_url"]
-                        },
-                        {
-                            'name': 'github',
-                            'key': self.settings["github_client_id"],
-                            'authorizeURL': self.settings["github_redirect_url"],
-                            'iconURL': self.settings["github_icon_url"]
                         }],
                     "notificationsEnabled": self.settings['notifications_enabled']
                 }
