@@ -1,4 +1,5 @@
 import {_DELETE} from '../store/callApiHelpers';
+import Fetch from '../store/Fetch';
 
 export const REQUEST_TOPICS = 'REQUEST_TOPICS';
 export const RECEIVE_TOPICS = 'RECEIVE_TOPICS';
@@ -9,16 +10,9 @@ export const DELETE_STORY_OK = 'DELETE_STORY_OK';
 export const DELETE_STORY_FAILURE = 'DELETE_STORY_FAILURE';
 
 function loadTopics() {
-
-  const _endpoint = 'stories';
-
-  return {
-   types: [REQUEST_TOPICS, RECEIVE_TOPICS, RECEIVE_TOPICS_FAILURE],
-   shouldCallAPI: (state) => true,
-   endpoint: _endpoint,
-   callHeaders: { mode: 'cors', cache: 'default' },
-   payload: null
-  }
+ return (dispatch, getState) => {
+  dispatch(Fetch.GET('/api/stories', [REQUEST_TOPICS, RECEIVE_TOPICS, RECEIVE_TOPICS_FAILURE]));
+ }
 }
 
 export default loadTopics;
@@ -27,12 +21,10 @@ export default loadTopics;
 export function deleteStory(id){
 
       return (dispatch, getState) => {
+
   	  const state = getState();
       const _token = state.session.token;
 
-      const _endpoint = 'stories/' + id;
-      const _types = [DELETE_STORY, DELETE_STORY_OK, DELETE_STORY_FAILURE];
-
-      dispatch(_DELETE(_endpoint, _types, _token));
+      dispatch(Fetch.DELETE('/api/stories/' + id, [DELETE_STORY, DELETE_STORY_OK, DELETE_STORY_FAILURE]));
     }
 }

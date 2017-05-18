@@ -1,4 +1,5 @@
 import { _GET } from  '../store/callApiHelpers';
+import Fetch from '../store/Fetch';
 
 export const REQUEST_CONFIG_DATA = 'REQUEST_CONFIG_DATA';
 export const RECEIVE_CONFIG_DATA = 'RECEIVE_CONFIG_DATA';
@@ -16,15 +17,10 @@ export const NEW_NOTIFICATION = 'NEW_NOTIFICATION';
 
 export default function loadConfig() {
 
-  const _endpoint = "config";
+ return (dispatch, getState) => {
+    dispatch(Fetch.GET('/api/config', [REQUEST_CONFIG_DATA, RECEIVE_CONFIG_DATA, RECEIVE_CONFIG_FAILURE]));
+ }
 
-  return {
-    types: [REQUEST_CONFIG_DATA, RECEIVE_CONFIG_DATA, RECEIVE_CONFIG_FAILURE],
-    shouldCallAPI: (state) => true,
-	endpoint: _endpoint,
-	callHeaders: { mode: 'cors', cache: 'default' },
-    payload: null
-  }
 }
 
 export function initializeNotifications() {

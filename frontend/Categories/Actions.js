@@ -1,4 +1,5 @@
 import {_POST, _PUT, _DELETE} from '../store/callApiHelpers';
+import Fetch from '../store/Fetch';
 
 
 export const CREATE_CATEGORY = 'CREATE_CATEGORY';
@@ -44,15 +45,8 @@ export function deleteCategory(id)
 
 export function loadCategories()
 {
-
-  const _endpoint = "categories";
-
-  return {
-    types: [REQUEST_CATEGORIES, RECEIVE_CATEGORIES, RECEIVE_CATEGORIES_FAILURE],
-    shouldCallAPI: (state) => true,
-    endpoint: _endpoint,
-	callHeaders: { mode: 'cors', cache: 'default' },
-    payload: null
+  return (dispatch, getState) => {
+     dispatch(Fetch.GET('/api/categories', [REQUEST_CATEGORIES, RECEIVE_CATEGORIES, RECEIVE_CATEGORIES_FAILURE]));
   }
 }
 

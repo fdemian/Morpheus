@@ -1,18 +1,32 @@
-import 'isomorphic-fetch'
+import 'isomorphic-fetch';
 
-const API_ROOT = window.location.protocol + "//" + window.location.host + "/api/";
+function PerformFetch(types, endpoint, headers, dispatch)
+{
+
+   let action = {};
+   const [ requestType, successType, failureType ] = types
+   dispatch({type: requestType });
+
+   return fetch(endpoint, headers).then(
+	      response => {
+		     response.json().then(function(json) {
+			    if(response.ok)
+			       action = { data: json.data, type: successType };
+		        else
+			       action = {data: json.message, type: failureType};
+
+		        dispatch(action);
+             });
+	      },
+          error => dispatch({type: failureType })
+   );
+}
 
 function callAPIMiddleware({ dispatch, getState }) {
 
   return next => action => {
 
-    const {
-        types,
-        endpoint,
-	    callHeaders,
-        shouldCallAPI = () => true,
-        payload = {}
-    } = action;
+    const { types, endpoint, headers } = action;
 
     if (!types)
         return next(action);
@@ -23,30 +37,11 @@ function callAPIMiddleware({ dispatch, getState }) {
     if(!Array.isArray(types) || types.length !== 3 || !types.every(type => typeof type === 'string'))
         throw new Error('Expected an array of three string types.');
 
-    if (!shouldCallAPI(getState()))
-        return;
-    
 	// Types for this request.
-    const [ requestType, successType, failureType ] = types
-	
-	dispatch({type: requestType });
-	
-    return fetch(API_ROOT + endpoint, callHeaders).then(
-	  response => {	
-		
-		response.json().then(function(json) {			
-			if(response.ok)
-			  action = { data: json.data, type: successType };
-		    else
-			  action = {data: json.message, type: failureType};
-		  
-		    dispatch(action);
-        });
-		
-	  },
-      error => dispatch({type: failureType })
-	)
+    PerformFetch(types, endpoint, headers, dispatch);
+
   }
+
 }
 
 export default callAPIMiddleware;
