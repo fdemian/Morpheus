@@ -1,6 +1,4 @@
-import fetch from 'isomorphic-fetch';
-import sendContent from '../store/callApiHelpers';
-import { _POST} from '../store/callApiHelpers';
+import Fetch from '../store/Fetch';
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
@@ -14,7 +12,7 @@ export default function signIn(type, token, redirectURL, username, password)
 {
     return (dispatch, getState) => {
 
-      const endpoint = "auth";
+      const endpoint = "/api/auth";
 
   	  const jsonData = JSON.stringify({
          code: token,
@@ -26,7 +24,7 @@ export default function signIn(type, token, redirectURL, username, password)
 
       const types = [AUTH_START, AUTH_SUCCESS, AUTH_FAILURE];
 
-      dispatch(sendContent(endpoint, types, jsonData));
+      dispatch(Fetch.POST(endpoint, types, jsonData));
 
     }
 }
@@ -36,9 +34,9 @@ export function signOut() {
 	const state = getState();
     const type = state.session.authType;
     const token = state.session.token;
-    const _endpoint = "auth/logout/";
+    const _endpoint = "/api/auth/logout/";
     const types = [LOGOUT_START, LOGOUT_SUCCESS, LOGOUT_FAILURE];
 
-    dispatch(_POST(_endpoint, types, "{}", token));
+    dispatch(Fetch.POST(_endpoint, types, "{}", token));
   }
 }

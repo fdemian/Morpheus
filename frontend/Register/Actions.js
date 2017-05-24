@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+import Fetch from '../store/Fetch';
 import sendContent from '../store/callApiHelpers';
 
 /* UPDATE FIELDS */
@@ -60,7 +60,7 @@ export default function register(_type, code, redirectURL) {
   return (dispatch, getState) => {
 
 
-	  const endpoint = "users";
+	  const endpoint = "/api/users";
       const types = [REGISTER_START, REGISTER_SUCCESS, REGISTER_FAILURE];
 
       let jsonData = null;
@@ -84,6 +84,6 @@ export default function register(_type, code, redirectURL) {
       else
          jsonData = JSON.stringify({code: code,type: _type, redirectURL: redirectURL});
 
-      dispatch(sendContent(endpoint, types, jsonData));
+      dispatch(Fetch.POST(endpoint, types, jsonData));
   }
 }

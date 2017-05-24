@@ -3,6 +3,9 @@ import re
 from tornado.gen import coroutine
 from tornado.httpclient import AsyncHTTPClient
 from os import path, getcwd
+from api.model.models import User, UserActivation
+from api.Crypto import hash_password
+
 import functools
 
 def authenticated(method):
@@ -82,3 +85,27 @@ def get_oauth_settings(settings):
     }
 
     return settings
+
+
+def do_save_user(user_to_save, session):
+    # TODO: document this.
+    user = User()
+    user.username = user_to_save["username"]
+    user.password = hash_password(user_to_save["password"])
+    user.fullname = user_to_save["name"]
+    user.email = user_to_save['email']
+    user.valid = False  # A user is not valid until his/her email has ben verified.
+    user.avatar = "_default_avatar.png"
+    session.add(user)
+    session.commit()
+
+    return user
+
+
+def save_activation_info(activation_code, user, session):
+    # Save activation info.
+    user_activation = UserActivation()
+    user_activation.code = activation_code
+    user_activation.user_id = user.id
+    session.add(user_activation)
+    session.commit()

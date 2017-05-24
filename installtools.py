@@ -1,7 +1,7 @@
 import sys
 from subprocess import call
 
-script_path = "scripts"
+script_path = "api/scripts"
 
 
 def install_packages(requirements_file):

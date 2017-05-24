@@ -1,8 +1,9 @@
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
 from api.model.sessionHelper import get_session
-from api.model.models import User, UserActivation
+from api.model.models import User
 from api.authentication.AuthExceptions import InvalidUserException
 from api.Crypto import hash_password, check_password
+from api.Utils import do_save_user, save_activation_info
 
 
 class DatabaseAuthService:
@@ -66,27 +67,10 @@ class DatabaseAuthService:
     @staticmethod
     def save_user(user_to_save, activation_code):
 
-        # TODO: document this.
-        user = User()
-        user.username = user_to_save["username"]
-        user.password = hash_password(user_to_save["password"])
-        user.fullname = user_to_save["name"]
-        user.email = user_to_save['email']
-        user.valid = False  # A user is not valid until his/her email has ben verified.
-        user.avatar = "_default_avatar.png"
-
-        # Save user.
         session_object = get_session()
         session = session_object()
-        session.add(user)
-        session.commit()
-
-        # Save activation info.
-        user_activation = UserActivation()
-        user_activation.code = activation_code
-        user_activation.user_id = user.id
-        session.add(user_activation)
-        session.commit()
+        user = do_save_user(user_to_save, session)
+        save_activation_info(activation_code, user, session)
 
         return user
 
