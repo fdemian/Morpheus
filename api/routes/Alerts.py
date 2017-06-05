@@ -6,6 +6,7 @@ from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from tornado.gen import coroutine
 from api.Utils import authenticated
 
+
 class AlertsHandler(AuthenticatedHandler):
 
     # GET /alerts
@@ -78,12 +79,12 @@ class AlertsHandler(AuthenticatedHandler):
         except NoResultFound:
             status = 500
             status_str = "error"
-            response = {'data': ''}
+            response = {'message': 'No notificiations with the id' + notification_id + 'found.'}
 
         except MultipleResultsFound:
             status = 500
             status_str = "error"
-            response = {'data': ''}
+            response = {'message': 'More than one notificiation with the id' + notification_id + ' was found.'}
 
         json.dumps(response)
 

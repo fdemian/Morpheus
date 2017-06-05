@@ -20,7 +20,7 @@ class LogoutHandler(AuthenticatedHandler):
 
         self.set_status(200, 'Ok')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write({'status': 'ok'})
+        self.write({'status': 'Ok'})
 
         return
 

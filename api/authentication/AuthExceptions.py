@@ -10,5 +10,6 @@ class NoSuchServiceException(Exception):
 class InvalidUserException(Exception):
     pass
 
+
 class ExistingUserException(Exception):
     pass

@@ -20,16 +20,16 @@ class StoriesHandler(AuthenticatedHandler):
         story_id = self.get_argument("id", default=None)
  
         if story_id is not None:
-           story = session.query(Story).filter(Story.id == story_id).one()
-           content = json.loads(story.content)
+            story = session.query(Story).filter(Story.id == story_id).one()
+            content = json.loads(story.content)
 
-           if story.category is None:
-               category = {'id': -1, 'name': "uncatalogued"}
-           else:
-               category = {'id': story.category.id, 'name': story.category.name}
+            if story.category is None:
+                category = {'id': -1, 'name': "uncatalogued"}
+            else:
+                category = {'id': story.category.id, 'name': story.category.name}
 
-           comments = []
-           for comment in story.comments:
+            comments = []
+            for comment in story.comments:
                json_comment = {
                     'id': comment.id,
                     'author': comment.author,
@@ -40,22 +40,22 @@ class StoriesHandler(AuthenticatedHandler):
 
                comments.append(json_comment)
 
-           response = {
-             'data': {
-                'id': story.id,
-                'title': story.title,
-                'category': category,
-                'content': content,
-                'comments': comments,
-                'tags': story.tags
-             }
-           }
+            response = {
+                'data': {
+                    'id': story.id,
+                    'title': story.title,
+                    'category': category,
+                    'content': content,
+                    'comments': comments,
+                    'tags': story.tags
+                }
+            }
            
-           self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
-           self.set_header("Access-Control-Allow-Origin", "*")
-           self.write(response)
+            self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
+            self.set_header("Access-Control-Allow-Origin", "*")
+            self.write(response)
 
-           return
+            return
             
         else:
             all_stories = session.query(Story).order_by(Story.id.desc()).all()
@@ -146,12 +146,14 @@ class StoriesHandler(AuthenticatedHandler):
         except NoResultFound:
             status = 500
             status_str = "error"
-            response = {'data': ''}
+            msg = {'message': 'No story found for the specified id.'}
+            response = {'data': msg}
 
         except MultipleResultsFound:
             status = 500
             status_str = "error"
-            response = {'data': ''}
+            msg = {'message': 'Multiple stories found for the specified id.'}
+            response = {'data': msg}
 
         json.dumps(response)
 
@@ -159,6 +161,7 @@ class StoriesHandler(AuthenticatedHandler):
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_status(status, status_str)
         self.write(response)
+
         return
 
     @authenticated
@@ -180,12 +183,14 @@ class StoriesHandler(AuthenticatedHandler):
         except NoResultFound:
             status = 500
             status_str = "error"
-            response = {'data': ''}
+            msg = {'message': 'No stories found for the specified id.'}
+            response = {'data': msg}
 
         except MultipleResultsFound:
             status = 500
             status_str = "error"
-            response = {'data': ''}
+            msg = {'message': 'Multiple Stories found for the specified id.'}
+            response = {'data': msg}
 
         json.dumps(response)
 

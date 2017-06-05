@@ -1,6 +1,7 @@
 from tornado.web import RequestHandler
 from tornado.gen import coroutine
 
+
 class ConfigHandler(RequestHandler):
 
     def get(self):
@@ -38,8 +39,8 @@ class ConfigHandler(RequestHandler):
 
         except:
 
-            response = {'error': "Could not obtain configuration options."}
-  
+            response = {'message': "Could not obtain configuration options."}
+
             self.set_status(500, 'Error')
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)

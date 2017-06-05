@@ -46,7 +46,7 @@ class Authentication(RequestHandler):
             return user
 
         except OAuthFailedException:
-            response = {'message': "An error ocurred authenticating the user."}
+            response = {'message': "An error occurred authenticating the user."}
             self.set_status(500, 'Error')
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)
@@ -59,7 +59,7 @@ class Authentication(RequestHandler):
 
         except InvalidUserException:
             response = {'message': "The user/password combination is invalid."}
-            self.set_status(500, 'Error')
+            self.set_status(401, 'Error')
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)
 

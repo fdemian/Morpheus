@@ -45,7 +45,7 @@ class UserActivationHandler(RequestHandler):
 
             response = {"message": "Error: the activation code introduced was invalid."}
 
-            self.set_status(500, 'Error')
+            self.set_status(400, 'Error')
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(json.dumps(response))
 

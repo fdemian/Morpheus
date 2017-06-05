@@ -71,12 +71,14 @@ class CommentsHandler(AuthenticatedHandler):
         except NoResultFound:
             status = 500
             status_str = "error"
-            response = {'data': ''}
+            msg = {'message': 'No result found.'}
+            response = {'data': msg}
 
         except MultipleResultsFound:
             status = 500
             status_str = "error"
-            response = {'data': ''}
+            msg = {'message': 'Multiple results found.'}
+            response = {'data': msg}
 
         json.dumps(response)
 

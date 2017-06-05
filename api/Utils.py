@@ -8,19 +8,21 @@ from api.Crypto import hash_password
 
 import functools
 
+
 def authenticated(method):
 
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
         if not self.current_user:
             response = {'Error': "Token is invalid."}
-            self.set_status(301, 'Error')
+            self.set_status(401, 'Error')
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)
             
             return
         return method(self, *args, **kwargs)
     return wrapper
+
 
 # Decode a JWT token and return the results.
 def validate_token(jwt_token, secret, algorithm):
@@ -34,6 +36,7 @@ def validate_token(jwt_token, secret, algorithm):
 
     except (jwt.DecodeError, jwt.ExpiredSignatureError):
         return None
+
 
 @coroutine
 def fetch_coroutine(url):
