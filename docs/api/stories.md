@@ -16,17 +16,15 @@ Get a story.
 
  ```
  {
-    "data": {
-	  "title": <title>,
-      "content": <content>,
-      "tags": <tags>,
-      "comments": <comments>,
-      "category": {
-         "name": <categoryName>,
-         "id": <categoryId>
-	  },
-      "id": <storyId>
-	}
+	"title": <title>,
+    "content": <content>,
+    "tags": <tags>,
+    "comments": <comments>,
+    "category": {
+       "name": <categoryName>,
+       "id": <categoryId>
+	},
+    "id": <storyId>
  }
  ```
  
@@ -48,8 +46,7 @@ Get a story.
  ```
  GET /stories
 
- {
-   "data": [
+ [
    {
      "id": 1,
 	 "name": "foo",
@@ -60,8 +57,7 @@ Get a story.
 	 "views": 0
    }
   ...
-  ],
- }
+ ]
  ```
 
  - category: a category object.
@@ -79,23 +75,21 @@ Get a story.
  **Response:**
  
  ```
- {
-	"data": [{
-		"id": <id>,
-		"category": {
-			"id": <categoryId>,
-			"name": <categoryName>
-		},
-		"views": <views>,
-		"name": <name>,
-		"author": {
-			"id": <authorId>,
-			"name": <authorName>,
-			"avatar": <authorAvatar>
-		},
-		"replies": <replies>
-	}]
- } 
+ [{
+	"id": <id>,
+	"category": {
+		"id": <categoryId>,
+		"name": <categoryName>
+	},
+	"views": <views>,
+	"name": <name>,
+	"author": {
+		"id": <authorId>,
+		"name": <authorName>,
+		"avatar": <authorAvatar>
+	},
+	"replies": <replies>
+ }]
  ```
  
  - id: id of the story.
@@ -125,19 +119,17 @@ Get a story.
  
  ```
  {
-	"data": {
-		"totalPages": <totalPages>,
-		"currentPage": <currentPage>,
-		"items": [{
-			"id": <id>,
-			"name": <storyName>,
-			"author": {
-				"id": <authorId>,
-				"name": <authorName>,
-				"avatar": <avatar>
-			}
-		}]
-	}
+	"totalPages": <totalPages>,
+	"currentPage": <currentPage>,
+	"items": [{
+		"id": <id>,
+		"name": <storyName>,
+		"author": {
+			"id": <authorId>,
+			"name": <authorName>,
+			"avatar": <avatar>
+		}
+	}]
  }
  ```
  - totalPages: number of pages in total.
@@ -174,10 +166,8 @@ Get a story.
 
  ```
  {
-   "data": {
-	 "id": <id>,
-	 "saved": <saved>
-   }
+	"id": <id>,
+	"saved": <saved>
  }
  ```
 
@@ -207,11 +197,8 @@ Get a story.
 
  ```
  {
-   'data': 
-    {
-	  'id': <id>
-	}
-  }
+   'id': <id>
+ } 
  ```
  
  - id: id of the story that has been updated.
@@ -229,10 +216,8 @@ Get a story.
  **Response:**
 
  ```
- {
-  "data": {
+ {  
     "id": <id>
-  }
  }
  ```
 

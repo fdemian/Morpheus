@@ -12,10 +12,8 @@
  
  ```
  {
-	"data": {
-		"name": <name>,
-		"id": <id>
-	}
+	"name": <name>,
+	"id": <id>
  } 
  ```
   
@@ -36,12 +34,10 @@
  **Response:**
  
  ```
- {
-	"data": [{
-		"name": <name>,
-		"id": <id>
-	}]
- }
+ [{
+	"name": <name>,
+	"id": <id>
+ }] 
  ```
  
  - name: name of the category.
@@ -65,13 +61,10 @@
  
  ```
  {
-	"data": {
-	  "name": <name>,
-      "id": <id>
-	}
+  "name": <name>,
+  "id": <id>
  }
  ```
  
  - name: name of the category that was just created.
  - id: id of the category that was just created.
-  

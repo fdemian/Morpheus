@@ -12,15 +12,13 @@
 
   ```  
   {
-	"data": {
-		"oauth": [{
-			"name": <name>,
-			"iconURL": <url>,
-			"authorizeURL": <URL>,
-			"key": <key>
-		}],
-		"notificationsEnabled": <enabled>
-	}
+	"oauth": [{
+		"name": <name>,
+		"iconURL": <url>,
+		"authorizeURL": <URL>,
+		"key": <key>
+	}],
+	"notificationsEnabled": <enabled>	
   }
   ```
   

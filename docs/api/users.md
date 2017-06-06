@@ -13,16 +13,14 @@
  Returns an array of user objects.
  
  ```
- {
-	"data": [{
+ [{
 		"id": <id>,
 		"name": <name>,
 		"username": <username>,
 		"status": <status>,
 		"avatar": <avatar>,
 		"userCard": <userCard>
-	}]
- }
+ }]
  ```
  
  - id: id of the user.
@@ -46,15 +44,13 @@
 
  ```
  {
-	"data": {
-		"user": {
-			"id": <id>,
-			"avatar": <avatar>,
-			"userCard": <userCard>,
-			"name": <name>,
-			"status": <status>,
-			"username": <username>
-		}
+	"user": {
+		"id": <id>,
+		"avatar": <avatar>,
+		"userCard": <userCard>,
+		"name": <name>,
+		"status": <status>,
+		"username": <username>
 	}
  }
  ```

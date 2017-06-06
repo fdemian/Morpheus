@@ -14,6 +14,18 @@
  
  Each one is detailed in its own document. 
 
+## Errors
+
+If you make an invalid request or there is otherwise an error in the request you will 
+recieve a JSON response with the corresponding error code set and the following format:
+
+ ```
+ {
+   "message": <Message>
+ }
+ ```
+
+Where "Message" is a string explaining the error.
 
 ## Authenticated methods
 
@@ -35,14 +47,11 @@
  User-Agent: <user agent string>
  ```
  
- Where <token> is the JWT token provided by the application upon successful authentication.
+ Where <token> is the JWT token provided by the application upon successful authentication.  
  If a valid token is not included in a request headers to a method that requires authentication you will recieve the following error object:
 
  ```
  {
-   "data": {
-     "code": 403,
-	 "error": "Authorization error."	
-   }
+   "message": "Authorization error."
  }
  ```

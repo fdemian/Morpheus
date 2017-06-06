@@ -28,11 +28,9 @@
   
   ```
   {
-	'data': {
-		'token': token
-		'user': user,
-		'type': authType
-	}
+	'token': token
+	'user': user,
+	'type': authType
   }
   ```
   

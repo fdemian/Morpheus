@@ -15,15 +15,13 @@
   **Response:**
 
   ```
-  {
-	"data": [{
-		"text": <text>,
-		"id": <id>,
-		"read": <read>,
-		"type": <type>,
-		"link": <link>
-	}]
-  }
+  [{
+	 "text": <text>,
+	 "id": <id>,
+	 "read": <read>,
+	 "type": <type>,
+	 "link": <link>
+  }]
   ```
   
   - text: text of the alert.
