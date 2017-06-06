@@ -1,6 +1,6 @@
 # Route imports
 from api.routes.Stories import StoriesHandler
-from api.routes.Story import StoryHandler
+from api.routes.Story import StoryHandler # UNUSED (delete?).
 from api.routes.Stories import StoriesByUserHandler
 from api.routes.Users import UsersHandler, UserHandler
 from api.routes.Categories import CategoriesHandler, CategoryHandler, CategoryTopicsHandler
@@ -12,13 +12,14 @@ from api.routes.Alerts import AlertsHandler
 from api.routes.Authentication import Authentication
 from api.routes.Activation import UserActivationHandler
 from api.routes.Logout import LogoutHandler
+from api.routes.NotFound import NotFoundHandler
 from tornado.web import StaticFileHandler
 
 
 def get_app_routes(static_path, notifications_enabled):
 
     routes = [
-	   (r"/api/stories/([0-9]+)", StoriesHandler),
+       (r"/api/stories/([0-9]+)", StoriesHandler),
        (r"/api/stories", StoriesHandler),
        (r"/api/stories/(.*)/comments", CommentsHandler),
        (r"/api/stories", StoriesHandler),
@@ -35,6 +36,7 @@ def get_app_routes(static_path, notifications_enabled):
        (r'/api/notifications', Notifications),
        (r'/api/alerts', AlertsHandler),
        (r'/api/alerts/', AlertsHandler),
+       (r'/api/(.*)', NotFoundHandler),
        (r'/static/(.*)', StaticFileHandler, {'path': static_path}),
        (r"/.*", IndexHandler)
     ]
