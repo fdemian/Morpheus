@@ -63,22 +63,19 @@ class CommentsHandler(AuthenticatedHandler):
                 notficitation_id = self.save_notification(author, "comment", text, link)
                 self.notify_new_comment(text, link, notficitation_id)
 
-            response = {'data': json_comment}
-
+            response = json_comment
             status = 200
             status_str = 'Ok'
 
         except NoResultFound:
             status = 500
-            status_str = "error"
-            msg = {'message': 'No result found.'}
-            response = {'data': msg}
+            status_str = "Error"
+            response = {'message': 'No result found.'}
 
         except MultipleResultsFound:
             status = 500
-            status_str = "error"
-            msg = {'message': 'Multiple results found.'}
-            response = {'data': msg}
+            status_str = "Error"
+            response = {'message': 'Multiple results found.'}
 
         json.dumps(response)
 
@@ -163,7 +160,7 @@ class CommentsHandler(AuthenticatedHandler):
            'link': link
         }
 
-        notifications_handler.write_message(json.dumps({'data': [message]}))
+        notifications_handler.write_message(json.dumps(message))
 
         return
 

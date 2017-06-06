@@ -14,7 +14,7 @@ class AlertsHandler(AuthenticatedHandler):
     def get(self):
 
         if not self.settings['notifications_enabled']:
-            response = {'Error': "Notifications disabled."}
+            response = {'message': "Notifications disabled."}
             self.set_status(501, 'Error')
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)
@@ -42,10 +42,9 @@ class AlertsHandler(AuthenticatedHandler):
 
             data.append(json_notification)
 
-        response = {'data': data}
         self.set_status(200, 'Ok ')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(response)
+        self.write(data)
 
         return
 
@@ -74,16 +73,16 @@ class AlertsHandler(AuthenticatedHandler):
 
             status = 200
             status_str = 'Ok'
-            response = {'data': {'id': notification_id}}
+            response = {'id': notification_id}
 
         except NoResultFound:
             status = 500
-            status_str = "error"
+            status_str = "Error"
             response = {'message': 'No notificiations with the id' + notification_id + 'found.'}
 
         except MultipleResultsFound:
             status = 500
-            status_str = "error"
+            status_str = "Error"
             response = {'message': 'More than one notificiation with the id' + notification_id + ' was found.'}
 
         json.dumps(response)

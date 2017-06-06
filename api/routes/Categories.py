@@ -7,6 +7,7 @@ from tornado.gen import coroutine
 from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
 from api.Utils import authenticated
 
+
 class CategoryHandler(AuthenticatedHandler):
 
     def get(self, category_id):
@@ -16,16 +17,18 @@ class CategoryHandler(AuthenticatedHandler):
         category = session.query(Category).filter(Category.id == category_id).one()
 
         response = {
-            'data': {
-              'id': category.id,
-              'name': category.name
-            }
+            'id': category.id,
+            'name': category.name
         }
 
         json.dumps(response)
+
+        self.set_status(200, 'Ok')
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
         self.write(response)
+
+        return
 
     @coroutine
     @authenticated
@@ -39,7 +42,7 @@ class CategoryHandler(AuthenticatedHandler):
             session.delete(category)
             session.commit()
 
-            response = {'data': {'id': category_id}}
+            response = {'id': category_id}
             self.set_status(200, 'Ok')
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)
@@ -87,11 +90,9 @@ class CategoryTopicsHandler(RequestHandler):
             data.append(json_item)
 
         response = {
-            'data': {
-                'currentPage': int(1),
-                'totalPages': int(1),
-                'items': data
-            }
+            'currentPage': int(1),
+            'totalPages': int(1),
+            'items': data
         }
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
@@ -119,12 +120,11 @@ class CategoriesHandler(AuthenticatedHandler):
 
             data.append(json_category)
 
-        response = {'data': data}
-        json.dumps(response)
+        json.dumps(data)
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(response)
+        self.write(data)
 
     # POST /categories
     @authenticated
@@ -141,7 +141,7 @@ class CategoriesHandler(AuthenticatedHandler):
         session.add(category)
         session.commit()
 
-        response = {'data': {'id': category.id, 'name': category.name}}
+        response = {'id': category.id, 'name': category.name}
 
         json.dumps(response)
 

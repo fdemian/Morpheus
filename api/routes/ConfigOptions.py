@@ -15,22 +15,20 @@ class ConfigHandler(RequestHandler):
         try:
 
             response = {
-                'data': {
-                    "oauth": [
-                        {
+                "oauth": [
+                    {
                             'name': 'facebook',
                             'key': self.settings["facebook_api_key"],
                             'authorizeURL': self.settings["facebook_redirect_url"],
                             'iconURL': self.settings["facebook_icon_url"]
-                        },
-                        {
+                    },
+                    {
                             'name': 'google',
                             'key': self.settings["google_oauth_key"],
                             'authorizeURL': self.settings["google_redirect_url"],
                             'iconURL': self.settings["google_icon_url"]
-                        }],
-                    "notificationsEnabled": self.settings['notifications_enabled']
-                }
+                    }],
+                "notificationsEnabled": self.settings['notifications_enabled']
             }
 
             self.set_status(200, 'Ok')
@@ -39,7 +37,7 @@ class ConfigHandler(RequestHandler):
 
         except:
 
-            response = {'message': "Could not obtain configuration options."}
+            response = {'message': "Could not read configuration options."}
 
             self.set_status(500, 'Error')
             self.set_header("Access-Control-Allow-Origin", "*")

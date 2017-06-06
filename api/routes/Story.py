@@ -5,6 +5,7 @@ from api.model.models import Story
 from api.authentication.AuthenticatedHandler import AuthenticatedHandler
 from tornado.gen import coroutine
 
+
 class StoryHandler(AuthenticatedHandler):
 
     # GET /story/id
@@ -35,15 +36,12 @@ class StoryHandler(AuthenticatedHandler):
                 comments.append(json_comment)
 
             response = {
-                'data':
-                {
-                    'id': story.id,
-                    'title': story.title,
-                    'category': category,
-                    'content': content,
-                    'comments': comments,
-                    'tags': story.tags
-                }
+                 'id': story.id,
+                 'title': story.title,
+                 'category': category,
+                 'content': content,
+                 'comments': comments,
+                 'tags': story.tags
             }
 
             status = 200
@@ -51,13 +49,13 @@ class StoryHandler(AuthenticatedHandler):
 
         except NoResultFound:
             status = 500
-            status_str = "error"
-            response = {'data': ''}
+            status_str = "Error"
+            response = {'message': 'No stories found for the specified id.'}
 
         except MultipleResultsFound:
             status = 500
             status_str = "error"
-            response = {'data': ''}
+            response = {'message': 'Multiple stories found for the specified id.'}
 
         json.dumps(response)
 

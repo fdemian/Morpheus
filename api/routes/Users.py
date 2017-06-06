@@ -32,7 +32,7 @@ class UserHandler(RequestHandler):
              'userCard': ''
         }
 
-        response = {'data': {'user': user_json}}
+        response = {'user': user_json}
         json.dumps(response)
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
@@ -64,12 +64,11 @@ class UsersHandler(RequestHandler):
 
             data.append(json_user)
 
-        response = {'data': data}
-        json.dumps(response)
+        json.dumps(data)
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(response)
+        self.write(data)
 
     # POST /users/
     @coroutine
@@ -100,8 +99,8 @@ class UsersHandler(RequestHandler):
             if registered_user is not None:
                 resp_status = 200
                 jwt_token = self.perform_authentication(registered_user, register_type, '3600')
-                respdata = {'validated': True, 'user': registered_user, 'token': jwt_token.decode('utf-8'), 'type': register_type}
-                response = {'data': respdata}
+                response = {'validated': True, 'user': registered_user, 'token': jwt_token.decode('utf-8'), 'type': register_type}
+
             else:
                 resp_status = 500
                 response = {"message": "An error ocurred registering the user."}

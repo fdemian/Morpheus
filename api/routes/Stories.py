@@ -41,14 +41,12 @@ class StoriesHandler(AuthenticatedHandler):
                comments.append(json_comment)
 
             response = {
-                'data': {
-                    'id': story.id,
-                    'title': story.title,
-                    'category': category,
-                    'content': content,
-                    'comments': comments,
-                    'tags': story.tags
-                }
+                'id': story.id,
+                'title': story.title,
+                'category': category,
+                'content': content,
+                'comments': comments,
+                'tags': story.tags
             }
            
             self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
@@ -85,12 +83,11 @@ class StoriesHandler(AuthenticatedHandler):
 
                 data.append(json_story)
 
-            response = {'data': data}
-            json.dumps(response)
+            json.dumps(data)
 
             self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
             self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(response)
+            self.write(data)
             return
 
     # POST /stories/new
@@ -115,7 +112,7 @@ class StoriesHandler(AuthenticatedHandler):
 
         story_id = self.save_story(session, content, title, author_id, category, tags)
 
-        response = {'data': {'saved': 'yes', 'id': str(story_id)}}
+        response = {'saved': 'yes', 'id': str(story_id)}
         json.dumps(response)
         self.set_status(200, 'Ok')
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -141,19 +138,17 @@ class StoriesHandler(AuthenticatedHandler):
 
             status = 200
             status_str = 'Ok'
-            response = {'data': {'id': story_id}}
+            response = {'id': story_id}
 
         except NoResultFound:
             status = 500
             status_str = "error"
-            msg = {'message': 'No story found for the specified id.'}
-            response = {'data': msg}
+            response = {'message': 'No story found for the specified id.'}
 
         except MultipleResultsFound:
             status = 500
             status_str = "error"
-            msg = {'message': 'Multiple stories found for the specified id.'}
-            response = {'data': msg}
+            response = {'message': 'Multiple stories found for the specified id.'}
 
         json.dumps(response)
 
@@ -178,19 +173,17 @@ class StoriesHandler(AuthenticatedHandler):
 
             status = 200
             status_str = 'Ok'
-            response = {'data': {'id': story_id}}
+            response = {'id': story_id}
 
         except NoResultFound:
             status = 500
             status_str = "error"
-            msg = {'message': 'No stories found for the specified id.'}
-            response = {'data': msg}
+            response = {'message': 'No stories found for the specified id.'}
 
         except MultipleResultsFound:
             status = 500
             status_str = "error"
-            msg = {'message': 'Multiple Stories found for the specified id.'}
-            response = {'data': msg}
+            response = {'message': 'Multiple Stories found for the specified id.'}
 
         json.dumps(response)
 
@@ -302,9 +295,8 @@ class StoriesByUserHandler(RequestHandler):
 
             data.append(json_story)
 
-        response = {'data': data}
-        json.dumps(response)
+        json.dumps(data)
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(response)
+        self.write(data)
