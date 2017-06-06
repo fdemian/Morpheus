@@ -42,9 +42,11 @@ class AlertsHandler(AuthenticatedHandler):
 
             data.append(json_notification)
 
+        response = {"notifications": data}
+
         self.set_status(200, 'Ok ')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(data)
+        self.write(response)
 
         return
 

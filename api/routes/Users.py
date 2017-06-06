@@ -42,7 +42,7 @@ class UserHandler(RequestHandler):
 
 class UsersHandler(RequestHandler):
 
-     # GET /users
+    # GET /users
     def get(self):
 
         session_object = get_session()
@@ -64,11 +64,11 @@ class UsersHandler(RequestHandler):
 
             data.append(json_user)
 
-        json.dumps(data)
+        response = {"page": 1, "items": data}
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(data)
+        self.write(response)
 
     # POST /users/
     @coroutine

@@ -120,11 +120,14 @@ class CategoriesHandler(AuthenticatedHandler):
 
             data.append(json_category)
 
-        json.dumps(data)
+        response = {
+            "page": 1,
+            "items": data
+        }
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(data)
+        self.write(response)
 
     # POST /categories
     @authenticated
@@ -142,8 +145,6 @@ class CategoriesHandler(AuthenticatedHandler):
         session.commit()
 
         response = {'id': category.id, 'name': category.name}
-
-        json.dumps(response)
 
         self.set_status(200, 'Ok')
         self.set_header("Access-Control-Allow-Origin", "*")

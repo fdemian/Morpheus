@@ -26,7 +26,7 @@ class FacebookAuthService(FacebookGraphMixin):
             user_fields = "id,name,email,picture,link"
             params = {'scope': 'email'}
             fb_user = yield self.facebook_request("/me", access_token=access_token, extra_params=params, fields=user_fields)
-			
+
             if not fb_user:
                 return None
         else:
@@ -36,7 +36,7 @@ class FacebookAuthService(FacebookGraphMixin):
             user = self.get_user_from_db(fb_user)
         elif method == "register":
             user = self.get_user_to_save(fb_user)
-				
+
         return user
 
     @staticmethod
@@ -55,7 +55,7 @@ class FacebookAuthService(FacebookGraphMixin):
             'email': fb_user["email"],
             'role': 'author'
         }
-		
+
         return payload
 
     @staticmethod

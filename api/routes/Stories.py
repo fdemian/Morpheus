@@ -83,11 +83,12 @@ class StoriesHandler(AuthenticatedHandler):
 
                 data.append(json_story)
 
-            json.dumps(data)
+            response = {"page": 1, "items": data}
 
             self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
             self.set_header("Access-Control-Allow-Origin", "*")
-            self.write(data)
+            self.write(response)
+
             return
 
     # POST /stories/new
@@ -184,8 +185,6 @@ class StoriesHandler(AuthenticatedHandler):
             status = 500
             status_str = "error"
             response = {'message': 'Multiple Stories found for the specified id.'}
-
-        json.dumps(response)
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -295,8 +294,8 @@ class StoriesByUserHandler(RequestHandler):
 
             data.append(json_story)
 
-        json.dumps(data)
+        response = {"page": 1, "stories": data}
 
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(data)
+        self.write(response)
