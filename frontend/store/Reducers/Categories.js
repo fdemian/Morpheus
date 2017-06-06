@@ -33,7 +33,7 @@ export function categories(state = initialState, action) {
    case REQUEST_CATEGORIES:
      return {...state, isFetching: true};
    case RECEIVE_CATEGORIES:
-     return {...state, items: action.data};
+     return {...state, items: action.data.items};
    case RECEIVE_CATEGORIES_FAILURE:
      return {...state, error: true};
     default:

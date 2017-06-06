@@ -19,7 +19,7 @@ export function topics(state = initialStoriesState, action) {
   case REQUEST_TOPICS:
 	  return { ...state, isFetching: true }
   case RECEIVE_TOPICS:
-	  return { ...state, stories: action.data, isFetching: false, error: false }
+	  return { ...state, stories: action.data.items, isFetching: false, error: false }
 	case RECEIVE_TOPICS_FAILURE:
 	  return { ...state, isFetching: false, error: true }
   case DELETE_STORY:

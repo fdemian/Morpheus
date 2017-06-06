@@ -38,7 +38,7 @@ export function category(state = initiaState, action) {
     case REQUEST_CATEGORY_TOPICS:
        return state;
     case RECEIVE_CATEGORY_TOPICS:
-	   return { ...state, topics: action.data };
+	   return { ...state, topics: action.data.items };
     case RECEIVE_CATEGORY_TOPICS_FAILURE:
        return { ...state, error: true };
 

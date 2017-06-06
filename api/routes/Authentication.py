@@ -25,8 +25,6 @@ class Authentication(RequestHandler):
             username = json_request["username"]
             password = json_request["password"]
 
-            print(password)
-
             if auth_type == "database":
                 authentication = DatabaseAuthService()
                 user = authentication.authenticate_user(username, password)

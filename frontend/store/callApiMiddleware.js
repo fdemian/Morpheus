@@ -11,9 +11,9 @@ function PerformFetch(types, endpoint, headers, dispatch)
 	      response => {
 		     response.json().then(function(json) {
 			    if(response.ok)
-			       action = { data: json.data, type: successType };
+			       action = { data: json, type: successType };
 		        else
-			       action = {data: json.message, type: failureType};
+			       action = {data: json, type: failureType};
 
 		        dispatch(action);
              });

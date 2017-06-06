@@ -100,7 +100,7 @@ export function session(state = initialState, action) {
         const _authType = action.data.type;
 	    return { ...state, user: _user, token: jwt_token, authType: _authType,isFetching: false, loggedIn:true };
     case AUTH_FAILURE:
-      return { ...state, isFetching: false, error: true, errorMessage: action.data};
+      return { ...state, isFetching: false, error: true, errorMessage: action.data.message};
 
     /* Logout */
     case LOGOUT_START:
@@ -117,7 +117,7 @@ export function session(state = initialState, action) {
     case REQUEST_NOTIFICATIONS:
  	  return state;
     case RECEIVE_NOTIFICATIONS:
-      const _items = state.notifications.concat(action.data);
+      const _items = state.notifications.concat(action.data.items);
       return { ...state, notifications: _items};
     case REQUEST_NOTIFICATIONS_FAILURE:
       return { ...state, isFetching: false, error: true};

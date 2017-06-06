@@ -16,7 +16,7 @@ export function comment(state = initialState, action) {
 
 	/* SET REPLY FUNCTION */
 	case INSERT_QUOTE_FN_CHANGED:
-	   return { ...state, 	insertQuoteFn: action.data };
+	   return { ...state, insertQuoteFn: action.data };
 
     default:
       return state;
