@@ -1,4 +1,4 @@
-from installtools import setup
+from api.scripts.installtools import setup
 
 scripts = [
      'create_database.py', 
