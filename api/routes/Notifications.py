@@ -3,6 +3,9 @@ from tornado.websocket import WebSocketHandler
 
 class Notifications(WebSocketHandler):
 
+    def data_received(self, chunk):
+        pass
+
     def initialize(self):
         print("Initializing websocket")
 

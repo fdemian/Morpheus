@@ -4,6 +4,9 @@ from tornado.gen import coroutine
 
 class NotFoundHandler(RequestHandler):
 
+    def data_received(self, chunk):
+        pass
+
     @coroutine
     def get(self, args):
         msg = 'The requested route (' + args + ') was not found on the server.'

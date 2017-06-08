@@ -50,6 +50,9 @@ class AlertsHandler(AuthenticatedHandler):
 
         return
 
+    # TODO: change to POST method?
+    #  -- REASON: Successful response returns a body (and shouldn't).
+    #  -- Otherwise the method is same as PUT.
     # PUT /alerts
     @authenticated
     def put(self):
@@ -80,12 +83,12 @@ class AlertsHandler(AuthenticatedHandler):
         except NoResultFound:
             status = 500
             status_str = "Error"
-            response = {'message': 'No notificiations with the id' + notification_id + 'found.'}
+            response = {'message': 'No notifications with the id' + notification_id + 'found.'}
 
         except MultipleResultsFound:
             status = 500
             status_str = "Error"
-            response = {'message': 'More than one notificiation with the id' + notification_id + ' was found.'}
+            response = {'message': 'More than one notification with the id' + notification_id + ' was found.'}
 
         json.dumps(response)
 

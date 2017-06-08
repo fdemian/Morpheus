@@ -8,6 +8,9 @@ from tornado.gen import coroutine
 
 class StoryHandler(AuthenticatedHandler):
 
+    def data_received(self, chunk):
+        pass
+
     # GET /story/id
     def get(self, story_id):
 
@@ -57,8 +60,6 @@ class StoryHandler(AuthenticatedHandler):
             status_str = "error"
             response = {'message': 'Multiple stories found for the specified id.'}
 
-        json.dumps(response)
-
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_status(status, status_str)
@@ -69,7 +70,7 @@ class StoryHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -78,7 +79,7 @@ class StoryHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -87,7 +88,7 @@ class StoryHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -96,7 +97,7 @@ class StoryHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -105,6 +106,6 @@ class StoryHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return

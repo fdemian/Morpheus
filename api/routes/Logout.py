@@ -5,6 +5,9 @@ from api.Utils import authenticated
 
 class LogoutHandler(AuthenticatedHandler):
 
+    def data_received(self, chunk):
+        pass
+
     @coroutine
     def get(self):
         response = {"message": "This is not a valid method for this resource."}

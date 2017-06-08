@@ -17,6 +17,7 @@ class UserActivationHandler(RequestHandler):
 
         return
 
+    # TODO: Change to GET method?
     def post(self):
 
         request = self.request.body.decode("utf-8")

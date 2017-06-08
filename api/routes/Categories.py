@@ -21,8 +21,6 @@ class CategoryHandler(AuthenticatedHandler):
             'name': category.name
         }
 
-        json.dumps(response)
-
         self.set_status(200, 'Ok')
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
@@ -30,7 +28,6 @@ class CategoryHandler(AuthenticatedHandler):
 
         return
 
-    @coroutine
     @authenticated
     def delete(self, category_id):
 
@@ -50,7 +47,7 @@ class CategoryHandler(AuthenticatedHandler):
             return
 
         except NoResultFound:
-            response = {'message': 'No result found for the specified id.' }
+            response = {'message': 'No result found for the specified id.'}
             self.set_status(500, 'Error')
             self.set_header("Access-Control-Allow-Origin", "*")
             self.write(response)

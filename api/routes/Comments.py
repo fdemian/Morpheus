@@ -9,12 +9,15 @@ from api.Utils import authenticated
 
 class CommentsHandler(AuthenticatedHandler):
 
+    def data_received(self, chunk):
+        pass
+
     @coroutine
     def get(self):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -60,8 +63,8 @@ class CommentsHandler(AuthenticatedHandler):
                 text = comment.author + " commented on " + story.title
                 link = "/stories/" + str(story.id) + "/" + story.title
 
-                notficitation_id = self.save_notification(author, "comment", text, link)
-                self.notify_new_comment(text, link, notficitation_id)
+                notification_id = self.save_notification(author, "comment", text, link)
+                self.notify_new_comment(text, link, notification_id)
 
             response = json_comment
             status = 200
@@ -77,8 +80,6 @@ class CommentsHandler(AuthenticatedHandler):
             status_str = "Error"
             response = {'message': 'Multiple results found.'}
 
-        json.dumps(response)
-
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_status(status, status_str)
@@ -91,7 +92,7 @@ class CommentsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -100,7 +101,7 @@ class CommentsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -118,7 +119,7 @@ class CommentsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -127,7 +128,7 @@ class CommentsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -136,7 +137,7 @@ class CommentsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -145,7 +146,7 @@ class CommentsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 

@@ -10,6 +10,9 @@ from api.Utils import authenticated
 
 class StoriesHandler(AuthenticatedHandler):
 
+    def data_received(self, chunk):
+        pass
+
     # GET /stories
     @coroutine
     def get(self):
@@ -30,15 +33,15 @@ class StoriesHandler(AuthenticatedHandler):
 
             comments = []
             for comment in story.comments:
-               json_comment = {
-                    'id': comment.id,
-                    'author': comment.author,
-                    'content': comment.content,
-                    'avatar': comment.avatar,
-                    'url': comment.url,
-               }
+                json_comment = {
+                   'id': comment.id,
+                   'author': comment.author,
+                   'content': comment.content,
+                   'avatar': comment.avatar,
+                   'url': comment.url,
+                }
 
-               comments.append(json_comment)
+                comments.append(json_comment)
 
             response = {
                 'id': story.id,
