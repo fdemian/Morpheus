@@ -9,6 +9,9 @@ from api.Utils import authenticated
 
 class AlertsHandler(AuthenticatedHandler):
 
+    def data_received(self, chunk):
+        pass
+
     # GET /alerts
     @authenticated
     def get(self):
@@ -90,8 +93,6 @@ class AlertsHandler(AuthenticatedHandler):
             status_str = "Error"
             response = {'message': 'More than one notification with the id' + notification_id + ' was found.'}
 
-        json.dumps(response)
-
         self.set_header("Content-Type", "application/jsonp;charset=UTF-8")
         self.set_header("Access-Control-Allow-Origin", "*")
         self.set_status(status, status_str)
@@ -104,7 +105,7 @@ class AlertsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -113,7 +114,7 @@ class AlertsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -122,7 +123,7 @@ class AlertsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -131,7 +132,7 @@ class AlertsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -140,7 +141,7 @@ class AlertsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -149,7 +150,7 @@ class AlertsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -158,6 +159,6 @@ class AlertsHandler(AuthenticatedHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return

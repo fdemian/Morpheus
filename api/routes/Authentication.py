@@ -11,6 +11,9 @@ from tornado.gen import coroutine
 
 class Authentication(RequestHandler):
 
+    def data_received(self, chunk):
+        pass
+
     @coroutine
     def post(self):
 
@@ -34,8 +37,7 @@ class Authentication(RequestHandler):
                 user = yield authentication.get_user_by_service(auth_type, auth_code, redirect_url)
 
             jwt_token = self.perform_authentication(user, auth_type, '3600')
-            data = {'token': jwt_token.decode('utf-8'), 'user': user, 'type': auth_type}
-            response = json.dumps(data)
+            response = {'token': jwt_token.decode('utf-8'), 'user': user, 'type': auth_type}
 
             self.set_status(200, 'Ok')
             self.set_header("Access-Control-Allow-Origin", "*")
@@ -66,7 +68,7 @@ class Authentication(RequestHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -75,7 +77,7 @@ class Authentication(RequestHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -84,7 +86,7 @@ class Authentication(RequestHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -93,7 +95,7 @@ class Authentication(RequestHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -102,7 +104,7 @@ class Authentication(RequestHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -111,7 +113,7 @@ class Authentication(RequestHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 
@@ -120,7 +122,7 @@ class Authentication(RequestHandler):
         response = {"message": "This is not a valid method for this resource."}
         self.set_status(405, 'Error')
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.write(json.dumps(response))
+        self.write(response)
 
         return
 

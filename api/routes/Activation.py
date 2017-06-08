@@ -8,6 +8,9 @@ from tornado.gen import coroutine
 
 class UserActivationHandler(RequestHandler):
 
+    def data_received(self, chunk):
+        pass
+
     @coroutine
     def get(self):
         response = {"message": "This is not a valid method for this resource."}
